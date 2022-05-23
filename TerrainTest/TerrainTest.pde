@@ -5,8 +5,8 @@ float sidelength = 10;
 int worldHeight = 5000;
 int worldWidth = 10000;
 int startingLevel = 20;
-float changeX = 0;
-float changeY = 0;
+
+Player avatar;
 
 void setup(){
   noStroke();
@@ -19,7 +19,7 @@ void setup(){
       float x = j * sidelength;
       float y = i * sidelength;
       float decimal = noise(40* x/width,40* y/height, 0);
-      if (decimal > 0.45){
+      if (decimal > 0.40){
         world[i][j] = new Block(x, y, decimal, sidelength);
       }
     }
@@ -46,13 +46,14 @@ void setup(){
     }
     worldRevise();
     worldRevise();
+    avatar = new Player(width/2, 10);
   }
 
 void draw(){
   background(255);
   noStroke();
   pushMatrix();
-  translate(changeX, changeY);
+  translate(-1  * avatar.moveX, -1 * avatar.moveY);
   for (Block[] row : world){
     for (Block bit : row){
       if (bit != null){
@@ -61,6 +62,8 @@ void draw(){
     }
   }
   popMatrix();
+  avatar.display();
+  avatar.gravity();
 }
 void worldRevise(){
   for (int i = 1; i < world[0].length - 1; i++){
@@ -98,7 +101,13 @@ int surroundCheck(int row, int col, Block[][] area){
 void keyPressed(){
  switch (key){
    case ('d'):
-     changeX -= 5;
+     avatar.moveX += avatar.xVel;
+     break;
+   case ('a'):
+     avatar.moveX -= avatar.xVel;
+     break;
+   case ('w'):
+     avatar.yVel -= 10;
      break;
  }
 }
