@@ -5,6 +5,8 @@ float sidelength = 10;
 int worldHeight = 5000;
 int worldWidth = 10000;
 int startingLevel = 20;
+float changeX = 0;
+float changeY = 0;
 
 void setup(){
   noStroke();
@@ -47,8 +49,10 @@ void setup(){
   }
 
 void draw(){
-  noStroke();
   background(255);
+  noStroke();
+  pushMatrix();
+  translate(changeX, changeY);
   for (Block[] row : world){
     for (Block bit : row){
       if (bit != null){
@@ -56,8 +60,8 @@ void draw(){
       }
     }
   }
+  popMatrix();
 }
-
 void worldRevise(){
   for (int i = 1; i < world[0].length - 1; i++){
    if ( world[startingLevel][i-1].thing == world[startingLevel][i + 1].thing){
@@ -89,4 +93,12 @@ int surroundCheck(int row, int col, Block[][] area){
    }
  }
  return counter;
+}
+
+void keyPressed(){
+ switch (key){
+   case ('d'):
+     changeX -= 5;
+     break;
+ }
 }
