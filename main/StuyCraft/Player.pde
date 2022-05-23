@@ -40,7 +40,7 @@ class Player{
   void jump(int velocity){
   }
   
-  void eat(item food){
+  void eat(Food food){
   }
   
   void die(){

@@ -1,12 +1,14 @@
 class Biome{
-  float mobSpawn;
-  float cowSpawn;
+  boolean mobSpawn;
+  boolean cowSpawn;
   float leftX;
   float rightX;
   float upperY;
   float lowerY;
   
-
+  Biome(){
+  }
+ 
   void spawnMob(){
 
   }
