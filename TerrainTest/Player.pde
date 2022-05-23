@@ -22,9 +22,9 @@ class Player{
   }
   
   void gravity(){
-    float y = spawnY + moveY;
-    float x = spawnX + moveX;
-   Block under = world[(int)(y)/ 10 + 2][(int)x / 10];
+  float y = spawnY + moveY + 20;
+  float x = spawnX + moveX;
+   Block under = world[(int)(y)/ 10][(int)x / 10];
    System.out.println("In Blocks: x: " + ((int)x / 10) + " & y: " + ((int)(y + 20)/ 10));
    if (under == null || yVel < 0){
     moveY += yVel;
@@ -32,6 +32,9 @@ class Player{
    }
    else{
      yVel = 0;
+     if (under.y > y){
+        moveY = (int)(under.y - spawnY);
+     }
    }
   }
 }
