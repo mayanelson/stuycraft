@@ -17,11 +17,11 @@
     for (int col = 0; col < world[row].length; col++){
      int xcor =  col * scale;
      int ycor = row * scale;
-     double fractX = (double)xcor / worldWidth;
-     double fractY = (double)ycor / worldHeight;
+     double fractX = (double)xcor * scale / worldWidth;
+     double fractY = (double)ycor * scale /worldHeight;
      double noiseNum = Math.abs(noise(fractX, fractY, 0.0));
      System.out.println(noiseNum);
-     if (noiseNum > 0.45){world[row][col] = new Block(xcor, ycor, scale);}
+     if (noiseNum > 0.2 || noiseNum < 0.1){world[row][col] = new Block(xcor, ycor, scale);}
     }
    }
  }
