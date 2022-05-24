@@ -1,7 +1,7 @@
    int xMove, yMove;
   
   void setup(){
-    background(255);
+    background(100);
     size(3000, 2000);
     worldGenerate();
     xMove = 0;
@@ -9,7 +9,7 @@
   }
   
   void draw(){
-    background(255);
+    background(100);
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
