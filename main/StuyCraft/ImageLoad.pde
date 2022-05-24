@@ -1,0 +1,1 @@
+PImage stone0;

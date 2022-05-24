@@ -6,7 +6,8 @@
     worldGenerate();
     xMove = 0;
     yMove = 0;
-    
+    stone0 = loadImage("Stone0.png");
+    stone0.resize(scale, scale);
   }
   
   void draw(){
