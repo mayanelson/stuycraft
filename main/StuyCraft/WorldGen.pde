@@ -1,4 +1,3 @@
-class WorldGen{
   Block[][] world = new Block[64][1000];
   int scale = 100;
   int startingLevel = 30;
@@ -12,4 +11,3 @@ class WorldGen{
  }
  void worldRevise(){
  } 
-}
