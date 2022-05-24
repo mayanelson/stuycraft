@@ -12,9 +12,4 @@ public class StuyCraft{
   void mouseClicked(){
   }
   
-  void worldGenerate(){
-  }
-  void worldRevise(){
-  }
-  
 }
