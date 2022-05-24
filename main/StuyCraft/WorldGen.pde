@@ -1,5 +1,5 @@
-  Block[][] world = new Block[64][1000];
-  int scale = 100;
+  Block[][] world = new Block[200][1000];
+  int scale = 10;
   int startingLevel = 15;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -19,9 +19,9 @@
      int ycor = row * scale;
      double fractX = (double)xcor / worldWidth;
      double fractY = (double)ycor / worldHeight;
-     double noiseNum = Math.abs(noise(10 * scale * fractX, 10 * scale * fractY, 0.0));
+     double noiseNum = Math.abs(noise(fractX, fractY, 0.0));
      System.out.println(noiseNum);
-     if (noiseNum > 0.35){world[row][col] = new Block(xcor, ycor, scale);}
+     if (noiseNum > 0.45){world[row][col] = new Block(xcor, ycor, scale);}
     }
    }
  }
