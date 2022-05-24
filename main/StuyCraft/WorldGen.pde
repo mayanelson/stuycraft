@@ -20,7 +20,7 @@
      double fractX = (double)xcor * scale / worldWidth;
      double fractY = (double)ycor * scale /worldHeight;
      double noiseNum = Math.abs(noise(fractX, fractY, 0.0));
-     //System.out.println(noiseNum);
+     System.out.println(row + ", " + col);
      if (noiseNum > 0.2 || noiseNum < 0.1){world[row][col] = new Stone(xcor, ycor, scale);}
     }
    }
