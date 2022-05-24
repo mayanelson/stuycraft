@@ -17,11 +17,10 @@
     for (int col = 0; col < world[row].length; col++){
      int xcor =  col * scale;
      int ycor = row * scale;
-     double fractX = (double)xcor * scale / worldWidth;
-     double fractY = (double)ycor * scale /worldHeight;
-     double noiseNum = Math.abs(noise(fractX, fractY, 0.0));
-     System.out.println(row + ", " + col);
-     if (noiseNum > 0.2 || noiseNum < 0.1){world[row][col] = new Stone(xcor, ycor, scale);}
+     float x = col * 10;
+     float y = row * 10;
+     float noiseNum = noise(40* x/3000,40* y/2000, 0);
+     if (noiseNum > 0.4){world[row][col] = new Stone(xcor, ycor, scale);}
     }
    }
    
