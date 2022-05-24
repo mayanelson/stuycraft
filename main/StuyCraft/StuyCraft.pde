@@ -1,15 +1,16 @@
    int xMove, yMove;
   
   void setup(){
-    background(100);
+    background(255);
     size(3000, 2000);
     worldGenerate();
     xMove = 0;
     yMove = 0;
+    
   }
   
   void draw(){
-    background(100);
+    background(255);
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){

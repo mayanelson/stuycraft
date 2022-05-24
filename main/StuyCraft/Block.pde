@@ -8,6 +8,7 @@ class Block{
   int sideLength;
   Tool uses;
   
+  
   public Block (int xcor, int ycor, int sidelength){
    this.xcor = xcor; 
    this.ycor = ycor;

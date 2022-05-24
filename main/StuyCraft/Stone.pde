@@ -1,13 +1,12 @@
 class Stone extends Block{
-  PImage stone;
   
   Stone(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
-    stone = loadImage("Stone0.png");
-    stone.resize(sidelength, sidelength);
+    super.image = loadImage("Stone0.png");
+    super.image.resize(sidelength, sidelength);
   }
   
   void display(){
-    image(stone, super.xcor, super.ycor);
+    image(super.image, super.xcor, super.ycor);
   }
 }

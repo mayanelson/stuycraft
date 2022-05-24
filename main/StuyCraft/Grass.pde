@@ -1,5 +1,12 @@
-/*class Grass extends Block{
+class Grass extends Block{
   
-  Grass(){
+  Grass(int xcor, int ycor, int sidelength){
+    super(xcor, ycor, sidelength);
+    super.image = loadImage("Grass0.png");
+    super.image.resize(sidelength, sidelength);
   }
-}*/
+  
+  void display(){
+    image(super.image, super.xcor, super.ycor);
+  }
+}

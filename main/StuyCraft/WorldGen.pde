@@ -1,4 +1,4 @@
-  Block[][] world = new Block[200][1000];
+  Block[][] world = new Block[150][500];
   int scale = 10;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
@@ -8,7 +8,7 @@
    // Creating the base plane surface
    for (int add = 0; add < 4; add++){
      for (int col = 0; col < world[0].length; col++){
-      world[startingLevel + add][col] = new Block(col * scale, (startingLevel + add) * scale, scale); 
+      world[startingLevel + add][col] = new Grass(col * scale, (startingLevel + add) * scale, scale); 
      }
    }
    
@@ -31,7 +31,7 @@
      double fractX = (double)xcor * scale / worldWidth;
      double noiseNum = Math.abs(noise(fractX, 0, 0));
      for(int up = 1; up < (int)(noiseNum * 25) && up < startingLevel; up++){
-       world[startingLevel - up][col] = new Block(xcor, (startingLevel - up) * scale, scale);
+       world[startingLevel - up][col] = new Sand(xcor, (startingLevel - up) * scale, scale);
      }
    }
  }
