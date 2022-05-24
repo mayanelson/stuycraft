@@ -1,5 +1,3 @@
-public class StuyCraft{
-  
   void setup(){
   }
   
@@ -11,5 +9,3 @@ public class StuyCraft{
   
   void mouseClicked(){
   }
-  
-}

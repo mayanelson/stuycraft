@@ -1,4 +1,4 @@
-class Zombie extends Mob{
+/*class Zombie extends Mob{
   
   Zombie(){
   }
@@ -9,4 +9,4 @@ class Zombie extends Mob{
   void attack(Player p){
   }
   
-}
+}*/

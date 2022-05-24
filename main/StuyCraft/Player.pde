@@ -1,4 +1,4 @@
-class Player{
+/*class Player{
   int health;
   int hunger;
   Item[][] hotbar;
@@ -52,4 +52,4 @@ class Player{
   void hungerDrain(){
   }
   
-}
+}*/

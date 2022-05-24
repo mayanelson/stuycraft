@@ -1,5 +1,5 @@
-class Wood extends Block{
+/*class Wood extends Block{
   
   Wood(){
   }
-}
+}*/

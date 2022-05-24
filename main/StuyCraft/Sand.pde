@@ -1,5 +1,5 @@
-class Sand extends Block{
+/*class Sand extends Block{
   
   Sand(){
   }
-}
+}*/
