@@ -33,6 +33,20 @@
        world[startingLevel - up][col] = new Sand(xcor, (startingLevel - up) * scale, scale);
      }
    }
+   //Creating Biomes
+   int counter = 0;
+   while (counter < world[0].length){
+    int blockCount = (int)(Math.random() * 16) + 10;
+    if (blockCount > world[0].length - counter){blockCount = world[0].length - counter;}
+    int choice = (int)(Math.random() * 100);
+    for (int i = 0; i < blockCount; i++){
+      int xcor = (counter + i) * scale;
+      int ycor = (startingLevel + 3) * scale;
+      if (choice % 10 > 5){world[ycor/scale][xcor/scale] = new Sand(xcor, ycor, scale);}
+      else{world[ycor/scale][xcor/scale] = new Grass(xcor, ycor, scale);}
+    }
+    counter += blockCount;
+   }
  }
  void worldRevise(){
  } 
