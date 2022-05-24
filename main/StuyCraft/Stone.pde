@@ -1,5 +1,5 @@
-class Stone extends Block{
+/*class Stone extends Block{
 
   Stone(){
   }
-}
+}*/
