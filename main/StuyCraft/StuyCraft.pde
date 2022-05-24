@@ -1,9 +1,11 @@
    int xMove, yMove;
+   Player player;
   
   void setup(){
     background(255);
     size(3000, 2000);
     worldGenerate();
+    player = new Player();
     xMove = 0;
     yMove = 0;
     stone0 = loadImage("Stone0.png");
@@ -19,7 +21,7 @@
   }
   
   void draw(){
-    background(255);
+    //background(255);
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -28,12 +30,13 @@
      }
     }
     popMatrix();
+    player.display();
   }
   
   void keyPressed(){
     switch (key){
       case ('w'):
-        yMove += 1.5 * scale;
+        yMove += 1.5 * scale;  
         break;
       case ('s'):
         yMove -=1.5 * scale;
