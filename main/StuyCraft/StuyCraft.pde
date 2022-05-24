@@ -23,16 +23,16 @@
   void keyPressed(){
     switch (key){
       case ('w'):
-        yMove += scale;
+        yMove += 1.5 * scale;
         break;
       case ('s'):
-        yMove -= scale;
+        yMove -=1.5 * scale;
         break;
       case ('a'):
-        xMove += scale;
+        xMove += 1.5 * scale;
         break;
       case ('d'):
-        xMove -= scale;
+        xMove -= 1.5 * scale;
         break;
     }
   }
