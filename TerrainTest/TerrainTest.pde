@@ -1,24 +1,24 @@
 import java.util.*;
 
 Block[][] world;
-float sidelength = 10;
+int sidelength = 10;
 int worldHeight = 5000;
 int worldWidth = 10000;
-int startingLevel = 20;
+int startingLevel = 50;
 
 Player avatar;
 
 void setup(){
   noStroke();
   background(255);
-  size(2000, 1000);
+  size(3000, 2000);
 
   world = new Block[500][1000];
   for (int i = startingLevel + 4; i < world.length; i++){
     for (int j = 0; j < world[i].length; j++){
       float x = j * sidelength;
       float y = i * sidelength;
-      float decimal = noise(40* x/width,40* y/height, 0);
+      float decimal = noise(40* x/3000,40* y/2000, 0);
       if (decimal > 0.40){
         world[i][j] = new Block(x, y, decimal, sidelength);
       }
