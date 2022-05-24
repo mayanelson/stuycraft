@@ -1,6 +1,6 @@
   Block[][] world = new Block[64][1000];
   int scale = 100;
-  int startingLevel = 30;
+  int startingLevel = 15;
   
  void worldGenerate(){
    for (int add = 0; add < 4; add++){

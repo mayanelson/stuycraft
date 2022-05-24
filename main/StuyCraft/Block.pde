@@ -21,6 +21,7 @@ BlockItem break(){
 
 void display(){
   fill(0);
+  stroke(255);
   rect(xcor, ycor, sideLength, sideLength);
 }
 }
