@@ -8,7 +8,7 @@
    // Creating the base plane surface
    for (int add = 0; add < 4; add++){
      for (int col = 0; col < world[0].length; col++){
-      world[startingLevel + add][col] = new Grass(col * scale, (startingLevel + add) * scale, scale); 
+      world[startingLevel + add][col] = new Block(col * scale, (startingLevel + add) * scale, scale); 
      }
    }
    
@@ -30,7 +30,7 @@
      double fractX = (double)xcor * scale / worldWidth;
      double noiseNum = Math.abs(noise(fractX, 0, 0));
      for(int up = 1; up < (int)(noiseNum * 25) && up < startingLevel; up++){
-       world[startingLevel - up][col] = new Sand(xcor, (startingLevel - up) * scale, scale);
+       world[startingLevel - up][col] = new Block(xcor, (startingLevel - up) * scale, scale);
      }
    }
    //Creating Biomes
@@ -42,8 +42,12 @@
     for (int i = 0; i < blockCount; i++){
       int xcor = (counter + i) * scale;
       int ycor = (startingLevel + 3) * scale;
-      if (choice % 10 > 5){world[ycor/scale][xcor/scale] = new Sand(xcor, ycor, scale);}
-      else{world[ycor/scale][xcor/scale] = new Grass(xcor, ycor, scale);}
+      while (world[ycor/scale][xcor/scale] != null){
+         if (choice % 10 > 5){world[ycor/scale][xcor/scale] = new Sand(xcor, ycor, scale);}
+         else{world[ycor/scale][xcor/scale] = new Grass(xcor, ycor, scale);}
+         ycor -= scale;
+         System.out.println(ycor);
+      }
     }
     counter += blockCount;
    }
