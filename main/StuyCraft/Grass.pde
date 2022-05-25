@@ -6,6 +6,7 @@ class Grass extends Block{
   }
   
   void display(){
+    type = "Grass";
     image(grass0, super.xcor, super.ycor);
   }
 }

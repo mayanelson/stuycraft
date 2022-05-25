@@ -2,6 +2,7 @@ class Block{
   float durability;
   PImage image;
   BlockItem drop;
+  String type;
   boolean isMouseHover;
   int xcor;
   int ycor;

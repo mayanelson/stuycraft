@@ -31,6 +31,7 @@ class Player{
     ycor = (height - scale* 20)/2;
     pwidth = 100*scale;
     pheight = 100*scale*2;
+    
     //CREATE TOOLS AND ADD TO HOTBAR
     
   }
@@ -41,7 +42,14 @@ class Player{
   }
   
   void breakBlock(Block toBreak){
-    BlockItem b = toBreak.drop;
+    Item b;
+    if (toBreak.type.equals("Grass")){
+        b = new Item("Grass0.png");
+    }
+    else {
+      b = new SandItem();
+    }
+    //BlockItem b = toBreak.drop;
     int place = 0;
     for (Item i: hotbar){
       if (i == null){
@@ -87,7 +95,8 @@ class Player{
     for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
         //TEMPORARY -- NEED TO FIND WAY TO GET BLOCKITEM IMAGE
-        image(healthBar,i*80 + (width-800)/2, height-190);
+        
+        image(hotbar[i].image,i*80 + (width-800)/2, height-190);
       }
     }
     for (int i = 1; i < 10; i++){
