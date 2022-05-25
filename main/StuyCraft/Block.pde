@@ -10,11 +10,13 @@ class Block{
   int ycor;
   int sideLength;
   Tool uses;
+  boolean isAnimate;
   
   public Block (int xcor, int ycor, int sidelength){
    this.xcor = xcor; 
    this.ycor = ycor;
    this.sideLength = sidelength;
+   isAnimate = false;
   }
   
   void animate(){

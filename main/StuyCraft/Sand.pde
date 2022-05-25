@@ -3,11 +3,10 @@ class Sand extends Block{
   Sand(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Sand";
-    image = loadImage("Sand0.png");
-    image.resize(scale, scale);
+    image = sand0;
   }
   
   void display(){
-    image(image, super.xcor, super.ycor);
+    image(sand0, super.xcor, super.ycor);
   }
 }

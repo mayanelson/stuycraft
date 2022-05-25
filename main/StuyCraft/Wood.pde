@@ -3,11 +3,10 @@ class Wood extends Block{
   Wood(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Wood";
-    image = loadImage("Wood0.png");
-    image.resize(scale, scale);
+    image = wood0;
   }
   
   void display(){
-    image(image, super.xcor, super.ycor);    
+    image(wood0, super.xcor, super.ycor);    
   }
 }

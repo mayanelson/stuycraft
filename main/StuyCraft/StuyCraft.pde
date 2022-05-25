@@ -8,6 +8,22 @@
     player = new Player();
     xMove = 0;
     yMove = 0;
+    stone0 = loadImage("Stone0.png");
+    stone0.resize(scale, scale);
+    stone1 = loadImage("Stone1.png");
+    stone1.resize(scale, scale);
+    sand0 = loadImage("Sand0.png");
+    sand0.resize(scale, scale);
+    leaf0 = loadImage("Leaf0.png");
+    leaf0.resize(scale, scale);
+    wood0 = loadImage("Wood0.png");
+    wood0.resize(scale, scale);
+    grass0 = loadImage("Grass0.png");
+    grass0.resize(scale, scale);
+    grass1 = loadImage("Grass1.png");
+    grass1.resize(scale, scale);
+    grass2 = loadImage("Grass2.png");
+    grass2.resize(scale, scale);
   }
   
   void draw(){
@@ -48,6 +64,9 @@
        if (spot != null && mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength ){
          //NEED TO TEST IF THIS AFFECTS EDGES
          //if p equipped = spot.tool or smth
+         //spot.animate();
+         //spot.display();
+         delay(500);
          player.breakBlock(spot);
          world[i][j] = null;
          

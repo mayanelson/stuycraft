@@ -3,11 +3,10 @@ class Leaf extends Block{
   Leaf(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Leaf";
-    image = loadImage("Leaf0.png");
-    image.resize(scale, scale);
+    image = leaf0;
   }
   
   void display(){
-    image(image, super.xcor, super.ycor);
+    image(leaf0, super.xcor, super.ycor);
   }
 }
