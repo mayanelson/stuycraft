@@ -41,6 +41,15 @@ class Player{
   }
   
   void breakBlock(Block toBreak){
+    BlockItem b = toBreak.drop;
+    int place = 0;
+    for (Item i: hotbar){
+      if (i == null){
+        hotbar[place] = b;
+        //DOESN'T HAVE STACKS
+      }
+      place++;
+    }
 
   }
   
@@ -74,7 +83,13 @@ class Player{
   
   void display(){
     image(image,xcor,ycor);
-    image(hotBarDisplay,(width-800)/2,height-200); 
+    image(hotBarDisplay,(width-800)/2,height-200);
+    for (int i = 0; i < hotbar.length; i++){
+      if (hotbar[i] != null){
+        //TEMPORARY -- NEED TO FIND WAY TO GET BLOCKITEM IMAGE
+        image(healthBar,i*80 + (width-800)/2, height-190);
+      }
+    }
     for (int i = 1; i < 10; i++){
       image(healthBar, 40*i, 60);
     }
