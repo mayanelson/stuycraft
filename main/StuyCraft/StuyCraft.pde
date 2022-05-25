@@ -21,7 +21,7 @@
   }
   
   void draw(){
-    //background(255);
+    background(255);
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
