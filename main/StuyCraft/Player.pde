@@ -8,8 +8,8 @@ class Player{
   PImage hungerBar;
   float xcor;
   float ycor;
-  float width;
-  float height;
+  float pwidth;
+  float pheight;
   Item equipped;
   float xVel;
   float yVel;
@@ -29,8 +29,8 @@ class Player{
     hungerBar.resize(100,100);
     xcor = 0;
     ycor = 0;
-    width = 100*scale;
-    height = 100*scale*2;
+    pwidth = 100*scale;
+    pheight = 100*scale*2;
     //CREATE TOOLS AND ADD TO HOTBAR
     
   }
@@ -73,7 +73,7 @@ class Player{
   
   void display(){
     image(image,xcor,ycor);
-    //image(hotBarDisplay,750,1500); FIX THIS
+    image(hotBarDisplay,width/3,height-200); 
     for (int i = 1; i < 10; i++){
       image(healthBar, 6*scale*i, 10*scale);
     }

@@ -31,6 +31,7 @@
     }
     popMatrix();
     player.display();
+    //translate(-1  * player.xVel, -1 * player.yVel);
   }
   
   void keyPressed(){
