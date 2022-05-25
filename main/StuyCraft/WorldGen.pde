@@ -1,5 +1,5 @@
   Block[][] world = new Block[150][500];
-  int scale = 10;
+  int scale = 100;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -41,10 +41,10 @@
     if (blockCount > world[0].length - counter){blockCount = world[0].length - counter;}
     int choice = (int)(Math.random() * 100);
      if (choice % 10 > 5){
-        mappish.add(new Desert(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale);
+        mappish.add(new Desert(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale));
      }
      else{
-       mappish.add(new Plains(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale);
+       mappish.add(new Plains(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale));
      }
     for (int i = 0; i < blockCount; i++){
       int xcor = (counter + i) * scale;

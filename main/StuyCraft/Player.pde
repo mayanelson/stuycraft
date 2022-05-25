@@ -29,8 +29,8 @@ class Player{
     hungerBar.resize(100,100);
     xcor = 0;
     ycor = 0;
-    pwidth = 100*scale;
-    pheight = 100*scale*2;
+    pwidth = scale;
+    pheight = scale*2;
     //CREATE TOOLS AND ADD TO HOTBAR
     
   }
