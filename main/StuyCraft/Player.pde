@@ -62,15 +62,18 @@ class Player{
     boolean placed = false;
     for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] == null){
-        hotbar[i] = b;
+        b.stack++;
+        hotbar[i] = b;  
+        placed = true;
+        i = 11;
+      }    
+      else if (hotbar[i].type.equals(b.type) && hotbar[i].stack < 64) {
+        hotbar[i].stack ++;
         placed = true;
         i = 11;
       }
-      else if (hotbar[i].image == b.image && hotbar[i].stack <= 64) {
-        hotbar[i].stack ++;
-        placed = true;
-      }
-      else if (hotbar[i].stack > 65 && i < 9){
+      else if (hotbar[i].stack > 64 && i < 9){
+        b.stack++;
         hotbar[i+1] = b;
         placed = true;
         i = 11;
@@ -118,6 +121,9 @@ class Player{
         //TEMPORARY -- NEED TO FIND WAY TO GET BLOCKITEM IMAGE
         hotbar[i].image.resize(50,50);
         image(hotbar[i].image,i*80*0.99 + (width-760)/2, height-180);
+        textSize(20);
+        fill(0);
+        text("" + hotbar[i].stack,i*80*0.99 + (width-700)/2, height-160);
       }
     }
     for (int i = 1; i < 10; i++){
