@@ -4,6 +4,8 @@ class Grass extends Block{
     super(xcor, ycor, sidelength);
     drop = new GrassItem();
     type = "Grass";
+    image = loadImage("Grass0.png");
+    image.resize(scale, scale);
   }
   
   void animate(){
@@ -11,6 +13,6 @@ class Grass extends Block{
   }
   
   void display(){
-    image(grass0, super.xcor, super.ycor);
+    image(image, super.xcor, super.ycor);
   }
 }
