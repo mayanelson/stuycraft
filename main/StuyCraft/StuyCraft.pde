@@ -43,10 +43,10 @@
         yMove -=1.5 * scale;
         break;
       case ('a'):
-        xMove += 1.5 * scale;
+        xMove += player.xVel;
         break;
       case ('d'):
-        xMove -= 1.5 * scale;
+        xMove -= player.xVel;
         break;
     }
   }

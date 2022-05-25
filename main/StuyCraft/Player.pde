@@ -6,8 +6,8 @@ class Player{
   PImage image;
   PImage healthBar;
   PImage hungerBar;
-  float xcor;
-  float ycor;
+  float spawnX;
+  float spawnY;
   float pwidth;
   float pheight;
   Item equipped;
@@ -20,17 +20,19 @@ class Player{
     hunger = 10;
     hotbar = new Item[10];
     image = loadImage("Steve0.png");
-    image.resize(scale*10,scale*20);
+    image.resize(scale,scale*2);
     hotBarDisplay = loadImage("hotbar.png");
     hotBarDisplay.resize(800,120);
     healthBar = loadImage("heart.png");
     healthBar.resize(100,100);
     hungerBar = loadImage("hunger.png");
     hungerBar.resize(100,100);
-    xcor = 0;
-    ycor = 0;
+    spawnX = width/2;
+    spawnY = 0;
     pwidth = scale;
     pheight = scale*2;
+    xVel = scale / 2;
+    yVel = 0;
     //CREATE TOOLS AND ADD TO HOTBAR
     
   }
@@ -66,19 +68,20 @@ class Player{
   }
   
   void collision(){
+    
   }
   
   void hungerDrain(){
   }
   
   void display(){
-    image(image,xcor,ycor);
+    image(image,spawnX,spawnY);
     image(hotBarDisplay,width/3,height-200); 
     for (int i = 1; i < 10; i++){
-      image(healthBar, 6*scale*i, 10*scale);
+      image(healthBar, 60*i, 100);
     }
     for (int i = 1; i < 10; i++){
-      image(hungerBar, 6*scale*i, 20*scale);
+      image(hungerBar, 60*i, 200);
     }
   }
 }
