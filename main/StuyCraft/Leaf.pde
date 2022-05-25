@@ -5,6 +5,7 @@ class Leaf extends Block{
   }
   
   void display(){
+    type = "Leaf";
     image(leaf0, super.xcor, super.ycor);
   }
 }

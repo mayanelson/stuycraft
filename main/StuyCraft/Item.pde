@@ -1,5 +1,5 @@
 class Item{
-  //String type;
+  int stack = 0;
   PImage image;
   
   Item(){

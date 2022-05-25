@@ -5,6 +5,7 @@ class Sand extends Block{
   }
   
   void display(){
+    type = "Sand";
     image(sand0, super.xcor, super.ycor);
   }
 }

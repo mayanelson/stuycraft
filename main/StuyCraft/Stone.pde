@@ -6,6 +6,7 @@ class Stone extends Block{
   }
   
   void display(){
+    type = "Stone";
     image(stone0, super.xcor, super.ycor);
   }
 }

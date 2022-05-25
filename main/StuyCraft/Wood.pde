@@ -5,6 +5,7 @@ class Wood extends Block{
   }
   
   void display(){
+    type = "Wood";
     image(wood0, super.xcor, super.ycor);
   }
 }
