@@ -20,9 +20,9 @@ class Player{
     hunger = 10;
     hotbar = new Item[10];
     image = loadImage("Steve0.png");
-    image.resize(scale*10,scale*20);
+    image.resize(scale,scale*2);
     hotBarDisplay = loadImage("hotbar.png");
-    hotBarDisplay.resize(800,120);
+    hotBarDisplay.resize(800,91);
     healthBar = loadImage("heart.png");
     healthBar.resize(50,50);
     hungerBar = loadImage("hunger.png");
@@ -54,6 +54,7 @@ class Player{
   }
   
   void move(int direction, int velocity){
+    
   }
   
   void jump(int velocity){

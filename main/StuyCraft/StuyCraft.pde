@@ -21,7 +21,8 @@
   }
   
   void draw(){
-    //background(255);
+    background(255);
+    //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -31,7 +32,6 @@
     }
     popMatrix();
     player.display();
-    //translate(-1  * player.xVel, -1 * player.yVel);
   }
   
   void keyPressed(){
@@ -52,4 +52,15 @@
   }
   
   void mouseClicked(){
+    for (int i = 0; i < world.length; i++){
+     for  (int j = 0; j < world[0].length; j++){
+       Block spot = world[i][j];
+       if (spot != null && mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength ){
+         //NEED TO TEST IF THIS AFFECTS EDGES
+         player.breakBlock(spot);
+         world[i][j] = null;
+         
+        }
+     }
+    }
   }
