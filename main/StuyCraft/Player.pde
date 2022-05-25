@@ -24,11 +24,11 @@ class Player{
     hotBarDisplay = loadImage("hotbar.png");
     hotBarDisplay.resize(800,120);
     healthBar = loadImage("heart.png");
-    healthBar.resize(100,100);
+    healthBar.resize(50,50);
     hungerBar = loadImage("hunger.png");
-    hungerBar.resize(100,100);
-    xcor = 0;
-    ycor = 0;
+    hungerBar.resize(50,50);
+    xcor = (width - scale*10)/2; // PLAYER SPAWNS IN MIDDLE OF SCREEN
+    ycor = (height - scale* 20)/2;
     pwidth = 100*scale;
     pheight = 100*scale*2;
     //CREATE TOOLS AND ADD TO HOTBAR
@@ -73,12 +73,12 @@ class Player{
   
   void display(){
     image(image,xcor,ycor);
-    image(hotBarDisplay,width/3,height-200); 
+    image(hotBarDisplay,(width-800)/2,height-200); 
     for (int i = 1; i < 10; i++){
-      image(healthBar, 6*scale*i, 10*scale);
+      image(healthBar, 40*i, 60);
     }
     for (int i = 1; i < 10; i++){
-      image(hungerBar, 6*scale*i, 20*scale);
+      image(hungerBar, 40* i, 120);
     }
   }
 }

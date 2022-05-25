@@ -3,7 +3,7 @@
   
   void setup(){
     background(255);
-    size(3000, 2000);
+    size(1500, 1000);
     worldGenerate();
     player = new Player();
     xMove = 0;
