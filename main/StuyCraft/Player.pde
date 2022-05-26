@@ -11,6 +11,7 @@ class Player{
   float pwidth;
   float pheight;
   Item equipped;
+  int hbSlot;
   float xVel;
   float yVel;
 
@@ -33,13 +34,18 @@ class Player{
     pheight = 100*scale*2;
     
     //CREATE TOOLS AND ADD TO HOTBAR
+    hbSlot = 0;
     Sword sw = new Sword();
+    sw.stack++;
     hotbar[0] = sw;
     Pickaxe p = new Pickaxe();
+    p.stack++;
     hotbar[1] = p;
     Axe a = new Axe();
+    a.stack++;
     hotbar[2] = a;
     Shovel s = new Shovel();
+    s.stack++;
     hotbar[3] = s;
     
   }
@@ -122,6 +128,10 @@ class Player{
   }
   
   void display(){
+    fill(238,245,148);
+    stroke(255);
+    rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
+    noFill();
     image(image,xcor,ycor);
     image(hotBarDisplay,(width-800)/2,height-200);
     for (int i = 0; i < hotbar.length; i++){

@@ -54,6 +54,36 @@
       case ('d'):
         xMove -= 1.5 * scale;
         break;
+      case('0'):
+        player.hbSlot = 9;
+        break;
+      case('1'):
+        player.hbSlot = 0;
+        break;
+      case('2'):
+        player.hbSlot = 1;
+        break;
+      case('3'):
+        player.hbSlot = 2;
+        break;
+      case('4'):
+        player.hbSlot = 3;
+        break;
+      case('5'):
+        player.hbSlot = 4;
+        break;
+      case('6'):
+        player.hbSlot = 5;
+        break;
+      case('7'):
+        player.hbSlot = 6;
+        break;
+      case('8'):
+        player.hbSlot = 7;
+        break;
+      case('9'):
+        player.hbSlot = 8;
+        break;      
     }
   }
   
