@@ -30,7 +30,7 @@ class Player{
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
     ycor = height/2;
-    pwidth = scale;
+    pwidth = scale * 0.9;
     pheight = scale*2;
     xVel = scale / 5;
     yVel = 0;
@@ -116,9 +116,9 @@ class Player{
   void gravity(){
     int feet = (int)(ycor+ pheight);
     Block mayFloor = world[feet/scale][xcor/scale];
-    //Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
+    Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
-    if (mayFloor == null /*&& mayFloor2 == null*/){
+    if (mayFloor == null && mayFloor2 == null){
       ycor += yVel;
       yMove -= yVel;
       yVel += grav;
@@ -126,14 +126,14 @@ class Player{
     }
     else{
       yVel = 0;
-      if (/*mayFloor != null && */feet > mayFloor.ycor){
+      if (mayFloor != null && feet > mayFloor.ycor){
        ycor = mayFloor.ycor - pheight;
        yMove = -(mayFloor.ycor - pheight - height/2);
       }
-     /* else{       
+     else{       
        ycor = mayFloor2.ycor - pheight;
        yMove = -(mayFloor2.ycor - pheight - height/2);
-      }*/
+      }
     }
       System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
       System.out.println(ycor);
@@ -166,19 +166,11 @@ class Player{
   
   void display(){
 
-    image(image, width/2, height/2);
-    image(hotBarDisplay,width/3,height-200); 
-    for (int i = 1; i < 10; i++){
-      image(healthBar, 60*i, 100);
-    }
-    for (int i = 1; i < 10; i++){
-      image(hungerBar, 60*i, 200);
-    }
-    fill(238,245,148);
+     fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
+    image(image,width/2,height/2);
     noFill();
-    image(image,xcor,ycor);
     image(hotBarDisplay,(width-800)/2,height-200);
     for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
@@ -195,7 +187,6 @@ class Player{
     }
     for (int i = 1; i < 10; i++){
       image(hungerBar, 40* i, 120);
-
     }
   }
 }
