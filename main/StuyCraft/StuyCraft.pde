@@ -45,13 +45,13 @@
   void keyPressed(){
     switch (key){
       case ('w'):
-        player.jump(12);
+        player.jump(15);
         break;
       case ('a'):
-        xMove += 1.5 * scale ;
+        xMove -= player.move(-1); ;
         break;
       case ('d'):
-        xMove -= 1.5 * scale ;
+        xMove -= player.move(1) ;
         break;
       case('0'):
         player.hbSlot = 9;

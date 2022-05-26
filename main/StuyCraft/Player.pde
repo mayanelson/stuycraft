@@ -34,7 +34,7 @@ class Player{
     pheight = scale*2;
     xVel = scale / 5;
     yVel = 0;
-    grav = 0.5;
+    grav = 1.0;
 
     hungerBar.resize(50,50);
     //CREATE TOOLS AND ADD TO HOTBAR
@@ -116,11 +116,13 @@ class Player{
   void gravity(){
     int feet = (int)(ycor+ pheight);
     Block mayFloor = world[feet/scale][xcor/scale];
+    Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
-    if (mayFloor == null){
+    if (mayFloor == null && mayFloor2 == null){
       ycor += yVel;
       yMove -= yVel;
       yVel += grav;
+      if (yVel > 100){yVel = 100;}
     }
     else{
       yVel = 0;
@@ -132,9 +134,9 @@ class Player{
       System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
       System.out.println(ycor);
   }
-  void move(int direction, int velocity){
-    
-
+  int move(int direction){
+    xcor += xVel * direction;
+    return xVel * direction;
   }
   
   void jump(int velocity){
