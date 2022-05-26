@@ -1,8 +1,9 @@
-  Block[][] world = new Block[150][500];
-  int scale = 10;
+  Block[][] world = new Block[150][100];
+  int scale = 100;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
+  ArrayList<Biome> mappish= new ArrayList<Biome>();
   
  void worldGenerate(){
    // Creating the base plane surface
@@ -26,8 +27,8 @@
    
    // Creating Surface w/o biomes
    for (int col = 0; col < world[0].length; col++){
-     int xcor =  col * scale;
-     double fractX = (double)xcor * scale / worldWidth;
+     int xcor =  col * 10;
+     double fractX = (double)xcor * 10 / (world[0].length * 10);
      double noiseNum = Math.abs(noise(fractX, 0, 0));
      for(int up = 1; up < (int)(noiseNum * 25) && up < startingLevel; up++){
        world[startingLevel - up][col] = new Block(xcor, (startingLevel - up) * scale, scale);
@@ -39,6 +40,12 @@
     int blockCount = (int)(Math.random() * 16) + 10;
     if (blockCount > world[0].length - counter){blockCount = world[0].length - counter;}
     int choice = (int)(Math.random() * 100);
+     if (choice % 10 > 5){
+        mappish.add(new Desert(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale));
+     }
+     else{
+       mappish.add(new Plains(counter * scale, (counter + blockCount) * scale, 0, (startingLevel + 3) * scale));
+     }
     for (int i = 0; i < blockCount; i++){
       int xcor = (counter + i) * scale;
       int ycor = (startingLevel + 3) * scale;
@@ -46,11 +53,12 @@
          if (choice % 10 > 5){world[ycor/scale][xcor/scale] = new Sand(xcor, ycor, scale);}
          else{world[ycor/scale][xcor/scale] = new Grass(xcor, ycor, scale);}
          ycor -= scale;
-         System.out.println(ycor);
+         //System.out.println(ycor);
       }
     }
     counter += blockCount;
    }
+   mappish.add(new Cave(0, world[0].length * scale, (startingLevel + 4) * scale, world.length * scale));
  }
  void worldRevise(){
  } 

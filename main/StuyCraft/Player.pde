@@ -6,15 +6,16 @@ class Player{
   PImage image;
   PImage healthBar;
   PImage hungerBar;
-  float xcor;
+  int xcor;
   float ycor;
   float pwidth;
   float pheight;
   Item equipped;
+  int xVel;
   int hbSlot;
   float xVel;
   float yVel;
-
+  float grav;
 
   public Player(){
     health = 10;
@@ -27,12 +28,23 @@ class Player{
     healthBar = loadImage("heart.png");
     healthBar.resize(50,50);
     hungerBar = loadImage("hunger.png");
+<<<<<<< HEAD
+    hungerBar.resize(100,100);
+    xcor = (int)(worldWidth/2);
+    ycor = 0;
+    pwidth = scale;
+    pheight = scale*2;
+    xVel = scale / 5;
+    yVel = 0;
+    grav = 0.5;
+
     hungerBar.resize(50,50);
     xcor = (width - scale*10)/2; // PLAYER SPAWNS IN MIDDLE OF SCREEN
     ycor = (height - scale* 20)/2;
     pwidth = 100*scale;
     pheight = 100*scale*2;
     
+
     //CREATE TOOLS AND ADD TO HOTBAR
     hbSlot = 0;
     Sword sw = new Sword();
@@ -108,8 +120,17 @@ class Player{
   void takeDamage(int amt){
   }
   
+
+  void move(){}
+  
+  void gravity(){
+    ycor += yVel;
+    yVel += grav;
+    yMove += yVel;
+  }
   void move(int direction, int velocity){
     
+
   }
   
   void jump(int velocity){
@@ -122,12 +143,22 @@ class Player{
   }
   
   void collision(){
+    
   }
   
   void hungerDrain(){
   }
   
   void display(){
+
+    image(image, width/2, height/2);
+    image(hotBarDisplay,width/3,height-200); 
+    for (int i = 1; i < 10; i++){
+      image(healthBar, 60*i, 100);
+    }
+    for (int i = 1; i < 10; i++){
+      image(hungerBar, 60*i, 200);
+
     fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
@@ -149,6 +180,7 @@ class Player{
     }
     for (int i = 1; i < 10; i++){
       image(hungerBar, 40* i, 120);
+
     }
   }
 }

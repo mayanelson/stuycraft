@@ -20,15 +20,24 @@
     wood0.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
+<<<<<<< HEAD
+    xMove = -(worldWidth/2 - width/2);
+    System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
+    System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
+=======
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
     grass2.resize(scale, scale);
+>>>>>>> main
   }
   
   void draw(){
     background(255);
+<<<<<<< HEAD
+=======
     //translate(-1  * xMove, -1 * yMove);
+>>>>>>> main
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -37,6 +46,7 @@
      }
     }
     popMatrix();
+    player.gravity();
     player.display();
   }
   
@@ -49,10 +59,10 @@
         yMove -=1.5 * scale;
         break;
       case ('a'):
-        xMove += 1.5 * scale;
+        xMove -= 1.5 * scale ;
         break;
       case ('d'):
-        xMove -= 1.5 * scale;
+        xMove += 1.5 * scale ;
         break;
       case('0'):
         player.hbSlot = 9;
