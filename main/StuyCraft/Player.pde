@@ -99,7 +99,11 @@ class Player{
 
   }
   
-  void place(Block toPlace){
+  void place(int x, int y){
+    if (hbSlot > 3 && hotbar[hbSlot] != null && !hotbar[hbSlot].type.equals("Beef") && !hotbar[hbSlot].equals("Apple")){
+      world[x][y] = new Grass(mouseX,mouseY,scale);;
+    }
+    
   }
   
   void attack(Mob attacked){

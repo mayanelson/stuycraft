@@ -88,6 +88,7 @@
   }
   
   void mousePressed(){
+    if (mouseButton == LEFT){
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
@@ -96,6 +97,7 @@
          if (spot.uses == player.hbSlot){
            //spot.animate();
            //spot.display();
+           //RANGE
            delay(500);
            player.breakBlock(spot);
            world[i][j] = null;
@@ -104,4 +106,18 @@
         }
      }
     }
+    }
+    else if (mouseButton == RIGHT){
+      for (int i = 0; i < world.length; i++){
+       for  (int j = 0; j < world[0].length; j++){
+       Block spot = world[i][j];
+       if (spot == null /*&& mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength*/ ){
+         player.place(i,j);
+         //figure it out later
+       }
+     }
+     }
+      
+    }
+    
   }
