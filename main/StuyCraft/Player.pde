@@ -100,8 +100,10 @@ class Player{
   }
   
   void place(int x, int y){
-    if (hbSlot > 3 && hotbar[hbSlot] != null && !hotbar[hbSlot].type.equals("Beef") && !hotbar[hbSlot].equals("Apple")){
-      world[x][y] = new Grass(mouseX,mouseY,scale);;
+    if (hbSlot > 3 && hotbar[hbSlot] != null){
+     // if (hotBar[hbSlot]
+      world[y][x] = new Grass(x*scale,y*scale,scale);;
+      hotbar[hbSlot].stack--;
     }
     
   }

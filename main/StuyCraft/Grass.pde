@@ -11,7 +11,8 @@ class Grass extends Block{
   void animate(){
     //print("this one!");
     isAnimate = true;
-    display();
+    //image = grass1;
+    //display();
   }
   
   void display(){
@@ -23,6 +24,7 @@ class Grass extends Block{
       delay(500);
       image(grass2,super.xcor, super.ycor);
       isAnimate = false;
+      
     }
 
 

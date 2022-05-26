@@ -108,16 +108,13 @@
     }
     }
     else if (mouseButton == RIGHT){
-      for (int i = 0; i < world.length; i++){
+      /*for (int i = 0; i < world.length; i++){
        for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
-       if (spot == null /*&& mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength*/ ){
-         player.place(i,j);
+       if (spot == null && mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength){
+         */
+         player.place(mouseX/scale,mouseY/scale);
          //figure it out later
        }
-     }
-     }
-      
-    }
     
   }
