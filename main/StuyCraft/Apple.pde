@@ -1,5 +1,6 @@
-class Apple extends Food{
+/*class Apple extends Food{
 
   Apple(){
   }
 }
+*/

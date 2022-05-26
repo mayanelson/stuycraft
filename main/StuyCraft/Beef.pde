@@ -1,5 +1,7 @@
-class Beef extends Food{
-  
+/* 
+class Beef extends Food{ 
   Beef(){
   }
 }
+
+*/
