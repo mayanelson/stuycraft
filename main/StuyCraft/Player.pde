@@ -29,7 +29,7 @@ class Player{
     hungerBar = loadImage("hunger.png");
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
-    ycor = 0;
+    ycor = height/2;
     pwidth = scale;
     pheight = scale*2;
     xVel = scale / 5;
@@ -37,10 +37,6 @@ class Player{
     grav = 0.5;
 
     hungerBar.resize(50,50);
-    pwidth = 100*scale;
-    pheight = 100*scale*2;
-    
-
     //CREATE TOOLS AND ADD TO HOTBAR
     hbSlot = 0;
     Sword sw = new Sword();
@@ -118,10 +114,23 @@ class Player{
   
   
   void gravity(){
-    ycor += yVel;
-    yVel += grav;
-    yMove -= yVel;
-    System.out.println(ycor);
+    int feet = (int)(ycor+ pheight);
+    Block mayFloor = world[feet/scale][xcor/scale];
+    
+    if (mayFloor == null){
+      ycor += yVel;
+      yMove -= yVel;
+      yVel += grav;
+      System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
+      System.out.println(ycor);
+    }
+    else{
+      int nextFeet = mayFloor.ycor;
+       float diff = (nextFeet - pheight) - ycor;
+       ycor = nextFeet - pheight;
+       yVel = 0;
+       yMove -= diff;
+    }
   }
   void move(int direction, int velocity){
     

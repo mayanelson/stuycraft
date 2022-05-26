@@ -1,4 +1,4 @@
-   int xMove, yMove;
+   float xMove, yMove;
    Player player;
   
   void setup(){
@@ -45,16 +45,14 @@
   void keyPressed(){
     switch (key){
       case ('w'):
-        yMove += 1.5 * scale;  
         break;
       case ('s'):
-        yMove -=1.5 * scale;
         break;
       case ('a'):
-        xMove -= 1.5 * scale ;
+        xMove += 1.5 * scale ;
         break;
       case ('d'):
-        xMove += 1.5 * scale ;
+        xMove -= 1.5 * scale ;
         break;
       case('0'):
         player.hbSlot = 9;
