@@ -121,16 +121,16 @@ class Player{
       ycor += yVel;
       yMove -= yVel;
       yVel += grav;
-      System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
-      System.out.println(ycor);
     }
     else{
-      int nextFeet = mayFloor.ycor;
-       float diff = (nextFeet - pheight) - ycor;
-       ycor = nextFeet - pheight;
-       yVel = 0;
-       yMove -= diff;
+      yVel = 0;
+      if (feet > mayFloor.ycor){
+       ycor = mayFloor.ycor - pheight;
+       yMove = -(mayFloor.ycor - pheight - height/2);
+      }
     }
+      System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
+      System.out.println(ycor);
   }
   void move(int direction, int velocity){
     
@@ -140,6 +140,7 @@ class Player{
   void jump(int velocity){
     if( yVel == 0){
       yVel -= velocity;
+      ycor += yVel;
       yMove +=velocity;
     }
   }

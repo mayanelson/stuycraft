@@ -45,7 +45,7 @@
   void keyPressed(){
     switch (key){
       case ('w'):
-        player.jump(150);
+        player.jump(12);
         break;
       case ('a'):
         xMove += 1.5 * scale ;
