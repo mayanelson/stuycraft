@@ -13,7 +13,6 @@ class Player{
   Item equipped;
   int xVel;
   int hbSlot;
-  float xVel;
   float yVel;
   float grav;
 
@@ -28,7 +27,6 @@ class Player{
     healthBar = loadImage("heart.png");
     healthBar.resize(50,50);
     hungerBar = loadImage("hunger.png");
-<<<<<<< HEAD
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
     ycor = 0;
@@ -39,8 +37,6 @@ class Player{
     grav = 0.5;
 
     hungerBar.resize(50,50);
-    xcor = (width - scale*10)/2; // PLAYER SPAWNS IN MIDDLE OF SCREEN
-    ycor = (height - scale* 20)/2;
     pwidth = 100*scale;
     pheight = 100*scale*2;
     
@@ -120,13 +116,12 @@ class Player{
   void takeDamage(int amt){
   }
   
-
-  void move(){}
   
   void gravity(){
     ycor += yVel;
     yVel += grav;
-    yMove += yVel;
+    yMove -= yVel;
+    System.out.println(ycor);
   }
   void move(int direction, int velocity){
     
@@ -158,7 +153,7 @@ class Player{
     }
     for (int i = 1; i < 10; i++){
       image(hungerBar, 60*i, 200);
-
+    }
     fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
