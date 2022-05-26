@@ -138,6 +138,10 @@ class Player{
   }
   
   void jump(int velocity){
+    if( yVel == 0){
+      yVel -= velocity;
+      yMove +=velocity;
+    }
   }
   
   void eat(Food food){
