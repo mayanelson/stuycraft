@@ -16,8 +16,8 @@ void setup(){
   world = new Block[500][1000];
   for (int i = startingLevel + 4; i < world.length; i++){
     for (int j = 0; j < world[i].length; j++){
-      float x = j * sidelength;
-      float y = i * sidelength;
+      float x = j * 10;
+      float y = i * 10;
       float decimal = noise(40* x/3000,40* y/2000, 0);
       if (decimal > 0.40){
         world[i][j] = new Block(x, y, decimal, sidelength);

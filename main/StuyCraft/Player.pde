@@ -6,14 +6,14 @@ class Player{
   PImage image;
   PImage healthBar;
   PImage hungerBar;
-  float spawnX;
-  float spawnY;
+  int xcor;
+  float ycor;
   float pwidth;
   float pheight;
   Item equipped;
-  float xVel;
+  int xVel;
   float yVel;
-
+  float grav;
 
   public Player(){
     health = 10;
@@ -27,12 +27,13 @@ class Player{
     healthBar.resize(100,100);
     hungerBar = loadImage("hunger.png");
     hungerBar.resize(100,100);
-    spawnX = width/2;
-    spawnY = 0;
+    xcor = (int)(worldWidth/2);
+    ycor = 0;
     pwidth = scale;
     pheight = scale*2;
-    xVel = scale / 2;
+    xVel = scale / 5;
     yVel = 0;
+    grav = 0.5;
     //CREATE TOOLS AND ADD TO HOTBAR
     
   }
@@ -55,7 +56,12 @@ class Player{
   void takeDamage(int amt){
   }
   
-  void move(int direction, int velocity){
+  void move(){}
+  
+  void gravity(){
+    ycor += yVel;
+    yVel += grav;
+    yMove += yVel;
   }
   
   void jump(int velocity){
@@ -75,7 +81,7 @@ class Player{
   }
   
   void display(){
-    image(image,spawnX,spawnY);
+    image(image, width/2, height/2);
     image(hotBarDisplay,width/3,height-200); 
     for (int i = 1; i < 10; i++){
       image(healthBar, 60*i, 100);

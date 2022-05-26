@@ -18,6 +18,9 @@
     wood0.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
+    xMove = -(worldWidth/2 - width/2);
+    System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
+    System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
   }
   
   void draw(){
@@ -30,6 +33,7 @@
      }
     }
     popMatrix();
+    player.gravity();
     player.display();
     //translate(-1  * player.xVel, -1 * player.yVel);
   }
@@ -43,10 +47,10 @@
         yMove -=1.5 * scale;
         break;
       case ('a'):
-        xMove += player.xVel;
+        xMove -= 1.5 * scale ;
         break;
       case ('d'):
-        xMove -= player.xVel;
+        xMove += 1.5 * scale ;
         break;
     }
   }

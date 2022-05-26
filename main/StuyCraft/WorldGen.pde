@@ -1,4 +1,4 @@
-  Block[][] world = new Block[150][500];
+  Block[][] world = new Block[150][100];
   int scale = 100;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
@@ -27,8 +27,8 @@
    
    // Creating Surface w/o biomes
    for (int col = 0; col < world[0].length; col++){
-     int xcor =  col * scale;
-     double fractX = (double)xcor * scale / worldWidth;
+     int xcor =  col * 10;
+     double fractX = (double)xcor * 10 / (world[0].length * 10);
      double noiseNum = Math.abs(noise(fractX, 0, 0));
      for(int up = 1; up < (int)(noiseNum * 25) && up < startingLevel; up++){
        world[startingLevel - up][col] = new Block(xcor, (startingLevel - up) * scale, scale);
@@ -53,7 +53,7 @@
          if (choice % 10 > 5){world[ycor/scale][xcor/scale] = new Sand(xcor, ycor, scale);}
          else{world[ycor/scale][xcor/scale] = new Grass(xcor, ycor, scale);}
          ycor -= scale;
-         System.out.println(ycor);
+         //System.out.println(ycor);
       }
     }
     counter += blockCount;
