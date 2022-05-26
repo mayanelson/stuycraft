@@ -116,9 +116,9 @@ class Player{
   void gravity(){
     int feet = (int)(ycor+ pheight);
     Block mayFloor = world[feet/scale][xcor/scale];
-    Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
+    //Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
-    if (mayFloor == null && mayFloor2 == null){
+    if (mayFloor == null /*&& mayFloor2 == null*/){
       ycor += yVel;
       yMove -= yVel;
       yVel += grav;
@@ -126,10 +126,14 @@ class Player{
     }
     else{
       yVel = 0;
-      if (feet > mayFloor.ycor){
+      if (/*mayFloor != null && */feet > mayFloor.ycor){
        ycor = mayFloor.ycor - pheight;
        yMove = -(mayFloor.ycor - pheight - height/2);
       }
+     /* else{       
+       ycor = mayFloor2.ycor - pheight;
+       yMove = -(mayFloor2.ycor - pheight - height/2);
+      }*/
     }
       System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
       System.out.println(ycor);
