@@ -1,5 +1,5 @@
 class Tool extends Item{
-  float speed;
+  //float speed;
   float range;
 
 }

@@ -33,6 +33,14 @@ class Player{
     pheight = 100*scale*2;
     
     //CREATE TOOLS AND ADD TO HOTBAR
+    Sword sw = new Sword();
+    hotbar[0] = sw;
+    Pickaxe p = new Pickaxe();
+    hotbar[1] = p;
+    Axe a = new Axe();
+    hotbar[2] = a;
+    Shovel s = new Shovel();
+    hotbar[3] = s;
     
   }
   void addToHotbar(Item item){
@@ -60,7 +68,7 @@ class Player{
     }
     //BlockItem b = toBreak.drop;
     boolean placed = false;
-    for (int i = 0; i < hotbar.length; i++){
+    for (int i = 4; i < hotbar.length; i++){
       if (hotbar[i] == null){
         b.stack++;
         hotbar[i] = b;  
