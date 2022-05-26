@@ -144,6 +144,10 @@ class Player{
   }
   
   void hungerDrain(){
+    hunger--;
+    if (hunger == 0){
+      die();
+    }
   }
   
   void display(){
@@ -163,10 +167,10 @@ class Player{
         text("" + hotbar[i].stack,i*80*0.99 + (width-700)/2, height-160);
       }
     }
-    for (int i = 1; i < 10; i++){
+    for (int i = 1; i < health; i++){
       image(healthBar, 40*i, 60);
     }
-    for (int i = 1; i < 10; i++){
+    for (int i = 1; i < hunger; i++){
       image(hungerBar, 40* i, 120);
     }
   }

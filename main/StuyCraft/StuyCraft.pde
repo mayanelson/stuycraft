@@ -1,7 +1,9 @@
    int xMove, yMove;
    Player player;
+   int tick;
   
   void setup(){
+    tick = 0;
     background(255);
     size(1500, 1000);
     worldGenerate();
@@ -27,6 +29,10 @@
   }
   
   void draw(){
+    tick++;
+    if (tick%6000 == 0){
+      player.hungerDrain();
+    }
     background(255);
     //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
