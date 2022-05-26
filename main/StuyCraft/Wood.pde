@@ -4,6 +4,7 @@ class Wood extends Block{
     super(xcor, ycor, sidelength);
     type = "Wood";
     image = wood0;
+    uses = 2;
   }
   
   void display(){

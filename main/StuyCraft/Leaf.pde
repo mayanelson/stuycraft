@@ -4,6 +4,7 @@ class Leaf extends Block{
     super(xcor, ycor, sidelength);
     type = "Leaf";
     image = leaf0;
+    uses = 2;
   }
   
   void display(){

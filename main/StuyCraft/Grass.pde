@@ -4,6 +4,7 @@ class Grass extends Block{
     drop = new GrassItem();
     type = "Grass";
     image = grass0;
+    uses = 3;
     
   }
   

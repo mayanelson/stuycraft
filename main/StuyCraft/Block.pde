@@ -9,7 +9,7 @@ class Block{
   int xcor;
   int ycor;
   int sideLength;
-  Tool uses;
+  int uses;
   boolean isAnimate;
   
   public Block (int xcor, int ycor, int sidelength){

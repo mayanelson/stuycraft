@@ -93,12 +93,13 @@
        Block spot = world[i][j];
        if (spot != null && mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength ){
          //NEED TO TEST IF THIS AFFECTS EDGES
-         //if p equipped = spot.tool or smth
-         //spot.animate();
-         //spot.display();
-         delay(500);
-         player.breakBlock(spot);
-         world[i][j] = null;
+         if (spot.uses == player.hbSlot){
+           //spot.animate();
+           //spot.display();
+           delay(500);
+           player.breakBlock(spot);
+           world[i][j] = null;
+         }
          
         }
      }
