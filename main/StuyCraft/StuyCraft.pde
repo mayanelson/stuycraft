@@ -4,7 +4,7 @@
   
   void setup(){
     background(255);
-    size(3000, 2000);
+    size(1500, 1000);
     worldGenerate();
     player = new Player();
     stone0 = loadImage("Stone0.png");
@@ -20,8 +20,8 @@
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
     xMove = -(worldWidth/2 - width/2);
-    System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
-    System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
+    //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
+    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
@@ -102,13 +102,15 @@
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
-       if (spot != null && mouseX > spot.xcor && mouseX < spot.xcor + spot.sideLength && mouseY > spot.ycor && mouseY < spot.ycor + spot.sideLength ){
+       float newMouseX = (mouseX - width/2) + player.xcor;
+       float newMouseY = (mouseY - height/2) + player.ycor;
+       if (spot != null && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
          //NEED TO TEST IF THIS AFFECTS EDGES
          if (spot.uses == player.hbSlot){
            //spot.animate();
            //spot.display();
            //RANGE
-           delay(500);
+           //delay(500);
            player.breakBlock(spot);
            world[i][j] = null;
          }
