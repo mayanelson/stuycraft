@@ -140,6 +140,11 @@ class Player{
   }
   int move(int direction){
     xcor += xVel * direction;
+    if (direction < 0){
+     Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
+     Block leftTop = world[(int)(ycor/scale)][xcor/scale];
+     
+    }
     return xVel * direction;
   }
   
