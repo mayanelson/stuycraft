@@ -30,7 +30,7 @@ class Player{
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
     ycor = height/2;
-    pwidth = scale * 0.9;
+    pwidth = scale * 0.75;
     pheight = scale*2;
     xVel = scale / 5;
     yVel = 0;
@@ -122,29 +122,34 @@ class Player{
       ycor += yVel;
       yMove -= yVel;
       yVel += grav;
-      if (yVel > 100){yVel = 100;}
+      if (yVel > scale){yVel = scale;}
     }
     else{
       yVel = 0;
-      if (mayFloor != null && feet > mayFloor.ycor){
-       ycor = mayFloor.ycor - pheight;
-       yMove = -(mayFloor.ycor - pheight - height/2);
-      }
-     else{       
-       ycor = mayFloor2.ycor - pheight;
-       yMove = -(mayFloor2.ycor - pheight - height/2);
-      }
+      ycor = ((int)(ycor)/scale) * scale;
+       yMove = -(ycor - height/2);
     }
-      System.out.println("x, y: " + (xcor/scale) + ", " + (feet/scale));
-      System.out.println(ycor);
   }
+  
   int move(int direction){
     xcor += xVel * direction;
     if (direction < 0){
      Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
-     
+     if (leftBottom != null || leftTop != null){
+      xcor = (xcor / scale) * scale + scale;
+      return 0;
+     }
     }
+    if (direction > 0){
+     Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
+     Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
+     if (rightBottom != null || rightTop != null){
+      xcor = (xcor / scale) * scale;
+      return 0;
+     }
+    }
+    System.out.println(xcor + ", " + (xcor + pwidth));
     return xVel * direction;
   }
   
