@@ -98,6 +98,7 @@
   }
   
   void mousePressed(){
+    if (mouseButton == LEFT){
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
@@ -106,6 +107,7 @@
          if (spot.uses == player.hbSlot){
            //spot.animate();
            //spot.display();
+           //RANGE
            delay(500);
            player.breakBlock(spot);
            world[i][j] = null;
@@ -113,5 +115,12 @@
          
         }
      }
+    }
+    }
+    else if (mouseButton == RIGHT){
+       if (world[mouseY/scale][mouseX/scale] == null){
+         player.place(mouseX/scale,mouseY/scale);
+         //figure it out later
+      }
     }
   }
