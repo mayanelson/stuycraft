@@ -98,12 +98,13 @@
   }
   
   void mousePressed(){
+    float newMouseX = (mouseX - width/2) + player.xcor;
+    float newMouseY = (mouseY - height/2) + player.ycor;
     if (mouseButton == LEFT){
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
-       float newMouseX = (mouseX - width/2) + player.xcor;
-       float newMouseY = (mouseY - height/2) + player.ycor;
+
        if (spot != null && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
          //NEED TO TEST IF THIS AFFECTS EDGES
          if (spot.uses == player.hbSlot){
@@ -120,8 +121,8 @@
     }
     }
     else if (mouseButton == RIGHT){
-       if (world[mouseY/scale][mouseX/scale] == null){
-         player.place(mouseX/scale,mouseY/scale);
+       if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
+         player.place((int)newMouseX/scale,(int)newMouseY/scale);
          //figure it out later
       }
     }

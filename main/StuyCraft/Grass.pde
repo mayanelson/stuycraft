@@ -1,7 +1,7 @@
 class Grass extends Block{
   Grass(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
-    drop = new GrassItem();
+   // drop = new GrassItem();
     type = "Grass";
     image = grass0;
     uses = 3;
