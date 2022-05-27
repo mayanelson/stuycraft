@@ -1,13 +1,12 @@
-   int xMove, yMove;
+   float xMove, yMove;
    Player player;
+   Movement control;
   
   void setup(){
     background(255);
-    size(1500, 1000);
+    size(3000, 2000);
     worldGenerate();
     player = new Player();
-    xMove = 0;
-    yMove = 0;
     stone0 = loadImage("Stone0.png");
     stone0.resize(scale, scale);
     stone1 = loadImage("Stone1.png");
@@ -20,24 +19,19 @@
     wood0.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
-<<<<<<< HEAD
     xMove = -(worldWidth/2 - width/2);
     System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
     System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
-=======
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
     grass2.resize(scale, scale);
->>>>>>> main
+    control = new Movement();
   }
   
   void draw(){
     background(255);
-<<<<<<< HEAD
-=======
     //translate(-1  * xMove, -1 * yMove);
->>>>>>> main
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -47,22 +41,28 @@
     }
     popMatrix();
     player.gravity();
+    if (control.inputs[0]){
+      xMove -= player.move(-1); 
+    }
+    if (control.inputs[2]){
+      xMove -= player.move(1); 
+    }   
     player.display();
   }
   
   void keyPressed(){
     switch (key){
       case ('w'):
-        yMove += 1.5 * scale;  
-        break;
-      case ('s'):
-        yMove -=1.5 * scale;
+        if(! control.inputs[1]){
+          control.activate(key);
+          player.jump(8);
+        }
         break;
       case ('a'):
-        xMove -= 1.5 * scale ;
+        control.activate(key);
         break;
       case ('d'):
-        xMove += 1.5 * scale ;
+        control.activate(key);
         break;
       case('0'):
         player.hbSlot = 9;
@@ -123,4 +123,8 @@
          //figure it out later
       }
     }
+  }
+  
+  void keyReleased(){
+    control.deactivate(key);
   }

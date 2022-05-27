@@ -13,7 +13,6 @@ class Player{
   Item equipped;
   int xVel;
   int hbSlot;
-  float xVel;
   float yVel;
   float grav;
 
@@ -28,23 +27,16 @@ class Player{
     healthBar = loadImage("heart.png");
     healthBar.resize(50,50);
     hungerBar = loadImage("hunger.png");
-<<<<<<< HEAD
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
-    ycor = 0;
-    pwidth = scale;
+    ycor = height/2;
+    pwidth = scale * 0.75;
     pheight = scale*2;
     xVel = scale / 5;
     yVel = 0;
-    grav = 0.5;
+    grav = 1.0;
 
     hungerBar.resize(50,50);
-    xcor = (width - scale*10)/2; // PLAYER SPAWNS IN MIDDLE OF SCREEN
-    ycor = (height - scale* 20)/2;
-    pwidth = 100*scale;
-    pheight = 100*scale*2;
-    
-
     //CREATE TOOLS AND ADD TO HOTBAR
     hbSlot = 0;
     Sword sw = new Sword();
@@ -139,20 +131,55 @@ class Player{
   void takeDamage(int amt){
   }
   
-
-  void move(){}
   
   void gravity(){
-    ycor += yVel;
-    yVel += grav;
-    yMove += yVel;
-  }
-  void move(int direction, int velocity){
+    int feet = (int)(ycor+ pheight);
+    Block mayFloor = world[feet/scale][xcor/scale];
+    Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
-
+    if (mayFloor == null && mayFloor2 == null){
+      ycor += yVel;
+      yMove -= yVel;
+      yVel += grav;
+      if (yVel > scale){yVel = scale;}
+    }
+    else{
+      yVel = 0;
+      ycor = ((int)(ycor)/scale) * scale;
+       yMove = -(ycor - height/2);
+    }
+  }
+  
+  int move(int direction){
+    xcor += xVel * direction;
+    if (direction < 0){
+     Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
+     Block leftTop = world[(int)(ycor/scale)][xcor/scale];
+     if (leftBottom != null || leftTop != null && xcor <= 1){
+      xcor = (xcor / scale) * scale + scale + 1;
+      return 0;
+     }
+    }
+    if (direction > 0){
+     Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
+     Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
+     if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
+      xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
+      //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
+     // System.out.println("Reached");
+      return 0;
+     }
+    }
+    
+    return xVel * direction;
   }
   
   void jump(int velocity){
+    if( yVel == 0){
+      yVel -= velocity;
+      ycor += yVel;
+      yMove +=velocity;
+    }
   }
   
   void eat(Food food){
@@ -170,19 +197,11 @@ class Player{
   
   void display(){
 
-    image(image, width/2, height/2);
-    image(hotBarDisplay,width/3,height-200); 
-    for (int i = 1; i < 10; i++){
-      image(healthBar, 60*i, 100);
-    }
-    for (int i = 1; i < 10; i++){
-      image(hungerBar, 60*i, 200);
-
-    fill(238,245,148);
+     fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
+    image(image,width/2,height/2);
     noFill();
-    image(image,xcor,ycor);
     image(hotBarDisplay,(width-800)/2,height-200);
     for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
@@ -199,7 +218,6 @@ class Player{
     }
     for (int i = 1; i < 10; i++){
       image(hungerBar, 40* i, 120);
-
     }
   }
 }
