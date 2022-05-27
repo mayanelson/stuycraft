@@ -1,4 +1,4 @@
-class GrassItem extends BlockItem{
+/*class GrassItem extends BlockItem{
 PImage image;
   GrassItem(String pic){
     image = loadImage("Grass0.png");
@@ -10,3 +10,4 @@ PImage image;
     image.resize(10,10);
   }
 }
+*/
