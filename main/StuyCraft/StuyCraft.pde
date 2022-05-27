@@ -1,5 +1,6 @@
    float xMove, yMove;
    Player player;
+   Movement control;
   
   void setup(){
     background(255);
@@ -25,6 +26,7 @@
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
     grass2.resize(scale, scale);
+    control = new Movement();
   }
   
   void draw(){
@@ -39,19 +41,28 @@
     }
     popMatrix();
     player.gravity();
+    if (control.inputs[0]){
+      xMove -= player.move(-1); 
+    }
+    if (control.inputs[2]){
+      xMove -= player.move(1); 
+    }   
     player.display();
   }
   
   void keyPressed(){
     switch (key){
       case ('w'):
-        player.jump(15);
+        if(! control.inputs[1]){
+          control.activate(key);
+          player.jump(13);
+        }
         break;
       case ('a'):
-        xMove -= player.move(-1); ;
+        control.activate(key);
         break;
       case ('d'):
-        xMove -= player.move(1) ;
+        control.activate(key);
         break;
       case('0'):
         player.hbSlot = 9;
@@ -103,4 +114,8 @@
         }
      }
     }
+  }
+  
+  void keyReleased(){
+    control.deactivate(key);
   }
