@@ -131,9 +131,7 @@
           Mob m = mobs.get(i);
           if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
             //print("hit");
-            int dmg = (int) random(5);
-            fill(247,5,5);
-            text(dmg + " HP",m.xcor,m.ycor-m.mheight - scale);
+            int dmg = (int) random(4)+1;
             m.takeDamage(dmg);
             if (m.health <= 0){
               m.die();

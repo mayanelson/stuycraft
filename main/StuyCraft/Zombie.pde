@@ -17,6 +17,9 @@ class Zombie extends Mob{
   
   void display(){
     image(image,xcor,ycor);
+    for (int  i = 0; i < health; i++){
+      image(healthBar,xcor + (i*scale)/5 - (scale/2),ycor-(scale/4));
+    }
   }
   
 }
