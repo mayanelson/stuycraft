@@ -132,6 +132,7 @@ class Player{
   
   void gravity(){
     int feet = (int)(ycor+ pheight);
+    if (feet/scale > 1 && feet/scale < 249 && (xcor+pwidth)/scale > 1 && (xcor+pwidth)/scale < 499){
     Block mayFloor = world[feet/scale][xcor/scale];
     Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
@@ -147,9 +148,12 @@ class Player{
        yMove = -(ycor - height/2);
     }
   }
+  }
   
   int move(int direction){
-    xcor += xVel * direction;
+    
+    if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 499 && xcor/scale > 1){
+      xcor += xVel * direction;
     if (direction < 0){
      Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
@@ -168,9 +172,10 @@ class Player{
       return 0;
      }
     }
-    
+    }
     return xVel * direction;
   }
+  
   
   void jump(int velocity){
     if( yVel == 0){

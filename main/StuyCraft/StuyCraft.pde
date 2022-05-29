@@ -51,6 +51,7 @@
     }
     }
     background(255);
+    player.display();
     //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
     translate(xMove, yMove);
@@ -61,9 +62,26 @@
     }
     for (int i = 0; i < mobs.size(); i++){
       if (mobs.get(i) != null){
-      mobs.get(i).display();
+        
+        int rand = (int)random(1000);
+        if (rand == 1){
+          int steps = (int)random(10);
+          for (int k = 0; k < steps; k++){
+            mobs.get(i).move(1);
+            mobs.get(i).display();
+          }
+        }
+      if (rand == 2){
+          int steps = (int)random(10);
+          for (int j = 0; j < steps; j++){
+            mobs.get(i).move(-1);
+            mobs.get(i).display();
+          }
+        }
+        mobs.get(i).display();
       }
     }
+    
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -73,6 +91,15 @@
       xMove -= player.move(1); 
     }   
     player.display();
+    if (player.hotbar[player.hbSlot] != null){
+      pushMatrix();
+      translate(xMove, yMove);
+      PImage img = player.hotbar[player.hbSlot].image;
+      scale(-1,1);
+      //DOESNT WORK WITH SCALE
+      image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+      popMatrix();
+    }
   }
   
   void keyPressed(){

@@ -13,6 +13,7 @@ class Zombie extends Mob{
     zcount--;
   }
   void attack(Player p){
+    
   }
   
   void display(){
