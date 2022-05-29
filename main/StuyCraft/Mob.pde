@@ -36,19 +36,37 @@ class Mob{
      Block leftBottom = world[(int)(ycor/scale) + 1][(int)xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][(int)xcor/scale];
      if (leftBottom != null || leftTop != null && xcor <= 1){
-      xcor = (xcor / scale) * scale + scale + 0.001;
+      xcor +=  1;
      }
     }
     if (direction > 0){
      Block rightBottom = world[(int)(ycor/scale) + 1][(int)(xcor + int(mwidth))/scale];
      Block rightTop = world[(int)(ycor/scale)][(int)(xcor + (int)(mwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(mwidth)) >= worldWidth - 1){
-      xcor = (xcor)/ scale * scale + scale - (int)(mwidth) - 0.001;
+      xcor -= 1;
       //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
      // System.out.println("Reached");
      }
     }
     }
+  }
+  
+    void gravity(){
+    int feet = (int)(ycor+ mheight);
+    if (feet/scale > 1 && feet/scale < 249 && (xcor+mwidth)/scale > 1 && (xcor+mwidth)/scale < 499){
+    Block mayFloor = world[feet/scale][(int)xcor/scale];
+    Block mayFloor2 = world[feet/scale][(int)(xcor + mwidth)/scale];
+    
+    if (mayFloor == null && mayFloor2 == null){
+      ycor += yVel;
+      yVel += 1;
+      if (yVel > scale){yVel = scale;}
+    }
+    else{
+      yVel = 0;
+      ycor = ((int)(ycor)/scale) * scale;
+    }
+  }
   }
   void die(){
     

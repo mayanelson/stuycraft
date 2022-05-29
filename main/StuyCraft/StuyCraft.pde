@@ -63,11 +63,12 @@
     for (int i = 0; i < mobs.size(); i++){
       if (mobs.get(i) != null){
         
-        int rand = (int)random(1000);
+        int rand = (int)random(100);
         if (rand == 1){
           int steps = (int)random(10);
           for (int k = 0; k < steps; k++){
             mobs.get(i).move(1);
+            mobs.get(i).gravity();
             mobs.get(i).display();
           }
         }
@@ -75,6 +76,7 @@
           int steps = (int)random(10);
           for (int j = 0; j < steps; j++){
             mobs.get(i).move(-1);
+            mobs.get(i).gravity();
             mobs.get(i).display();
           }
         }
