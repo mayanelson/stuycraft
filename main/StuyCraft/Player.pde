@@ -155,7 +155,7 @@ class Player{
     if (direction < 0){
      Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
-     if (leftBottom != null || leftTop != null && xcor <= 1){
+     if (leftBottom != null || leftTop != null || xcor <= 1){
       xcor = (xcor / scale) * scale + scale + 1;
       xMove = xcor - width/2;
       return 0;
