@@ -4,7 +4,7 @@ class Zombie extends Mob{
     super(x,y);
     type = "Zombie";
     image = loadImage("Zombie0.png");
-    image.resize(scale,scale*2);
+    image.resize((int)(scale*1.2),(int)(scale*2));
   }
   
   void move(){
@@ -14,7 +14,6 @@ class Zombie extends Mob{
   }
   
   void display(){
-    print(ycor + "  " );
     image(image,xcor,ycor);
   }
   

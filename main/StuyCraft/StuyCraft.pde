@@ -3,6 +3,8 @@
    Movement control;
    int tick;
    ArrayList<Mob> mobs;
+   int zcount;
+   int ccount;
   
   void setup(){
     tick = 0;
@@ -34,17 +36,19 @@
   }
   
   void draw(){
+   //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     tick++;
     if (tick%6000 == 0){
       player.hungerDrain();
     }
-    if (tick%1 == 0){
-      int x = (int) random(world.length);
-      int y = (int) random(world[0].length-2);   
-      if (world[x][y] != null){
-        spawnMob(x,y);
-        
+    if (tick%10 == 0){
+      for (int i = 0; i < 100; i++){
+      int x = (int) random(world.length-2)+2;
+      int y = (int) random(world[0].length-1)+1;  
+      if (world[x][y] != null && x < 249 && y < 499){
+        spawnMob(x,y);    
       }
+    }
     }
     background(255);
     //translate(-1  * xMove, -1 * yMove);
@@ -55,6 +59,9 @@
        if (spot != null){ spot.display(); }
      }
     }
+    for (int i = 0; i < mobs.size(); i++){
+      mobs.get(i).display();
+    }
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -64,9 +71,6 @@
       xMove -= player.move(1); 
     }   
     player.display();
-    for (int i = 0; i < mobs.size(); i++){
-      mobs.get(i).display();
-    }
   }
   
   void keyPressed(){
@@ -152,15 +156,18 @@
   }
   
   void spawnMob(int x, int y){
-    if (world[x][y+1] == null && world[x][y+1] == null ){
+    if (world[x-1][y] == null && world[x-2][y] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
       Block b = world[x][y];
-    if (b.type.equals("Grass")){
-      Cow c = new Cow(b.xcor,b.ycor+1);
+      if (b.type.equals("Grass") && ccount < 20){
+     // print("cow!");
+      Cow c = new Cow(b.xcor,(b.ycor-(int)(scale*1.5)));
       mobs.add(c);
+      ccount += 1;
     }
-    if (b.type.equals("Stone")){
-      Zombie z = new Zombie(b.xcor,b.ycor+1);
+    if (b.type.equals("Stone") && zcount < 100){
+      Zombie z = new Zombie(b.xcor,(b.ycor-(int)(scale*2)));
       mobs.add(z);
+      zcount++;
     }
     }
   }

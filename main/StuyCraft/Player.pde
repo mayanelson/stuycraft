@@ -7,7 +7,7 @@ class Player{
   PImage healthBar;
   PImage hungerBar;
   int xcor;
-  float ycor;
+  int ycor;
   float pwidth;
   float pheight;
   Item equipped;
