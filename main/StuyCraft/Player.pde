@@ -200,7 +200,6 @@ class Player{
   }
   
   void display(){
-
      fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);

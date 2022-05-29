@@ -2,9 +2,11 @@
    Player player;
    Movement control;
    int tick;
+   ArrayList<Mob> mobs;
   
   void setup(){
     tick = 0;
+    mobs = new ArrayList<Mob>();
     background(255);
     size(1500, 1000);
     worldGenerate();
@@ -36,6 +38,14 @@
     if (tick%6000 == 0){
       player.hungerDrain();
     }
+    if (tick%1 == 0){
+      int x = (int) random(world.length);
+      int y = (int) random(world[0].length-2);   
+      if (world[x][y] != null){
+        spawnMob(x,y);
+        
+      }
+    }
     background(255);
     //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
@@ -54,6 +64,9 @@
       xMove -= player.move(1); 
     }   
     player.display();
+    for (int i = 0; i < mobs.size(); i++){
+      mobs.get(i).display();
+    }
   }
   
   void keyPressed(){
@@ -138,3 +151,16 @@
     control.deactivate(key);
   }
   
+  void spawnMob(int x, int y){
+    if (world[x][y+1] == null && world[x][y+1] == null ){
+      Block b = world[x][y];
+    if (b.type.equals("Grass")){
+      Cow c = new Cow(b.xcor,b.ycor+1);
+      mobs.add(c);
+    }
+    if (b.type.equals("Stone")){
+      Zombie z = new Zombie(b.xcor,b.ycor+1);
+      mobs.add(z);
+    }
+    }
+  }
