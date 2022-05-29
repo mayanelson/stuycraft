@@ -45,7 +45,7 @@
       for (int i = 0; i < 100; i++){
       int x = (int) random(world.length-2)+2;
       int y = (int) random(world[0].length-1)+1;  
-      if (world[x][y] != null && x < 249 && y < 499){
+      if (world[x][y] != null && x < 248 && y < 499){
         spawnMob(x,y);    
       }
     }
@@ -60,7 +60,9 @@
      }
     }
     for (int i = 0; i < mobs.size(); i++){
+      if (mobs.get(i) != null){
       mobs.get(i).display();
+      }
     }
     popMatrix();
     player.gravity();
@@ -124,6 +126,23 @@
     float newMouseX = (mouseX - width/2) + player.xcor;
     float newMouseY = (mouseY - height/2) + player.ycor;
     if (mouseButton == LEFT){
+      if (player.hbSlot == 0){
+        for (int i = 0; i < mobs.size(); i++){
+          Mob m = mobs.get(i);
+          if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
+            //print("hit");
+            int dmg = (int) random(5);
+            fill(247,5,5);
+            text(dmg + " HP",m.xcor,m.ycor-m.mheight - scale);
+            m.takeDamage(dmg);
+            if (m.health <= 0){
+              m.die();
+              mobs.remove(i);
+            }
+          }
+        }
+      }
+      else {
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
@@ -141,6 +160,7 @@
          
         }
      }
+    }
     }
     }
     else if (mouseButton == RIGHT){

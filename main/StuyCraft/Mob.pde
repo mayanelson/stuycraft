@@ -5,24 +5,29 @@ class Mob{
   boolean isMouseHover;
   int xcor;
   int ycor;
-  float width;
-  float height;
-  float xVel;
-  float yVel;
+  float mwidth;
+  float mheight;
+  int xVel;
+  int yVel;
   String type;
   
   Mob(int x, int y){
+    health = 10;
     xcor = x;
     ycor = y;
-    width = scale;
-    height = scale*2;
     xVel = scale / 5;
     yVel = 0;
   }
+  
   void takeDamage(int amt){
+    health -= amt;
+    if (health <= 0){
+      die();
+    }
   }
   
   void die(){
+    
   }
   void collision(){
   }

@@ -13,7 +13,7 @@ class Player{
   Item equipped;
   int xVel;
   int hbSlot;
-  float yVel;
+  int yVel;
   float grav;
 
   public Player(){
@@ -125,8 +125,6 @@ class Player{
     
   }
   
-  void attack(Mob attacked){
-  }
   
   void takeDamage(int amt){
   }
