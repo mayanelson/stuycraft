@@ -11,7 +11,8 @@ class Cow extends Mob{
   }
   
   void die() {
-    //Beef b = new Beef();
+    Beef b = new Beef();
+    player.addToHotbar(b);
     ccount--;
   }
   void display(){

@@ -54,6 +54,36 @@ class Player{
     
   }
   void addToHotbar(Item item){
+    Item b;
+    if (item.type == "Beef"){
+      b = new Item("Steak0.png");
+    }
+    else {
+      b = new Item("Apple0.png");
+    }
+    boolean placed = false;
+    for (int i = 4; i < hotbar.length; i++){
+      if (hotbar[i] == null){
+        b.stack++;
+        hotbar[i] = b;  
+        placed = true;
+        i = 11;
+      }    
+      else if (hotbar[i].type.equals(b.type) && hotbar[i].stack < 64) {
+        hotbar[i].stack ++;
+        placed = true;
+        i = 11;
+      }
+      else if (hotbar[i].stack > 64 && i < 9){
+        b.stack++;
+        hotbar[i+1] = b;
+        placed = true;
+        i = 11;
+    }
+    }
+    if (!placed){
+      print("Inventory full!");
+    }
   }
   
   void removeHotbar(Item item){
@@ -185,7 +215,19 @@ class Player{
     }
   }
   
-  void eat(Food food){
+  void eat(Item food){
+    int  i = 0;
+    int hp;
+    if (food.type == "Steak0.png"){
+      hp = 4;
+    }
+    else {
+      hp = 2;
+    }
+    while (i < hp && hunger <10){
+      hunger++;
+      i++;
+    }
   }
   
   void die(){

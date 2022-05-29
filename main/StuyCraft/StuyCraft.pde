@@ -38,7 +38,7 @@
   void draw(){
    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     tick++;
-    if (tick%6000 == 0){
+    if (tick%1800 == 0){
       player.hungerDrain();
     }
     if (tick%10 == 0){
@@ -189,10 +189,21 @@
     }
     }
     else if (mouseButton == RIGHT){
-       if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
+      if (player.hotbar[player.hbSlot] != null){
+      if (player.hotbar[player.hbSlot].type.equals("Steak0.png") || player.hotbar[player.hbSlot].type.equals("Apple0.png")){
+        if (player.hunger < 10){
+        player.eat(player.hotbar[player.hbSlot]);
+        player.hotbar[player.hbSlot].stack--;
+        if (player.hotbar[player.hbSlot].stack == 0){
+          player.hotbar[player.hbSlot] = null;
+        }
+        }
+      }
+       else if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
          player.place((int)newMouseX/scale,(int)newMouseY/scale);
          //figure it out later
       }
+    }
     }
   }
   
