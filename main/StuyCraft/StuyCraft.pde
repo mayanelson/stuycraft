@@ -54,6 +54,8 @@
       xMove -= player.move(1); 
     }   
     player.display();
+    System.out.println(player.xcor +", " + player.ycor + " & " + xMove +", " + yMove);
+    System.out.println("\t" + (player.xcor + xMove) + ", " +(player.ycor + yMove));
   }
   
   void keyPressed(){

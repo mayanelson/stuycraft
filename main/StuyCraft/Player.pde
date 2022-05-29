@@ -157,6 +157,7 @@ class Player{
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
      if (leftBottom != null || leftTop != null && xcor <= 1){
       xcor = (xcor / scale) * scale + scale + 1;
+      xMove = xcor - width/2;
       return 0;
      }
     }
@@ -167,6 +168,7 @@ class Player{
       xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
       //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
      // System.out.println("Reached");
+      xMove = xcor -width/2;
       return 0;
      }
     }
@@ -178,7 +180,11 @@ class Player{
     if( yVel == 0){
       yVel -= velocity;
       ycor += yVel;
-      yMove +=velocity;
+      if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + pwidth)/scale] != null){
+        yVel = 0; 
+        ycor = (int)(ycor)/scale * scale + scale + 1;
+      }
+      yMove = -(ycor - height/2);
     }
   }
   
