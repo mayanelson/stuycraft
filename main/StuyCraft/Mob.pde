@@ -11,8 +11,10 @@ class Mob{
   int yVel;
   String type;
   PImage healthBar;
+  int motion;
   
   Mob(int x, int y){
+    motion = 0;
     health = 10;
     xcor = x;
     ycor = y;
@@ -36,14 +38,14 @@ class Mob{
      Block leftBottom = world[(int)(ycor/scale) + 1][(int)xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][(int)xcor/scale];
      if (leftBottom != null || leftTop != null && xcor <= 1){
-      xcor +=  0.001;
+      xcor +=  1;
      }
     }
     if (direction > 0){
      Block rightBottom = world[(int)(ycor/scale) + 1][(int)(xcor + int(mwidth))/scale];
      Block rightTop = world[(int)(ycor/scale)][(int)(xcor + (int)(mwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(mwidth)) >= worldWidth - 1){
-      xcor -= 0.001;
+      xcor -= 1;
       //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
      // System.out.println("Reached");
      }
@@ -64,7 +66,7 @@ class Mob{
     }
     else{
       yVel = 0;
-      ycor = ((int)(ycor)/scale) * scale;
+      //ycor = ((int)(ycor)/scale) * scale;
     }
   }
   }

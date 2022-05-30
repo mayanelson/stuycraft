@@ -50,6 +50,34 @@
       }
     }
     }
+    if (tick%3 == 0){
+      for (int i = 0; i < mobs.size(); i++){
+        int rand = (int)random(10);
+        int rand2 = (int)random(40);
+        if (mobs.get(i) != null){    
+          if (mobs.get(i).motion == 1){
+            mobs.get(i).move(1);
+            if (rand == 1){
+              mobs.get(i).motion = 0;
+            }
+          }
+          else if (mobs.get(i).motion == 2){
+            mobs.get(i).move(-1);
+            if (rand == 1){
+              mobs.get(i).motion = 0;
+            }
+          }
+          else{       
+          if (rand2 == 1){
+            mobs.get(i).motion = 1;
+          }
+          if (rand2 == 2){
+            mobs.get(i).motion = 2;
+          }
+        }
+        }
+      }
+    }
     background(255);
     player.display();
     //translate(-1  * xMove, -1 * yMove);
