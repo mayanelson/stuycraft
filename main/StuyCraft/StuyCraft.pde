@@ -63,7 +63,7 @@
       case ('w'):
         if(! control.inputs[1]){
           control.activate(key);
-          player.jump(8);
+          player.jump(10);
         }
         break;
       case ('a'):
