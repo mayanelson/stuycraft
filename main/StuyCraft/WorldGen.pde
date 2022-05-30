@@ -59,6 +59,19 @@
     counter += blockCount;
    }
    mappish.add(new Cave(0, world[0].length * scale, (startingLevel + 4) * scale, world.length * scale));
+ 
+ //Adding the trees
+   for (Biome area: mappish){
+    if (area.name.equals("Plains")){
+      for (int i = area.leftX; i < area.rightX; i+= scale){
+        double rando = Math.random();
+        if (rando <= area.treeSpawn){
+          int ranHeight = (int)(Math.random() * 10) + 5;
+          Tree addition = new Tree(ranHeight, i/scale);
+        }
+      }
+    }
+   }
  }
  void worldRevise(){
  } 
