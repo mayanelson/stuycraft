@@ -101,10 +101,10 @@ class Player{
         b = new Item("Stone0.png");
     }
     else if (toBreak.type.equals("Wood")) {
-        b = new Item("Sand0.png");
+        b = new Item("Wood0.png");
     }
     else {
-        b = new Item("Apple.png");
+        b = new Item("Apple0.png");
     }
     //BlockItem b = toBreak.drop;
     boolean placed = false;

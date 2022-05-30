@@ -66,7 +66,7 @@
       for (int i = area.leftX; i < area.rightX; i+= scale){
         double rando = Math.random();
         if (rando <= area.treeSpawn){
-          int ranHeight = (int)(Math.random() * 10) + 5;
+          int ranHeight = (int)(Math.random() * 3) + 4;
           Tree addition = new Tree(ranHeight, i/scale);
         }
       }

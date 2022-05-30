@@ -93,10 +93,6 @@
       xMove -= player.move(1); 
     }   
     player.display();
-<<<<<<< HEAD
-    System.out.println(player.xcor +", " + player.ycor + " & " + xMove +", " + yMove);
-    System.out.println("\t" + (player.xcor + xMove) + ", " +(player.ycor + yMove));
-=======
     if (player.hotbar[player.hbSlot] != null){
       pushMatrix();
       translate(xMove, yMove);
@@ -106,7 +102,6 @@
       image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
       popMatrix();
     }
->>>>>>> main
   }
   
   void keyPressed(){
