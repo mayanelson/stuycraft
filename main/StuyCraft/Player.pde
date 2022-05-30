@@ -192,7 +192,7 @@ class Player{
   }
   }
   
-  int move(int direction){
+  void move(int direction){
     
     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 499 && xcor/scale > 1){
       xcor += xVel * direction;
@@ -202,8 +202,7 @@ class Player{
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
      if (leftBottom != null || leftTop != null || xcor <= 1){
       xcor = (xcor / scale) * scale + scale + 1;
-      xMove = xcor - width/2;
-      return 0;
+      xMove =-( xcor -width/2); 
      }
     }
     if (direction > 0){
@@ -212,14 +211,13 @@ class Player{
      Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
       xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
+      xMove = -(xcor -width/2); 
       //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
      // System.out.println("Reached");
-      xMove = xcor -width/2; 
-      return 0;
      }
     }
     }
-    return xVel * direction;
+      xMove =-( xcor -width/2); 
   }
   
   

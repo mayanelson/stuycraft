@@ -113,28 +113,30 @@
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
-      xMove -= player.move(-1); 
+      player.move(-1); 
     }
     if (control.inputs[2]){
-      xMove -= player.move(1); 
+      player.move(1); 
     }   
     player.display();
     if (!player.dead){
-    if (player.hotbar[player.hbSlot] != null){
-      pushMatrix();
-      translate(xMove, yMove);
-      PImage img = player.hotbar[player.hbSlot].image;
-      if (player.direct){
-      scale(-1,1);
-      //DOESNT WORK WITH SCALE
-      image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+      if (player.hotbar[player.hbSlot] != null){
+        pushMatrix();
+        translate(xMove, yMove);
+        PImage img = player.hotbar[player.hbSlot].image;
+        if (player.direct){
+        scale(-1,1);
+        //DOESNT WORK WITH SCALE
+        image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+        }
+        else {
+          image(img, player.xcor - scale/5,player.ycor+scale*0.9);
+        }
+        popMatrix();
       }
-      else {
-        image(img, player.xcor - scale/5,player.ycor+scale*0.9);
-      }
-      popMatrix();
     }
-    }
+    System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
+    System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
   }
   
   void keyPressed(){
