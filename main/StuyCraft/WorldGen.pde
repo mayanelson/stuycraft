@@ -27,7 +27,7 @@
     for (int i = 0; i < size; i++){
       int xcor =  (counter0 + i) * scale;
       for (int j = startingLevel + 3; j < world.length; j++){
-        System.out.println(i + ", " + j);
+        //System.out.println(i + ", " + j);
         int ycor =  j* scale;
        // System.out.println("\t" + xcor + ", " + ycor);
        // System.out.println("\t\t" + j + ", " + (counter0 + i));
@@ -38,7 +38,7 @@
              if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
         }
         else{
-            float noiseNum = noise(40* xcor/worldWidth,40* ycor/worldHeight, 0);
+            float noiseNum = noise(100*  xcor/worldWidth,100* ycor/worldHeight, 0);
              if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
         }
       }
