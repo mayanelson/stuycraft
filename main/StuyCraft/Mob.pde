@@ -34,7 +34,7 @@ class Mob{
   }
   
   void move(int direction){
-     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 498 && xcor/scale > 1){
+     if ((int)ycor/scale + 1 < world.length && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 1 && xcor/scale > 1){
       //xcor += xVel * direction;
     if (direction < 0){
       direct = false;
@@ -72,7 +72,7 @@ class Mob{
   
     void gravity(){
     int feet = (int)(ycor+ mheight);
-    if (feet/scale > 1 && feet/scale < 249 && (xcor+mwidth)/scale > 1 && (xcor+mwidth)/scale < 499){
+    if (feet/scale > 1 && feet/scale < world.length -1 && (xcor+mwidth)/scale > 1 && (xcor+mwidth)/scale < world[0].length){
     Block mayFloor = world[feet/scale][(int)xcor/scale];
     Block mayFloor2 = world[feet/scale][(int)(xcor + mwidth)/scale];
     
