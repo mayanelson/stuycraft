@@ -4,26 +4,82 @@ class Zombie extends Mob{
     super(x,y);
     type = "Zombie";
     image = loadImage("Zombie0.png");
-    image.resize((int)(scale*1.2),(int)(scale*2));
-    mwidth = 1.2*scale;
+    image.resize((int)(scale*1),(int)(scale*2));
+    mwidth = scale;
     mheight = 2*scale;
   }
   
   void die(){
     zcount--;
   }
-  void attack(Player p){
-    
+  void attack(){
+    int rand = (int)random(10);
+    if (rand == 1){
+    int rand2 = (int)random(3)+1;
+    player.health -= rand2;
+    if (player.health < 0){
+      player.die();
+      
+    }
+    }
   }
-  
+  void move(int direction){
+     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 498 && xcor/scale > 1){
+      //xcor += xVel * direction;
+    if (player.xcor - xcor > 0){
+      direct = false;
+     Block leftBottom = world[(int)(ycor/scale) + 1][(int)xcor/scale];
+     Block leftTop = world[(int)(ycor/scale)][(int)xcor/scale];
+     if (leftBottom != null || leftTop != null || xcor <= 1){
+       if (leftBottom!= null && leftTop == null){
+         jump();
+         xcor += xVel;
+       }
+      //xcor +=  1;
+     }
+     else {
+       xcor += xVel;
+     }
+    }
+    else {
+      direct = true;
+     Block rightBottom = world[(int)(ycor/scale) + 1][(int)(xcor + int(mwidth))/scale];
+     Block rightTop = world[(int)(ycor/scale)][(int)(xcor + (int)(mwidth))/scale];
+     if (rightBottom != null || rightTop != null || (xcor + (int)(mwidth)) >= worldWidth - 1){
+      //xcor -= 1;
+      if (rightBottom != null && rightTop == null){
+        jump();
+        xcor += xVel * -1;
+      }
+     }
+     else {
+       xcor += xVel * -1;
+     }
+    }
+    //xcor += xVel * direction;
+    }
+    if (Math.abs(player.xcor - xcor)/scale*10 < 10 && Math.abs(player.ycor - ycor)/scale*10 < 5){
+      attack();
+    }
+  }
+  void jump(){
+    if( yVel == 0){
+      yVel -= 100;
+      ycor += yVel;
+      if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
+        yVel = 0; 
+        ycor = (int)(ycor)/scale * scale + scale + 1;
+      }
+    }
+  }
   void display(){
-    if (direct){
+    if (!direct){
       image(image,xcor,ycor);
     }
     else {
       pushMatrix();
       scale(-1,1);
-      image(image,-xcor - mwidth,ycor);
+      image(image,-xcor-mwidth,ycor);
       popMatrix();
     }
     for (int  i = 0; i < health; i++){

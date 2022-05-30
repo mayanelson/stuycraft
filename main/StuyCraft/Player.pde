@@ -16,9 +16,11 @@ class Player{
   int yVel;
   float grav;
   boolean direct;
-
+  boolean dead;
+  
   public Player(){
     direct = true;
+    dead = false;
     health = 10;
     hunger = 10;
     hotbar = new Item[10];
@@ -249,6 +251,7 @@ class Player{
   }
   
   void die(){
+    dead = true;
   }
   
   void collision(){
@@ -263,6 +266,12 @@ class Player{
   }
   
   void display(){
+    if (dead){
+      fill(255,0,0);
+      rect(0,0,width,height);
+      fill(0);
+      text("lol u died",width/2,height/2);
+    }else{
     if (direct){
     image(image,width/2,height/2);
     }
@@ -292,5 +301,6 @@ class Player{
     for (int i = 1; i < hunger; i++){
       image(hungerBar, 40* i, 120);
     }
+  }
   }
 }

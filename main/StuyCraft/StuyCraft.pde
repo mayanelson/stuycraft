@@ -52,6 +52,9 @@
     }
     if (tick%3 == 0){
       for (int i = 0; i < mobs.size(); i++){
+        if(mobs.get(i).type.equals("Zombie")){
+          mobs.get(i).move(1);
+        }
         int rand = (int)random(10);
         int rand2 = (int)random(40);
         if (mobs.get(i) != null){    
@@ -111,6 +114,7 @@
       xMove -= player.move(1); 
     }   
     player.display();
+    if (!player.dead){
     if (player.hotbar[player.hbSlot] != null){
       pushMatrix();
       translate(xMove, yMove);
@@ -124,6 +128,7 @@
         image(img, player.xcor - scale/5,player.ycor+scale*0.9);
       }
       popMatrix();
+    }
     }
   }
   
