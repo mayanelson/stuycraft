@@ -3,7 +3,7 @@ class Mob{
   Item drop;
   PImage image;
   boolean isMouseHover;
-  float xcor;
+  int xcor;
   float ycor;
   float mwidth;
   float mheight;
@@ -12,8 +12,10 @@ class Mob{
   String type;
   PImage healthBar;
   int motion;
+  boolean direct;
   
   Mob(int x, int y){
+    direct = true;
     motion = 0;
     health = 10;
     xcor = x;
@@ -32,24 +34,39 @@ class Mob{
   }
   
   void move(int direction){
-     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 490 && xcor/scale > 1){
-      xcor += xVel * direction;
+     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 498 && xcor/scale > 1){
+      //xcor += xVel * direction;
     if (direction < 0){
+      direct = false;
      Block leftBottom = world[(int)(ycor/scale) + 1][(int)xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][(int)xcor/scale];
-     if (leftBottom != null || leftTop != null && xcor <= 1){
-      xcor +=  1;
+     if (leftBottom != null || leftTop != null || xcor <= 1){
+       if (leftBottom!= null && leftTop == null){
+         jump();
+         xcor += xVel * direction;
+       }
+      //xcor +=  1;
+     }
+     else {
+       xcor += xVel * direction;
      }
     }
-    if (direction > 0){
+    else if (direction > 0){
+      direct = true;
      Block rightBottom = world[(int)(ycor/scale) + 1][(int)(xcor + int(mwidth))/scale];
      Block rightTop = world[(int)(ycor/scale)][(int)(xcor + (int)(mwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(mwidth)) >= worldWidth - 1){
-      xcor -= 1;
-      //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
-     // System.out.println("Reached");
+      //xcor -= 1;
+      if (rightBottom != null && rightTop == null){
+        jump();
+        xcor += xVel * direction;
+      }
+     }
+     else {
+       xcor += xVel * direction;
      }
     }
+    //xcor += xVel * direction;
     }
   }
   
@@ -75,9 +92,26 @@ class Mob{
   }
   void collision(){
   }
-  
+  void jump(){
+    if( yVel == 0){
+      yVel -= 50;
+      ycor += yVel;
+      if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
+        yVel = 0; 
+        ycor = (int)(ycor)/scale * scale + scale + 1;
+      }
+    }
+  }
   void display(){
-    image(image,xcor,ycor);
+    if (direct){
+      image(image,xcor,ycor);
+    }
+    else {
+      pushMatrix();
+      scale(-1,1);
+      image(image,-xcor - mwidth,ycor);
+      popMatrix();
+    }
     for (int  i = 0; i < health; i++){
       image(healthBar,xcor, ycor);
     }

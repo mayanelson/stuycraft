@@ -279,7 +279,6 @@ class Player{
     image(hotBarDisplay,(width-800)/2,height-200);
     for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
-        //TEMPORARY -- NEED TO FIND WAY TO GET BLOCKITEM IMAGE
         hotbar[i].image.resize(50,50);
         image(hotbar[i].image,i*80*0.99 + (width-760)/2, height-180);
         textSize(20);

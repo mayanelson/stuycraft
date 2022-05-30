@@ -79,6 +79,13 @@
       }
     }
     background(255);
+    if (player.ycor/scale < 105){
+    fill(194,235,240);  
+    }
+    else {
+      fill(190);
+    }
+    rect(0,0,width,height);
     player.display();
     //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
@@ -125,7 +132,7 @@
       case ('w'):
         if(! control.inputs[1]){
           control.activate(key);
-          player.jump(10);
+          player.jump(15);
         }
         break;
       case ('a'):
