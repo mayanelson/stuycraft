@@ -61,28 +61,11 @@
      }
     }
     for (int i = 0; i < mobs.size(); i++){
-      if (mobs.get(i) != null){
-        
-        int rand = (int)random(100);
-        if (rand == 1){
-          int steps = (int)random(10);
-          for (int k = 0; k < steps; k++){
-            mobs.get(i).move(1);
+      if (mobs.get(i) != null){    
             mobs.get(i).gravity();
             mobs.get(i).display();
-          }
-        }
-      if (rand == 2){
-          int steps = (int)random(10);
-          for (int j = 0; j < steps; j++){
-            mobs.get(i).move(-1);
-            mobs.get(i).gravity();
-            mobs.get(i).display();
-          }
-        }
-        mobs.get(i).display();
+          }   
       }
-    }
     
     popMatrix();
     player.gravity();
@@ -97,9 +80,14 @@
       pushMatrix();
       translate(xMove, yMove);
       PImage img = player.hotbar[player.hbSlot].image;
+      if (player.direct){
       scale(-1,1);
       //DOESNT WORK WITH SCALE
       image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+      }
+      else {
+        image(img, player.xcor - scale/5,player.ycor+scale*0.9);
+      }
       popMatrix();
     }
   }
@@ -191,7 +179,7 @@
     }
     }
     else if (mouseButton == RIGHT){
-      if (player.hotbar[player.hbSlot] != null){
+      if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3){
       if (player.hotbar[player.hbSlot].type.equals("Steak0.png") || player.hotbar[player.hbSlot].type.equals("Apple0.png")){
         if (player.hunger < 10){
         player.eat(player.hotbar[player.hbSlot]);

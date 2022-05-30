@@ -4,8 +4,8 @@ class Cow extends Mob{
     super(x,y);
     type = "Cow";
     image = loadImage("Cow0.png");
-    image.resize(scale*2,(int)(scale*1.5));
-    mwidth = scale*2;
+    image.resize((int)(scale*1.8),(int)(scale*1.5));
+    mwidth = scale*1.8;
     mheight = scale*1.5;
     
   }

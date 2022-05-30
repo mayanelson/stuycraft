@@ -15,8 +15,10 @@ class Player{
   int hbSlot;
   int yVel;
   float grav;
+  boolean direct;
 
   public Player(){
+    direct = true;
     health = 10;
     hunger = 10;
     hotbar = new Item[10];
@@ -193,6 +195,7 @@ class Player{
     if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 499 && xcor/scale > 1){
       xcor += xVel * direction;
     if (direction < 0){
+      direct = false;
      Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
      if (leftBottom != null || leftTop != null || xcor <= 1){
@@ -202,13 +205,14 @@ class Player{
      }
     }
     if (direction > 0){
+      direct = true;
      Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
      Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
       xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
       //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
      // System.out.println("Reached");
-      xMove = xcor -width/2;
+      xMove = xcor -width/2; 
       return 0;
      }
     }
@@ -259,10 +263,18 @@ class Player{
   }
   
   void display(){
+    if (direct){
+    image(image,width/2,height/2);
+    }
+    else {
+      pushMatrix();
+      scale(-1,1);
+      image(image,-width/2 - pwidth,height/2);
+      popMatrix();
+    }
      fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
-    image(image,width/2,height/2);
     noFill();
     image(hotBarDisplay,(width-800)/2,height-200);
     for (int i = 0; i < hotbar.length; i++){
