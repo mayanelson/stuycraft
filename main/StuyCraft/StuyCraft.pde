@@ -144,7 +144,7 @@
       case ('w'):
         if(! control.inputs[1]){
           control.activate(key);
-          player.jump(15);
+          player.jump(10);
         }
         break;
       case ('a'):
