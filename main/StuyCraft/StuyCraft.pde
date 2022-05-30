@@ -2,9 +2,13 @@
    Player player;
    Movement control;
    int tick;
+   ArrayList<Mob> mobs;
+   int zcount;
+   int ccount;
   
   void setup(){
     tick = 0;
+    mobs = new ArrayList<Mob>();
     background(255);
     size(1500, 1000);
     worldGenerate();
@@ -32,11 +36,22 @@
   }
   
   void draw(){
+   //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     tick++;
-    if (tick%6000 == 0){
+    if (tick%1800 == 0){
       player.hungerDrain();
     }
+    if (tick%10 == 0){
+      for (int i = 0; i < 100; i++){
+      int x = (int) random(world.length-2)+2;
+      int y = (int) random(world[0].length-1)+1;  
+      if (world[x][y] != null && x < 248 && y < 499){
+        spawnMob(x,y);    
+      }
+    }
+    }
     background(255);
+    player.display();
     //translate(-1  * xMove, -1 * yMove);
     pushMatrix();
     translate(xMove, yMove);
@@ -45,6 +60,30 @@
        if (spot != null){ spot.display(); }
      }
     }
+    for (int i = 0; i < mobs.size(); i++){
+      if (mobs.get(i) != null){
+        
+        int rand = (int)random(100);
+        if (rand == 1){
+          int steps = (int)random(10);
+          for (int k = 0; k < steps; k++){
+            mobs.get(i).move(1);
+            mobs.get(i).gravity();
+            mobs.get(i).display();
+          }
+        }
+      if (rand == 2){
+          int steps = (int)random(10);
+          for (int j = 0; j < steps; j++){
+            mobs.get(i).move(-1);
+            mobs.get(i).gravity();
+            mobs.get(i).display();
+          }
+        }
+        mobs.get(i).display();
+      }
+    }
+    
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -54,8 +93,20 @@
       xMove -= player.move(1); 
     }   
     player.display();
+<<<<<<< HEAD
     System.out.println(player.xcor +", " + player.ycor + " & " + xMove +", " + yMove);
     System.out.println("\t" + (player.xcor + xMove) + ", " +(player.ycor + yMove));
+=======
+    if (player.hotbar[player.hbSlot] != null){
+      pushMatrix();
+      translate(xMove, yMove);
+      PImage img = player.hotbar[player.hbSlot].image;
+      scale(-1,1);
+      //DOESNT WORK WITH SCALE
+      image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+      popMatrix();
+    }
+>>>>>>> main
   }
   
   void keyPressed(){
@@ -109,6 +160,21 @@
     float newMouseX = (mouseX - width/2) + player.xcor;
     float newMouseY = (mouseY - height/2) + player.ycor;
     if (mouseButton == LEFT){
+      if (player.hbSlot == 0){
+        for (int i = 0; i < mobs.size(); i++){
+          Mob m = mobs.get(i);
+          if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
+            //print("hit");
+            int dmg = (int) random(4)+1;
+            m.takeDamage(dmg);
+            if (m.health <= 0){
+              m.die();
+              mobs.remove(i);
+            }
+          }
+        }
+      }
+      else {
     for (int i = 0; i < world.length; i++){
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
@@ -128,11 +194,23 @@
      }
     }
     }
+    }
     else if (mouseButton == RIGHT){
-       if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
+      if (player.hotbar[player.hbSlot] != null){
+      if (player.hotbar[player.hbSlot].type.equals("Steak0.png") || player.hotbar[player.hbSlot].type.equals("Apple0.png")){
+        if (player.hunger < 10){
+        player.eat(player.hotbar[player.hbSlot]);
+        player.hotbar[player.hbSlot].stack--;
+        if (player.hotbar[player.hbSlot].stack == 0){
+          player.hotbar[player.hbSlot] = null;
+        }
+        }
+      }
+       else if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
          player.place((int)newMouseX/scale,(int)newMouseY/scale);
          //figure it out later
       }
+    }
     }
   }
   
@@ -140,3 +218,19 @@
     control.deactivate(key);
   }
   
+  void spawnMob(int x, int y){
+    if (world[x-1][y] == null && world[x-2][y] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
+      Block b = world[x][y];
+      if (b.type.equals("Grass") && ccount < 20){
+     // print("cow!");
+      Cow c = new Cow(b.xcor,(b.ycor-(int)(scale*1.5)));
+      mobs.add(c);
+      ccount += 1;
+    }
+    if (b.type.equals("Stone") && zcount < 100){
+      Zombie z = new Zombie(b.xcor,(b.ycor-(int)(scale*2)));
+      mobs.add(z);
+      zcount++;
+    }
+    }
+  }

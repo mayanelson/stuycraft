@@ -7,13 +7,13 @@ class Player{
   PImage healthBar;
   PImage hungerBar;
   int xcor;
-  float ycor;
+  int ycor;
   float pwidth;
   float pheight;
   Item equipped;
   int xVel;
   int hbSlot;
-  float yVel;
+  int yVel;
   float grav;
 
   public Player(){
@@ -54,6 +54,36 @@ class Player{
     
   }
   void addToHotbar(Item item){
+    Item b;
+    if (item.type == "Beef"){
+      b = new Item("Steak0.png");
+    }
+    else {
+      b = new Item("Apple0.png");
+    }
+    boolean placed = false;
+    for (int i = 4; i < hotbar.length; i++){
+      if (hotbar[i] == null){
+        b.stack++;
+        hotbar[i] = b;  
+        placed = true;
+        i = 11;
+      }    
+      else if (hotbar[i].type.equals(b.type) && hotbar[i].stack < 64) {
+        hotbar[i].stack ++;
+        placed = true;
+        i = 11;
+      }
+      else if (hotbar[i].stack > 64 && i < 9){
+        b.stack++;
+        hotbar[i+1] = b;
+        placed = true;
+        i = 11;
+    }
+    }
+    if (!placed){
+      print("Inventory full!");
+    }
   }
   
   void removeHotbar(Item item){
@@ -125,8 +155,6 @@ class Player{
     
   }
   
-  void attack(Mob attacked){
-  }
   
   void takeDamage(int amt){
   }
@@ -134,6 +162,7 @@ class Player{
   
   void gravity(){
     int feet = (int)(ycor+ pheight);
+    if (feet/scale > 1 && feet/scale < 249 && (xcor+pwidth)/scale > 1 && (xcor+pwidth)/scale < 499){
     Block mayFloor = world[feet/scale][xcor/scale];
     Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
     
@@ -149,9 +178,12 @@ class Player{
        yMove = -(ycor - height/2);
     }
   }
+  }
   
   int move(int direction){
-    xcor += xVel * direction;
+    
+    if ((int)ycor/scale + 1 < 249 && (int)ycor/scale + 1 > 1 && xcor/scale < 499 && xcor/scale > 1){
+      xcor += xVel * direction;
     if (direction < 0){
      Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][xcor/scale];
@@ -172,9 +204,10 @@ class Player{
       return 0;
      }
     }
-    
+    }
     return xVel * direction;
   }
+  
   
   void jump(int velocity){
     if( yVel == 0){
@@ -188,7 +221,19 @@ class Player{
     }
   }
   
-  void eat(Food food){
+  void eat(Item food){
+    int  i = 0;
+    int hp;
+    if (food.type == "Steak0.png"){
+      hp = 4;
+    }
+    else {
+      hp = 2;
+    }
+    while (i < hp && hunger <10){
+      hunger++;
+      i++;
+    }
   }
   
   void die(){
@@ -206,7 +251,6 @@ class Player{
   }
   
   void display(){
-
      fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);

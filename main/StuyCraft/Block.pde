@@ -19,7 +19,7 @@ class Block{
    isAnimate = false;
   }
   
-  void animate(){
+  /*void animate(){
    while (mousePressed == true) {
     PImage g1 = loadImage("Grass1.png");
      g1.resize(scale,scale);
@@ -34,7 +34,7 @@ class Block{
  }
   }
 
-
+*/
 void display(){
   fill(0);
   stroke(255);
