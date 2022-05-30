@@ -48,9 +48,9 @@
     }
     if (tick%10 == 0){
       for (int i = 0; i < 100; i++){
-      int x = (int) random(world.length-2)+2;
-      int y = (int) random(world[0].length-1)+1;  
-      if (world[x][y] != null && x < 248 && y < 499){
+      int y = (int) random(world.length-2)+2;
+      int x = (int) random(world[0].length-1)+1;  
+      if ( x < world[0].length && y < world.length && world[y][x] != null){
         spawnMob(x,y);    
       }
     }
@@ -247,8 +247,8 @@
   }
   
   void spawnMob(int x, int y){
-    if (world[x-1][y] == null && world[x-2][y] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
-      Block b = world[x][y];
+    if (world[y - 1][x] == null && world[y-2][x] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
+      Block b = world[y][x];
       if (b.type.equals("Grass") && ccount < 20){
      // print("cow!");
       Cow c = new Cow(b.xcor,(b.ycor-(int)(scale*1.5)));

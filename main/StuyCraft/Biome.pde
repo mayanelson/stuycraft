@@ -13,6 +13,4 @@ public class Biome{
    lowerY = y2;
    this.name = name;
   }
-  
-  void spawnMob(){}
 }
