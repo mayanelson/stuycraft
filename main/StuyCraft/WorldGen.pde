@@ -1,5 +1,5 @@
   Block[][] world = new Block[250][500];
-  int scale = 10;
+  int scale = 100;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -19,7 +19,7 @@
    int counter0 = 0;
    while (counter0 < world[0].length){
      //System.out.println("Start Counters: " + counter0);
-    int size = (int)(Math.random() * 20) + 10;
+    int size = (int)(Math.random() * 20) + 40;
       //System.out.println("\tSize Before: " + size);
     if (size > world[0].length - counter0){size = world[0].length - counter0;}
       //System.out.println("\tSize After: " + size);
@@ -35,10 +35,10 @@
              float x = (counter0 + i) * 10;
              float y = j * 10;
              float noiseNum = noise(40* x/3000,40* y/2000, 0);
-             if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
+             if (noiseNum > 0.45){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
         }
         else{
-            float noiseNum = noise(100*  xcor/worldWidth,100* ycor/worldHeight, 0);
+            float noiseNum = noise( 2* i * i/ height,2 * j* j/width, 0);
              if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
         }
       }
@@ -93,6 +93,26 @@
       }
     }
    }
+   worldRevise();
+   worldRevise();
  }
  void worldRevise(){
- } 
+  for (int row = startingLevel + 5; row < world.length - 1; row++){
+    for (int col = 1; col < world[row].length - 1; col++){
+      if (world[row][col] != null){
+        int surround = surroundCheck(row, col, world);
+        if (surround < 2){world[row][col] = null;}
+      }
+    }
+  }
+}
+int surroundCheck(int row, int col, Block[][] area){
+ int[][] directions ={{0, -1}, {-1, 0}, { 0, 1}, {1, 0}};
+ int counter = 0;
+ for (int[] oneDir : directions){
+   if (area[row + oneDir[1]][col + oneDir[0]] != null){
+     counter ++;
+   }
+ }
+ return counter;
+}
