@@ -41,7 +41,7 @@ class Mob{
      Block leftBottom = world[(int)(ycor/scale) + 1][(int)xcor/scale];
      Block leftTop = world[(int)(ycor/scale)][(int)xcor/scale];
      if (leftBottom != null || leftTop != null || xcor <= 1){
-       if (leftBottom!= null && leftTop == null){
+       if (leftBottom!= null && leftTop == null && world[(int)(ycor/scale)-1][(int)(xcor/scale)] == null){
          jump();
          xcor += xVel * direction;
        }
@@ -57,7 +57,7 @@ class Mob{
      Block rightTop = world[(int)(ycor/scale)][(int)(xcor + (int)(mwidth))/scale];
      if (rightBottom != null || rightTop != null || (xcor + (int)(mwidth)) >= worldWidth - 1){
       //xcor -= 1;
-      if (rightBottom != null && rightTop == null){
+      if (rightBottom != null && rightTop == null && world[(int)(ycor/scale)-1][(int)(xcor + (int)(mwidth))/scale] == null){
         jump();
         xcor += xVel * direction;
       }

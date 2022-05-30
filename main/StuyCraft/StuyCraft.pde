@@ -41,6 +41,11 @@
     if (tick%1800 == 0){
       player.hungerDrain();
     }
+    if (tick%100 == 0){
+      if (player.hunger > 9 && player.health < 10){
+        player.health++;
+      }
+    }
     if (tick%10 == 0){
       for (int i = 0; i < 100; i++){
       int x = (int) random(world.length-2)+2;
