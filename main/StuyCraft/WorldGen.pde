@@ -63,7 +63,7 @@
  //Adding the trees
    for (Biome area: mappish){
     if (area.name.equals("Plains")){
-      for (int i = area.leftX; i < area.rightX; i+= scale){
+      for (int i = area.leftX; i < area.rightX; i+= scale*2){
         double rando = Math.random();
         if (rando <= area.treeSpawn){
           int ranHeight = (int)(Math.random() * 3) + 4;

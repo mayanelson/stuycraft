@@ -104,8 +104,15 @@ class Player{
         b = new Item("Wood0.png");
     }
     else {
+        double rand = random(10);
+        if (rand < 2){
         b = new Item("Apple0.png");
+        }
+        else {
+          b = null;
+        }
     }
+    if (b != null){
     //BlockItem b = toBreak.drop;
     boolean placed = false;
     for (int i = 4; i < hotbar.length; i++){
@@ -129,6 +136,7 @@ class Player{
     }
     if (!placed){
       print("Inventory full!");
+    }
     }
 
   }
