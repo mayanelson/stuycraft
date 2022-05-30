@@ -83,7 +83,7 @@ class Mob{
     }
     else{
       yVel = 0;
-      //ycor = ((int)(ycor)/scale) * scale;
+      ycor = ((feet/scale) * scale) - mheight;
     }
   }
   }

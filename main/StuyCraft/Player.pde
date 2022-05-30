@@ -180,7 +180,7 @@ class Player{
     
     if (mayFloor == null && mayFloor2 == null){
       ycor += yVel;
-      yMove -= yVel;
+      yMove = -(ycor - height/2);
       yVel += grav;
       if (yVel > scale){yVel = scale;}
     }

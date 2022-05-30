@@ -1,5 +1,5 @@
   Block[][] world = new Block[250][500];
-  int scale = 100;
+  int scale = 10;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -14,15 +14,36 @@
    }
    
    // Creating the underground
-   for (int row = startingLevel + 4; row < world.length; row++){
-    for (int col = 0; col < world[row].length; col++){
-     int xcor =  col * scale;
-     int ycor = row * scale;
-     float x = col * 10;
-     float y = row * 10;
-     float noiseNum = noise(40* x/3000,40* y/2000, 0);
-     if (noiseNum > 0.4){world[row][col] = new Stone(xcor, ycor, scale);}
+
+   
+   int counter0 = 0;
+   while (counter0 < world[0].length){
+     //System.out.println("Start Counters: " + counter0);
+    int size = (int)(Math.random() * 20) + 10;
+      //System.out.println("\tSize Before: " + size);
+    if (size > world[0].length - counter0){size = world[0].length - counter0;}
+      //System.out.println("\tSize After: " + size);
+    int choice = (int)(Math.random() * 100);
+    for (int i = 0; i < size; i++){
+      int xcor =  (counter0 + i) * scale;
+      for (int j = startingLevel + 3; j < world.length; j++){
+        System.out.println(i + ", " + j);
+        int ycor =  j* scale;
+       // System.out.println("\t" + xcor + ", " + ycor);
+       // System.out.println("\t\t" + j + ", " + (counter0 + i));
+        if (choice %2 == 0){
+             float x = (counter0 + i) * 10;
+             float y = j * 10;
+             float noiseNum = noise(40* x/3000,40* y/2000, 0);
+             if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
+        }
+        else{
+            float noiseNum = noise(40* xcor/worldWidth,40* ycor/worldHeight, 0);
+             if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
+        }
+      }
     }
+    counter0 += size;
    }
    
    // Creating Surface w/o biomes
