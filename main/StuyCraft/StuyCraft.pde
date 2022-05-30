@@ -48,9 +48,9 @@
     }
     if (tick%10 == 0){
       for (int i = 0; i < 100; i++){
-      int x = (int) random(world.length-2)+2;
-      int y = (int) random(world[0].length-1)+1;  
-      if (world[x][y] != null && x < 248 && y < 499){
+      int y = (int) random(world.length-2)+2;
+      int x = (int) random(world[0].length-1)+1;  
+      if ( x < world[0].length && y < world.length && world[y][x] != null){
         spawnMob(x,y);    
       }
     }
@@ -113,28 +113,30 @@
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
-      xMove -= player.move(-1); 
+      player.move(-1); 
     }
     if (control.inputs[2]){
-      xMove -= player.move(1); 
+      player.move(1); 
     }   
     player.display();
     if (!player.dead){
-    if (player.hotbar[player.hbSlot] != null){
-      pushMatrix();
-      translate(xMove, yMove);
-      PImage img = player.hotbar[player.hbSlot].image;
-      if (player.direct){
-      scale(-1,1);
-      //DOESNT WORK WITH SCALE
-      image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+      if (player.hotbar[player.hbSlot] != null){
+        pushMatrix();
+        translate(xMove, yMove);
+        PImage img = player.hotbar[player.hbSlot].image;
+        if (player.direct){
+        scale(-1,1);
+        //DOESNT WORK WITH SCALE
+        image(img,-player.xcor-scale*0.9,player.ycor+scale*0.9);
+        }
+        else {
+          image(img, player.xcor - scale/5,player.ycor+scale*0.9);
+        }
+        popMatrix();
       }
-      else {
-        image(img, player.xcor - scale/5,player.ycor+scale*0.9);
-      }
-      popMatrix();
     }
-    }
+    //System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
+   // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
   }
   
   void keyPressed(){
@@ -142,7 +144,7 @@
       case ('w'):
         if(! control.inputs[1]){
           control.activate(key);
-          player.jump(15);
+          player.jump(10);
         }
         break;
       case ('a'):
@@ -247,8 +249,8 @@
   }
   
   void spawnMob(int x, int y){
-    if (world[x-1][y] == null && world[x-2][y] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
-      Block b = world[x][y];
+    if (world[y - 1][x] == null && world[y-2][x] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
+      Block b = world[y][x];
       if (b.type.equals("Grass") && ccount < 20){
      // print("cow!");
       Cow c = new Cow(b.xcor,(b.ycor-(int)(scale*1.5)));
