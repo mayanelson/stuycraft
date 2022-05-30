@@ -1,5 +1,5 @@
   Block[][] world = new Block[250][500];
-  int scale = 100;
+  int scale = 1;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -38,8 +38,11 @@
              if (noiseNum > 0.45){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
         }
         else{
-            float noiseNum = noise( 2* i * i/ height,2 * j* j/width, 0);
-             if (noiseNum > 0.4){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
+            double noiseNum = Math.abs(noise((double)xcor * 20 / worldWidth,(double) ycor * 20/ worldHeight, 0));
+            System.out.println(xcor + ", " + ycor);
+            System.out.println ("\t" + noiseNum);
+             if (noiseNum > 0.15){world[j][counter0 + i] = new Stone(xcor, ycor, scale);}
+             
         }
       }
     }
