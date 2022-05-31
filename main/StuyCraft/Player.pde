@@ -60,7 +60,7 @@ class Player{
     hotbar[3] = s;
     
     inventoryDisplay = loadImage("inventory.png");
-    inventory = new Item[30];
+    inventory = new Item[29];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   void addToHotbar(Item item){
@@ -100,6 +100,7 @@ class Player{
   }
   
   void breakBlock(Block toBreak){
+    if(!open){
     Item b;
     if (toBreak.type.equals("Grass")){
         b = new Item("Grass0.png");
@@ -145,13 +146,38 @@ class Player{
     }
     }
     if (!placed){
-      print("Inventory full!");
+      boolean iplace = false;
+      for (int i = 0; i < inventory.length; i++){
+        if (inventory[i] == null){
+          b.stack++;
+          inventory[i] = b;
+          iplace = true;
+          i = 10000;
+        }
+        else if (inventory[i].type.equals(b.type) && inventory[i].stack < 64){
+          inventory[i].stack++;
+          iplace = true;
+          i = 10000;
+        }
+        else if (inventory[i].stack > 64 && i < 29){
+          b.stack++;
+          inventory[i+1]= b;
+          iplace = true;
+          i = 10000;
+        }
+        
+      }
+      if (!iplace){
+        System.out.println("Inventory full! No more items can be added");
+      }
+    }
     }
     }
 
   }
   
   void place(int x, int y){
+    if (!open){
     if (hbSlot > 3 && hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
       world[y][x] = new Grass(x*scale,y*scale,scale);; 
@@ -169,6 +195,7 @@ class Player{
       if (hotbar[hbSlot].stack == 0){
         hotbar[hbSlot] = null;
       }
+    }
     }
     
   }
@@ -200,7 +227,7 @@ class Player{
   }
   
   void move(int direction){
-    
+    if (!open){
     if ((int)ycor/scale + 1 < world.length && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length && xcor/scale > 1){
       xcor += xVel * direction;
     if (direction < 0){
@@ -225,10 +252,12 @@ class Player{
     }
     }
       xMove =-( xcor -width/2); 
+    }
   }
   
   
   void jump(int velocity){
+    if(!open){
     if( yVel == 0){
       yVel -= velocity;
       ycor += yVel;
@@ -238,9 +267,11 @@ class Player{
       }
       yMove = -(ycor - height/2);
     }
+    }
   }
   
   void eat(Item food){
+    if (!open){
     int  i = 0;
     int hp;
     if (food.type == "Steak0.png"){
@@ -252,6 +283,7 @@ class Player{
     while (i < hp && hunger <10){
       hunger++;
       i++;
+    }
     }
   }
   
@@ -317,6 +349,16 @@ class Player{
   }
     if (open){
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
+      for (int i = 0; i < hotbar.length; i++){
+      if (hotbar[i] != null){
+        hotbar[i].image.resize(50,50);
+        image(hotbar[i].image,i*80*0.945 + (width-730)/2, height-262);
+        textSize(20);
+        fill(0);
+        text("" + hotbar[i].stack,i*80*0.945 + (width-670)/2, height-250);
+      }
+    }
+      
     }
   }
 }

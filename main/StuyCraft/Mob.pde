@@ -34,7 +34,7 @@ class Mob{
   }
   
   void move(int direction){
-     if ((int)ycor/scale + 1 < world.length && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 1 && xcor/scale > 1){
+     if ((int)ycor/scale + 2 < world.length && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 2 && xcor/scale > 1){
       //xcor += xVel * direction;
     if (direction < 0){
       direct = false;

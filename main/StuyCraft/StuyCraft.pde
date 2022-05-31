@@ -119,7 +119,7 @@
       player.move(1); 
     }   
     player.display();
-    if (!player.dead){
+    if (!player.dead && !player.open){
       if (player.hotbar[player.hbSlot] != null){
         pushMatrix();
         translate(xMove, yMove);
@@ -155,6 +155,7 @@
         break;
       case ('e'):
         player.open = !player.open;
+        break;
       case('0'):
         player.hbSlot = 9;
         break;
@@ -211,7 +212,7 @@
      for  (int j = 0; j < world[0].length; j++){
        Block spot = world[i][j];
 
-       if (spot != null && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
+       if (spot != null && !player.open && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
          //NEED TO TEST IF THIS AFFECTS EDGES
          if (spot.uses == player.hbSlot){
            //spot.animate();
@@ -228,7 +229,7 @@
     }
     }
     else if (mouseButton == RIGHT){
-      if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3){
+      if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3 && !player.open){
       if (player.hotbar[player.hbSlot].type.equals("Steak0.png") || player.hotbar[player.hbSlot].type.equals("Apple0.png")){
         if (player.hunger < 10){
         player.eat(player.hotbar[player.hbSlot]);
