@@ -153,6 +153,8 @@
       case ('d'):
         control.activate(key);
         break;
+      case ('e'):
+        player.open = !player.open;
       case('0'):
         player.hbSlot = 9;
         break;

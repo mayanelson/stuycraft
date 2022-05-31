@@ -6,6 +6,8 @@ class Player{
   PImage image;
   PImage healthBar;
   PImage hungerBar;
+  PImage inventoryDisplay;
+  Item[] inventory;
   int xcor;
   int ycor;
   float pwidth;
@@ -17,6 +19,7 @@ class Player{
   float grav;
   boolean direct;
   boolean dead;
+  boolean open;
   
   public Player(){
     direct = true;
@@ -56,6 +59,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
+    inventoryDisplay = loadImage("inventory.png");
+    inventory = new Item[30];
+    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   void addToHotbar(Item item){
     Item b;
@@ -174,7 +180,7 @@ class Player{
   
   void gravity(){
     int feet = (int)(ycor+ pheight);
-    System.out.println("Feet: " + feet);
+    //System.out.println("Feet: " + feet);
     if (feet/scale > 1 && feet/scale < world.length && (xcor+pwidth)/scale > 1 && (xcor+pwidth)/scale < world[0].length){
     Block mayFloor = world[feet/scale][xcor/scale];
     Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
@@ -264,6 +270,11 @@ class Player{
     }
   }
   
+  void openInventory(){
+    open = true;
+    //re
+  }
+  
   void display(){
     if (dead){
       fill(255,0,0);
@@ -280,7 +291,9 @@ class Player{
       image(image,-width/2 - pwidth,height/2);
       popMatrix();
     }
-     fill(238,245,148);
+    
+    if (!open){
+    fill(238,245,148);
     stroke(255);
     rect(hbSlot*80*0.98 + (width-780)/2, height-200,80,80);
     noFill();
@@ -294,6 +307,7 @@ class Player{
         text("" + hotbar[i].stack,i*80*0.99 + (width-700)/2, height-160);
       }
     }
+    }
     for (int i = 1; i < health; i++){
       image(healthBar, 40*i, 60);
     }
@@ -301,5 +315,8 @@ class Player{
       image(hungerBar, 40* i, 120);
     }
   }
+    if (open){
+      image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
+    }
   }
 }
