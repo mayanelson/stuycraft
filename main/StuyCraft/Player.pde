@@ -33,7 +33,7 @@ class Player{
     hungerBar = loadImage("hunger.png");
     hungerBar.resize(100,100);
     xcor = (int)(worldWidth/2);
-    ycor = height/2;
+    ycor = (startingLevel - 30) * scale;
     pwidth = scale * 0.75;
     pheight = scale*2;
     xVel = scale / 5;
