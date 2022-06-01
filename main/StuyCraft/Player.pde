@@ -63,6 +63,7 @@ class Player{
     inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
+  
   void addToHotbar(Item item){
     Item b;
     if (item.type == "Beef"){
@@ -72,6 +73,16 @@ class Player{
       b = new Item("Apple0.png");
     }
     boolean placed = false;
+    for (int i = 0; i < inventory.length; i++){
+      if (inventory[i]!= null){
+      }
+      if (inventory[i] != null && inventory[i].type.equals(b.type) && inventory[i].stack < 64){
+        inventory[i].stack++;
+        placed = true;
+        i = 900000;
+      }
+    }
+    if (!placed){
     for (int i = 4; i < hotbar.length; i++){
       if (hotbar[i] == null){
         b.stack++;
@@ -89,6 +100,7 @@ class Player{
         hotbar[i+1] = b;
         placed = true;
         i = 11;
+    }
     }
     }
     if (!placed){
@@ -126,6 +138,16 @@ class Player{
     if (b != null){
     //BlockItem b = toBreak.drop;
     boolean placed = false;
+    for (int i = 0; i < inventory.length; i++){
+      if (inventory[i]!= null){
+      }
+      if (inventory[i] != null && inventory[i].type.equals(b.type) && inventory[i].stack < 64){
+        inventory[i].stack++;
+        placed = true;
+        i = 900000;
+      }
+    }
+    if (!placed){
     for (int i = 4; i < hotbar.length; i++){
       if (hotbar[i] == null){
         b.stack++;
@@ -143,6 +165,7 @@ class Player{
         hotbar[i+1] = b;
         placed = true;
         i = 11;
+    }
     }
     }
     if (!placed){
