@@ -415,4 +415,16 @@ class Player{
       
     }
   }
+  
+  void mining(float xVal, float yVal){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 3 * scale){
+    int worldX = (int)xVal/scale;
+    int worldY = (int)yVal/scale;
+    Block spot = world[worldY][worldX];
+    if (spot != null && spot.uses == player.hbSlot){
+             player.breakBlock(spot);
+             world[worldY][worldX] = null;
+     }
+    }
+  }
 }

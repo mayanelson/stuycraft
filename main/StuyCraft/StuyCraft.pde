@@ -290,25 +290,8 @@
           }
         }
         else {
-      for (int i = 0; i < world.length; i++){
-       for  (int j = 0; j < world[0].length; j++){
-         Block spot = world[i][j];
-  
-         if (spot != null && !player.open && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
-           //NEED TO TEST IF THIS AFFECTS EDGES
-           if (spot.uses == player.hbSlot){
-             //spot.animate();
-             //spot.display();
-             //RANGE
-             //delay(500);
-             player.breakBlock(spot);
-             world[i][j] = null;
-           }
-           
-          }
-       }
-      }
-      }
+          player.mining(newMouseX, newMouseY);
+        }
       }
       else if (mouseButton == RIGHT){
         if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3 && !player.open){
