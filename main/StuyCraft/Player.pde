@@ -349,6 +349,9 @@ class Player{
   }
     if (open){
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
+      textSize(15);
+      fill(0);
+      text("Left click picks up and places blocks in inventory. Right click to place crafting window.", width-550*1.9, height-450*1.75);
       for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
         hotbar[i].image.resize(50,50);
@@ -356,7 +359,31 @@ class Player{
         textSize(20);
         fill(0);
         text("" + hotbar[i].stack,i*80*0.945 + (width-670)/2, height-250);
-      }
+      }   
+    }
+    for (int i = 0; i < inventory.length; i++){
+        if (inventory[i] != null){
+          inventory[i].image.resize(50,50);
+          if (i < 10){
+            //FIX VALUES LATER
+            image(inventory[i].image, i*80*0.945 + (width-730)/2, height - 500);
+            textSize(20);
+            fill(0);
+            text("" + inventory[i].stack,i*80*0.945 + (width-670)/2, height-488);
+          }
+          else if (i < 20){
+            image(inventory[i].image, (i-10)*80*0.945 + (width-730)/2, height - 370);
+            textSize(20);
+            fill(0);
+            text("" + inventory[i].stack,(i-10)*80*0.945 + (width-670)/2, height-358);
+          }
+          else {
+            image(inventory[i].image, (i-20)*80*0.945 + (width-730)/2, height - 300);
+            textSize(20);
+            fill(0);
+            text("" + inventory[i].stack,(i-20)*80*0.945 + (width-670)/2, height-288);
+          }
+        }
     }
       
     }

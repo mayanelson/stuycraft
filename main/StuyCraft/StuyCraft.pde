@@ -5,8 +5,13 @@
    ArrayList<Mob> mobs;
    int zcount;
    int ccount;
+   boolean held;
+   String heldtype;
+   int heldStack;
+   PImage heldImg;
   
   void setup(){
+    held = false;
     tick = 0;
     mobs = new ArrayList<Mob>();
     background(255);
@@ -193,7 +198,30 @@
     float newMouseX = (mouseX - width/2) + player.xcor;
     float newMouseY = (mouseY - height/2) + player.ycor;
     if (mouseButton == LEFT){
-      if (player.hbSlot == 0){
+      if (player.open){
+        for (int i = 4; i < player.hotbar.length; i++){
+          if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
+            if (!held && player.hotbar[i] != null){
+            heldtype = player.hotbar[i].type;
+            heldStack = player.hotbar[i].stack;
+            player.hotbar[i] = null;
+            held = true;
+            }
+            else if (player.hotbar[i] == null) {
+              Item b = new Item(heldtype);
+              b.stack = heldStack;
+              player.hotbar[i] = b;
+              held = false;
+            }
+          }
+        }
+        for (int i = 0; i < player.inventory.length; i++){
+          if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){ 
+          }
+          //if (inventory[i] != null && newMouseX < 
+        }
+      }
+      else if (player.hbSlot == 0){
         for (int i = 0; i < mobs.size(); i++){
           Mob m = mobs.get(i);
           if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
