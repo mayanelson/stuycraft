@@ -231,7 +231,7 @@ class Player{
   void gravity(){
     int feet = (int)(ycor+ pheight);
     //System.out.println("Feet: " + feet);
-    if (feet/scale > 1 && feet/scale < world.length){
+    if (feet/scale > 1 && feet/scale < world.length - 1){
       Block mayFloor = world[feet/scale][xcor/scale];
       Block mayFloor2 = world[feet/scale][(int)(xcor + pwidth)/scale];
    
@@ -267,11 +267,11 @@ class Player{
           xMove =-( xcor -width/2); 
          }
         }
-        if (direction > 0 && (xcor + pwidth)/scale < world[0].length - 1){
+        if (direction > 0){
           direct = true;
          Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
          Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
-         if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
+         if (rightBottom != null || rightTop != null || ((xcor + (int)(pwidth))/scale == world[0].length - 1)){
           xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
           xMove = -(xcor -width/2); 
           //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
