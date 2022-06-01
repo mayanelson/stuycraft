@@ -59,9 +59,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-    inventoryDisplay = loadImage("inventory.png");
-    inventory = new Item[30];
-    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+   // inventoryDisplay = loadImage("inventory.png");
+   inventory = new Item[30];
+   // inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   
   void addToHotbar(Item item){
