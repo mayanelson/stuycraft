@@ -257,13 +257,12 @@ class Player{
   void move(int direction){
     System.out.println((xcor + pwidth)/scale);
     if (!open){
-      if (xcor/scale < world[0].length && xcor/scale > 1){
         xcor += xVel * direction;
-        if (direction < 0 && xcor > 0){
+        if (direction < 0){
           direct = false;
          Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
          Block leftTop = world[(int)(ycor/scale)][xcor/scale];
-         if (leftBottom != null || leftTop != null || xcor <= 1){
+         if (leftBottom != null || leftTop != null || xcor/scale == 0){
           xcor = (xcor / scale) * scale + scale + 1;
           xMove =-( xcor -width/2); 
          }
@@ -279,7 +278,6 @@ class Player{
          // System.out.println("Reached");
          }
         }
-      }
         xMove =-( xcor -width/2); 
     }
   }
