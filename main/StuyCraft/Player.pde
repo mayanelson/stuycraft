@@ -380,7 +380,7 @@ class Player{
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
       textSize(15);
       fill(0);
-      text("Left click picks up and places blocks in inventory, and places in crafting window.", width-550*1.9, height-450*1.79);
+      text("Left click picks up and places blocks in inventory. Right click to drop single item in crafting window.", width-550*2, height-450*1.79);
       for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
         hotbar[i].image.resize(50,50);
