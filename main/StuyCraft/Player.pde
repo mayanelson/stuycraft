@@ -38,7 +38,7 @@ class Player{
     xcor = (int)(worldWidth/2);
     ycor = height/2;
     pwidth = scale * 0.75;
-    pheight = scale*2;
+    pheight = scale* 2;
     xVel = scale / 5;
     yVel = 0;
     grav = 1.0;
@@ -255,29 +255,30 @@ class Player{
   }
   
   void move(int direction){
+    System.out.println((xcor + pwidth)/scale);
     if (!open){
       if (xcor/scale < world[0].length && xcor/scale > 1){
         xcor += xVel * direction;
-      if (direction < 0){
-        direct = false;
-       Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
-       Block leftTop = world[(int)(ycor/scale)][xcor/scale];
-       if (leftBottom != null || leftTop != null || xcor <= 1){
-        xcor = (xcor / scale) * scale + scale + 1;
-        xMove =-( xcor -width/2); 
-       }
-      }
-      if (direction > 0){
-        direct = true;
-       Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
-       Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
-       if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
-        xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
-        xMove = -(xcor -width/2); 
-        //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
-       // System.out.println("Reached");
-       }
-      }
+        if (direction < 0 && xcor > 0){
+          direct = false;
+         Block leftBottom = world[(int)(ycor/scale) + 1][xcor/scale];
+         Block leftTop = world[(int)(ycor/scale)][xcor/scale];
+         if (leftBottom != null || leftTop != null || xcor <= 1){
+          xcor = (xcor / scale) * scale + scale + 1;
+          xMove =-( xcor -width/2); 
+         }
+        }
+        if (direction > 0 && (xcor + pwidth)/scale < world[0].length - 1){
+          direct = true;
+         Block rightBottom = world[(int)(ycor/scale) + 1][(xcor + int(pwidth))/scale];
+         Block rightTop = world[(int)(ycor/scale)][(xcor + (int)(pwidth))/scale];
+         if (rightBottom != null || rightTop != null || (xcor + (int)(pwidth)) >= worldWidth - 1){
+          xcor = (xcor)/ scale * scale + scale - (int)(pwidth) - 1;
+          xMove = -(xcor -width/2); 
+          //System.out.println("Before: " + (xcor + ", " + (xcor + pwidth)));
+         // System.out.println("Reached");
+         }
+        }
       }
         xMove =-( xcor -width/2); 
     }
