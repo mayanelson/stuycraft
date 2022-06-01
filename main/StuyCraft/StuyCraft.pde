@@ -140,6 +140,11 @@
         popMatrix();
       }
     }
+    if (player.open && held){
+      heldImg = loadImage(heldtype);
+      heldImg.resize(50,50);
+      image(heldImg,mouseX-25,mouseY-25);
+    }
    // System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
    // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
   }
@@ -207,7 +212,7 @@
             player.hotbar[i] = null;
             held = true;
             }
-            else if (player.hotbar[i] == null) {
+            else if (held && player.hotbar[i] == null) {
               Item b = new Item(heldtype);
               b.stack = heldStack;
               player.hotbar[i] = b;
@@ -216,8 +221,56 @@
           }
         }
         for (int i = 0; i < player.inventory.length; i++){
-          if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){ 
+           if (i < 10){
+             if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-548 && mouseY < height-498){ 
+               if (!held && player.inventory[i] != null){
+                 heldtype = player.inventory[i].type;
+                 heldStack = player.inventory[i].stack;
+                 player.inventory[i] = null;
+                 held = true;
+               }
+               else if (held && player.inventory[i] == null){
+                  Item b = new Item(heldtype);
+                  b.stack = heldStack;
+                  player.inventory[i] = b;
+                  held = false;
+               }
+             }
           }
+          else if (i < 20){
+            if (mouseX > (i-10)*80*0.945 + (width-730)/2 && mouseX < (i-10)*80*0.945 + (width-730)/2 + 50 && mouseY > height-456 && mouseY < height-406){ 
+              if (!held && player.inventory[i] != null){
+                 heldtype = player.inventory[i].type;
+                 heldStack = player.inventory[i].stack;
+                 player.inventory[i] = null;
+                 held = true;
+               }
+               else if (held && player.inventory[i] == null){
+                 Item b = new Item(heldtype);
+                  b.stack = heldStack;
+                  player.inventory[i] = b;
+                  held = false;
+               }  
+            }
+          }
+          else {
+            if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
+              if (!held && player.inventory[i] != null){
+                 heldtype = player.inventory[i].type;
+                 heldStack = player.inventory[i].stack;
+                 player.inventory[i] = null;
+                 held = true;
+               }
+               else if (held && player.inventory[i] == null){
+                 Item b = new Item(heldtype);
+                  b.stack = heldStack;
+                  player.inventory[i] = b;
+                  held = false;
+               }
+            }
+          }
+          
+          
           //if (inventory[i] != null && newMouseX < 
         }
       }

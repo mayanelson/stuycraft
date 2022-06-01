@@ -60,7 +60,7 @@ class Player{
     hotbar[3] = s;
     
     inventoryDisplay = loadImage("inventory.png");
-    inventory = new Item[29];
+    inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   void addToHotbar(Item item){
@@ -366,22 +366,22 @@ class Player{
           inventory[i].image.resize(50,50);
           if (i < 10){
             //FIX VALUES LATER
-            image(inventory[i].image, i*80*0.945 + (width-730)/2, height - 500);
+            image(inventory[i].image, i*80*0.945 + (width-730)/2, height - 548);
             textSize(20);
             fill(0);
-            text("" + inventory[i].stack,i*80*0.945 + (width-670)/2, height-488);
+            text("" + inventory[i].stack,i*80*0.945 + (width-670)/2, height-536);
           }
           else if (i < 20){
-            image(inventory[i].image, (i-10)*80*0.945 + (width-730)/2, height - 370);
+            image(inventory[i].image, (i-10)*80*0.945 + (width-730)/2, height - 456);
             textSize(20);
             fill(0);
-            text("" + inventory[i].stack,(i-10)*80*0.945 + (width-670)/2, height-358);
+            text("" + inventory[i].stack,(i-10)*80*0.945 + (width-670)/2, height-444);
           }
           else {
-            image(inventory[i].image, (i-20)*80*0.945 + (width-730)/2, height - 300);
+            image(inventory[i].image, (i-20)*80*0.945 + (width-730)/2, height - 368);
             textSize(20);
             fill(0);
-            text("" + inventory[i].stack,(i-20)*80*0.945 + (width-670)/2, height-288);
+            text("" + inventory[i].stack,(i-20)*80*0.945 + (width-670)/2, height-356);
           }
         }
     }
