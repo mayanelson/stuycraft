@@ -20,6 +20,7 @@ class Player{
   boolean direct;
   boolean dead;
   boolean open;
+  Item[] crafting;
   
   public Player(){
     direct = true;
@@ -27,6 +28,7 @@ class Player{
     health = 10;
     hunger = 10;
     hotbar = new Item[10];
+    crafting = new Item[9];
     image = loadImage("Steve0.png");
     image.resize(scale,scale*2);
     hotBarDisplay = loadImage("hotbar.png");
@@ -59,9 +61,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-   // inventoryDisplay = loadImage("inventory.png");
+    inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
-   // inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   
   void addToHotbar(Item item){
@@ -378,7 +380,7 @@ class Player{
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
       textSize(15);
       fill(0);
-      text("Left click picks up and places blocks in inventory, and places in crafting window.", width-550*1.9, height-450*1.75);
+      text("Left click picks up and places blocks in inventory, and places in crafting window.", width-550*1.9, height-450*1.79);
       for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
         hotbar[i].image.resize(50,50);

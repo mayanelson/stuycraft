@@ -254,8 +254,7 @@
                  }  
               }
             }
-            else {
-              if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
+            else if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
                 if (!held && player.inventory[i] != null){
                    heldtype = player.inventory[i].type;
                    heldStack = player.inventory[i].stack;
@@ -268,11 +267,10 @@
                     player.inventory[i] = b;
                     held = false;
                  }
-              }
             }
-            
-            
-            //if (inventory[i] != null && newMouseX < 
+          }
+          for (int i = 0; i < player.crafting.length; i++){
+          
           }
         }
         else if (player.hbSlot == 0){
