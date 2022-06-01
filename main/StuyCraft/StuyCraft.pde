@@ -144,6 +144,9 @@
       heldImg = loadImage(heldtype);
       heldImg.resize(50,50);
       image(heldImg,mouseX-25,mouseY-25);
+      fill(0);
+      textSize(20);
+      text(heldStack,mouseX+10,mouseY-10);
     }
    // System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
    // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
@@ -205,6 +208,7 @@
     if (newMouseX > 0 && newMouseX < worldWidth && newMouseY > 0 && newMouseY < worldHeight){
       if (mouseButton == LEFT){
         if (player.open){
+          //LOOPS FOR HOTBAR
           for (int i = 4; i < player.hotbar.length; i++){
             if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
               if (!held && player.hotbar[i] != null){
@@ -221,6 +225,7 @@
               }
             }
           }
+          //LOOPS FOR INVENTORY
           for (int i = 0; i < player.inventory.length; i++){
              if (i < 10){
                if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-548 && mouseY < height-498){ 
@@ -269,9 +274,57 @@
                  }
             }
           }
+          //LOOPS FOR CRAFTING
           for (int i = 0; i < player.crafting.length; i++){
-          
+            //fill(0);
+            //rect(i*80*0.94 + (width-493)/2, height-796,50,50);
+              if (i < 3){
+               if (mouseX > i*80*0.95 + (width-493)/2 && mouseX < i*80*0.95 + (width-493)/2 + 50 && mouseY > height-794 && mouseY < height-744){ 
+                 if (!held && player.crafting[i] != null){
+                   heldtype = player.crafting[i].type;
+                   heldStack = player.crafting[i].stack;
+                   player.crafting[i] = null;
+                   held = true;
+                 }
+                 else if (held && player.inventory[i] == null){
+                    Item b = new Item(heldtype);
+                    b.stack = heldStack;
+                    player.crafting[i] = b;
+                    held = false;
+                 }
+               }
+            }
+            else if (i < 6){
+              if (mouseX > (i-3)*80*0.95 + (width-493)/2 && mouseX < (i-3)*80*0.95 + (width-493)/2 + 50 && mouseY > height-722 && mouseY < height-672){ 
+                if (!held && player.crafting[i] != null){
+                   heldtype = player.crafting[i].type;
+                   heldStack = player.crafting[i].stack;
+                   player.crafting[i] = null;
+                   held = true;
+                 }
+                 else if (held && player.crafting[i] == null){
+                   Item b = new Item(heldtype);
+                    b.stack = heldStack;
+                    player.crafting[i] = b;
+                    held = false;
+                 }  
+              }
+            }
+            else if (mouseX > (i-6)*80*0.95 + (width-493)/2 && mouseX < (i-6)*80*0.95 + (width-493)/2 + 50 && mouseY > height-644 && mouseY < height-594){ 
+                if (!held && player.crafting[i] != null){
+                   heldtype = player.crafting[i].type;
+                   heldStack = player.crafting[i].stack;
+                   player.crafting[i] = null;
+                   held = true;
+                 }
+                 else if (held && player.crafting[i] == null){
+                   Item b = new Item(heldtype);
+                    b.stack = heldStack;
+                    player.crafting[i] = b;
+                    held = false;
+                 }
           }
+        }
         }
         else if (player.hbSlot == 0){
           for (int i = 0; i < mobs.size(); i++){
@@ -347,4 +400,4 @@
       zcount++;
     }
     }
-  }
+  } 

@@ -414,6 +414,29 @@ class Player{
           }
         }
     }
+        for (int i = 0; i < crafting.length; i++){
+        if (crafting[i] != null){
+          crafting[i].image.resize(50,50);
+          if (i < 3){
+            image(crafting[i].image, i*80*0.95 + (width-493)/2, height - 794);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,i*80*0.95 + (width-433)/2, height-782);
+          }
+          else if (i < 6){
+            image(crafting[i].image, (i-3)*80*0.95 + (width-493)/2, height - 722);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,(i-3)*80*0.95 + (width-433)/2, height-710);
+          }
+          else {
+            image(crafting[i].image, (i-6)*80*0.95 + (width-493)/2, height - 644);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,(i-6)*80*0.95 + (width-433)/2, height-632);
+          }
+        }
+    }
       
     }
   }
