@@ -21,6 +21,7 @@ class Player{
   boolean dead;
   boolean open;
   Item[] crafting;
+  Item craft;
   
   public Player(){
     direct = true;
@@ -62,7 +63,7 @@ class Player{
     hotbar[3] = s;
     
     inventoryDisplay = loadImage("inventory.png");
-   inventory = new Item[30];
+    inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   
@@ -127,6 +128,9 @@ class Player{
     }
     else if (toBreak.type.equals("Wood")) {
         b = new Item("Wood0.png");
+    }
+    else if (toBreak.type.equals("Plank")) {
+        b = new Item("plank.png");
     }
     else {
         double rand = random(10);
@@ -216,6 +220,9 @@ class Player{
       if (hotbar[hbSlot].type.equals("Wood0.png")){
       world[y][x] = new Wood(x*scale,y*scale,scale);; 
       }
+      if (hotbar[hbSlot].type.equals("plank.png")){
+      world[y][x] = new Plank(x*scale,y*scale,scale);; 
+      }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){
         hotbar[hbSlot] = null;
@@ -257,7 +264,6 @@ class Player{
   }
   
   void move(int direction){
-    System.out.println((xcor + pwidth)/scale);
     if (!open){
         xcor += xVel * direction;
         if (direction < 0){
@@ -336,6 +342,33 @@ class Player{
     //re
   }
   
+  boolean crafting(){
+    //PLANKS
+    int nullcount = 0;
+    int woodcount = 0;
+    int stack = 0;
+    for (int i = 0; i < crafting.length; i++){
+      if (crafting[i] == null){
+        nullcount++;
+      }
+      if (crafting[i] != null && crafting[i].type.equals("Wood0.png")){
+        stack = crafting[i].stack;
+        woodcount++;
+      }
+    }
+    if (nullcount == 8 && woodcount == 1){
+      craft = new Item("plank.png");
+      if (stack*4 > 65){
+        craft.stack = 64;
+      }
+      else {
+        craft.stack = stack*4;
+      }
+      return true;
+    }
+    return false;
+  }
+  
   void display(){
     if (dead){
       fill(255,0,0);
@@ -377,7 +410,14 @@ class Player{
     }
   }
     if (open){
+      
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
+      if (crafting()){
+        craft.image.resize(50,50);
+        image(craft.image,width-600,height-726);
+        textSize(20);
+        text("" + craft.stack, width-575, height-714);
+      }
       textSize(15);
       fill(0);
       text("Left click picks up and places blocks in inventory. Right click to drop single item in crafting window.", width-550*2, height-450*1.79);

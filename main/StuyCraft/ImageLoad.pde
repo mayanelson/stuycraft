@@ -6,3 +6,4 @@ PImage grass1;
 PImage grass2;
 PImage leaf0;
 PImage wood0;
+PImage plank0;

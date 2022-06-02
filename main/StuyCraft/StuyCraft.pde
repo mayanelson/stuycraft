@@ -30,6 +30,8 @@
     wood0.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
+    plank0 = loadImage("plank.png");
+    plank0.resize(scale,scale);
     xMove = -(worldWidth/2 - width/2);
     //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
     //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
@@ -148,6 +150,7 @@
       textSize(20);
       text(heldStack,mouseX+10,mouseY-10);
     }
+    
    // System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
    // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
   }
@@ -208,6 +211,27 @@
     if (newMouseX > 0 && newMouseX < worldWidth && newMouseY > 0 && newMouseY < worldHeight){
       if (mouseButton == LEFT){
         if (player.open){
+          //crafting place
+          if (player.crafting() && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
+            heldtype = player.craft.type;
+            heldStack = player.craft.stack;
+            held = true;
+              for (int i= 0; i < player.crafting.length; i++){
+                if (player.crafting[i] != null){
+                  if (heldStack >= 64){
+                  if (player.craft.type.equals("plank.png")){
+                    print("fwoj;;ifo");
+                    player.crafting[i].stack -= 16;
+                    }
+                  }
+                  else if (heldStack < 65){
+                    player.crafting[i] = null;
+                  }
+                }
+              }
+                          player.craft = null;
+            
+          }
           //LOOPS FOR HOTBAR
           for (int i = 4; i < player.hotbar.length; i++){
             if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
@@ -224,8 +248,15 @@
                 held = false;
               }
               else if (held && player.hotbar[i] != null && player.hotbar[i].type.equals(heldtype)){
-                player.hotbar[i].stack += heldStack;
-                held = false;
+                if (player.hotbar[i].stack + heldStack > 65){
+                  heldStack -= 64 - player.hotbar[i].stack;
+                  player.hotbar[i].stack = 64;
+                  held = true;
+                }
+                else {
+                  player.hotbar[i].stack += heldStack;
+                  held = false;
+                }
               }
             }
           }
@@ -246,8 +277,15 @@
                     held = false;
                  }
                  else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                  if (player.inventory[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.inventory[i].stack;
+                    player.inventory[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.inventory[i].stack += heldStack;
                     held = false;
+                }
               }
                }
             }
@@ -266,8 +304,15 @@
                     held = false;
                  }  
                  else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                    if (player.inventory[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.inventory[i].stack;
+                    player.inventory[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.inventory[i].stack += heldStack;
                     held = false;
+                }
               }
               }
             }
@@ -285,8 +330,15 @@
                     held = false;
                  }
                  else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                    if (player.inventory[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.inventory[i].stack;
+                    player.inventory[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.inventory[i].stack += heldStack;
                     held = false;
+                }
               }
             }
           }
@@ -309,8 +361,15 @@
                     held = false;
                  }
                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                   if (player.crafting[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.crafting[i].stack;
+                    player.crafting[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.crafting[i].stack += heldStack;
                     held = false;
+                }
               }
                }
             }
@@ -329,8 +388,15 @@
                     held = false;
                  }  
                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                  if (player.crafting[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.crafting[i].stack;
+                    player.crafting[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.crafting[i].stack += heldStack;
                     held = false;
+                }
               }
               }
             }
@@ -348,8 +414,15 @@
                     held = false;
                  }
                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                   if (player.crafting[i].stack + heldStack > 65){
+                    heldStack -= 64 - player.crafting[i].stack;
+                    player.crafting[i].stack = 64;
+                    held = true;
+                  }
+                  else {
                     player.crafting[i].stack += heldStack;
                     held = false;
+                }
               }
           }
         }

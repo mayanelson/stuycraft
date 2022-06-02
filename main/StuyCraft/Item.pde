@@ -6,6 +6,7 @@ class Item{
   
   Item(){
     image  = loadImage("heart.png"); // just so it compiles
+    type = "compile";
   }
   
   Item(String picFile){
