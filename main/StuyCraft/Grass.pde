@@ -7,8 +7,8 @@ class Grass extends Block{
     uses = 3;
     maxDurability = 100.0;
     currentDurability = maxDurability;
-    System.out.println("\t" + grass0);
-    System.out.println(bImage);
+    //System.out.println("\t" + grass0);
+    //System.out.println(bImage);
   }
   
   void animate(){

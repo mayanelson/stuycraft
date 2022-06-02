@@ -5,9 +5,20 @@ class Sand extends Block{
     type = "Sand";
     bImage = sand0;
     uses = 3;
+    maxDurability = 100.0;
+    currentDurability = maxDurability;
   }
   
   void display(){
-    image(sand0, super.xcor, super.ycor);
+    float ratio = currentDurability/maxDurability;
+    if (ratio ==1){
+      image(sand0, xcor, ycor);
+    }
+    else if (ratio > 0.5){
+      image(sand1, xcor, ycor);
+    }
+    else{
+      image(sand2, xcor, ycor);
+    }
   }
 }

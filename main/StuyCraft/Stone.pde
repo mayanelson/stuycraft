@@ -5,9 +5,20 @@ class Stone extends Block{
     type = "Stone";
     bImage = stone0;
     uses = 1;
+    maxDurability = 100.0;
+    currentDurability = maxDurability;
   }
   
   void display(){
-    image(stone0, super.xcor, super.ycor);
+    float ratio = currentDurability/maxDurability;
+    if (ratio ==1){
+      image(stone0, xcor, ycor);
+    }
+    else if (ratio > 0.5){
+      image(stone1, xcor, ycor);
+    }
+    else{
+      image(stone2, xcor, ycor);
+    }
   }
 }
