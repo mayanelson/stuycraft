@@ -22,21 +22,34 @@
     stone0.resize(scale, scale);
     stone1 = loadImage("Stone1.png");
     stone1.resize(scale, scale);
+    stone2 = loadImage("Stone2.png");
+    stone2.resize(scale, scale);
     sand0 = loadImage("Sand0.png");
     sand0.resize(scale, scale);
+    sand1 = loadImage("Sand1.png");
+    sand1.resize(scale, scale);
+    sand2 = loadImage("Sand2.png");
+    sand2.resize(scale, scale);
     leaf0 = loadImage("Leaf0.png");
     leaf0.resize(scale, scale);
+    leaf1 = loadImage("Leaf1.png");
+    leaf1.resize(scale, scale);
+    leaf2 = loadImage("Leaf2.png");
+    leaf2.resize(scale, scale);
     wood0 = loadImage("Wood0.png");
     wood0.resize(scale, scale);
+    wood1 = loadImage("Wood1.png");
+    wood1.resize(scale, scale);
+    wood2 = loadImage("Wood2.png");
+    wood2.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
-    xMove = -(worldWidth/2 - width/2);
-    //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
-    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
     grass2.resize(scale, scale);
+    
+    xMove = -(worldWidth/2 - width/2);
     control = new Movement();
   }
   
@@ -288,25 +301,8 @@
           }
         }
         else {
-      for (int i = 0; i < world.length; i++){
-       for  (int j = 0; j < world[0].length; j++){
-         Block spot = world[i][j];
-  
-         if (spot != null && !player.open && newMouseX > spot.xcor && newMouseX < spot.xcor + spot.sideLength && newMouseY > spot.ycor && newMouseY < spot.ycor + spot.sideLength ){
-           //NEED TO TEST IF THIS AFFECTS EDGES
-           if (spot.uses == player.hbSlot){
-             //spot.animate();
-             //spot.display();
-             //RANGE
-             //delay(500);
-             player.breakBlock(spot);
-             world[i][j] = null;
-           }
-           
-          }
-       }
-      }
-      }
+          player.mining(newMouseX, newMouseY);
+        }
       }
       else if (mouseButton == RIGHT){
         if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3 && !player.open){
