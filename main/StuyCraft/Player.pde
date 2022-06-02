@@ -59,9 +59,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-   // inventoryDisplay = loadImage("inventory.png");
+   inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
-   // inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   
   void addToHotbar(Item item){
@@ -113,90 +113,112 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
-    Item b;
-    if (toBreak.type.equals("Grass")){
-        b = new Item("Grass0.png");
-    }
-    else if (toBreak.type.equals("Sand")) {
-        b = new Item("Sand0.png");
-    }
-    else if (toBreak.type.equals("Stone")) {
-        b = new Item("Stone0.png");
-    }
-    else if (toBreak.type.equals("Wood")) {
-        b = new Item("Wood0.png");
-    }
-    else {
-        double rand = random(10);
-        if (rand < 2){
-        b = new Item("Apple0.png");
+      
+      toBreak.currentDurability -= 10.0;
+      
+      if(toBreak.currentDurability <= 0){
+        world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
+        Item b;
+        
+        switch (toBreak.type){
+         case "Leaf":
+            double rand = random(10);
+            if (rand < 2){
+            b = new Item("Apple0.png");
+            }
+            else {
+              b = null;
+            }         
+           break;
+         default:
+            b = new Item(toBreak.type+"0.png");
+            break;
+        }
+/*
+        if (toBreak.type.equals("Grass")){
+            b = new Item("Grass0.png");
+        }
+        else if (toBreak.type.equals("Sand")) {
+            b = new Item("Sand0.png");
+        }
+        else if (toBreak.type.equals("Stone")) {
+            b = new Item("Stone0.png");
+        }
+        else if (toBreak.type.equals("Wood")) {
+            b = new Item("Wood0.png");
         }
         else {
-          b = null;
+            double rand = random(10);
+            if (rand < 2){
+            b = new Item("Apple0.png");
+            }
+            else {
+              b = null;
+            }
+        }
+*/
+        if (b != null){
+        //BlockItem b = toBreak.drop;
+        boolean placed = false;
+        for (int i = 0; i < inventory.length; i++){
+          if (inventory[i]!= null){
+          }
+          if (inventory[i] != null && inventory[i].type.equals(b.type) && inventory[i].stack < 64){
+            inventory[i].stack++;
+            placed = true;
+            i = 900000;
+          }
+        }
+        if (!placed){
+        for (int i = 4; i < hotbar.length; i++){
+            if (hotbar[i] == null){
+              b.stack++;
+              hotbar[i] = b;  
+              placed = true;
+              i = 11;
+            }    
+            else if (hotbar[i].type.equals(b.type) && hotbar[i].stack < 64) {
+              hotbar[i].stack ++;
+              placed = true;
+              i = 11;
+            }
+            else if (hotbar[i].stack > 64 && i < 9){
+              b.stack++;
+              hotbar[i+1] = b;
+              placed = true;
+              i = 11;
+            }
+          }
+        }
+        if (!placed){
+          boolean iplace = false;
+          for (int i = 0; i < inventory.length; i++){
+            if (inventory[i] == null){
+              b.stack++;
+              inventory[i] = b;
+              iplace = true;
+              i = 10000;
+            }
+            else if (inventory[i].type.equals(b.type) && inventory[i].stack < 64){
+              inventory[i].stack++;
+              iplace = true;
+              i = 10000;
+            }
+            else if (inventory[i].stack > 64 && i < 29){
+              b.stack++;
+              inventory[i+1]= b;
+              iplace = true;
+              i = 10000;
+            }
+            
+          }
+          if (!iplace){
+            System.out.println("Inventory full! No more items can be added");
+          }
+        }
+        }
         }
     }
-    if (b != null){
-    //BlockItem b = toBreak.drop;
-    boolean placed = false;
-    for (int i = 0; i < inventory.length; i++){
-      if (inventory[i]!= null){
-      }
-      if (inventory[i] != null && inventory[i].type.equals(b.type) && inventory[i].stack < 64){
-        inventory[i].stack++;
-        placed = true;
-        i = 900000;
-      }
-    }
-    if (!placed){
-    for (int i = 4; i < hotbar.length; i++){
-      if (hotbar[i] == null){
-        b.stack++;
-        hotbar[i] = b;  
-        placed = true;
-        i = 11;
-      }    
-      else if (hotbar[i].type.equals(b.type) && hotbar[i].stack < 64) {
-        hotbar[i].stack ++;
-        placed = true;
-        i = 11;
-      }
-      else if (hotbar[i].stack > 64 && i < 9){
-        b.stack++;
-        hotbar[i+1] = b;
-        placed = true;
-        i = 11;
-    }
-    }
-    }
-    if (!placed){
-      boolean iplace = false;
-      for (int i = 0; i < inventory.length; i++){
-        if (inventory[i] == null){
-          b.stack++;
-          inventory[i] = b;
-          iplace = true;
-          i = 10000;
-        }
-        else if (inventory[i].type.equals(b.type) && inventory[i].stack < 64){
-          inventory[i].stack++;
-          iplace = true;
-          i = 10000;
-        }
-        else if (inventory[i].stack > 64 && i < 29){
-          b.stack++;
-          inventory[i+1]= b;
-          iplace = true;
-          i = 10000;
-        }
-        
-      }
-      if (!iplace){
-        System.out.println("Inventory full! No more items can be added");
-      }
-    }
-    }
-    }
-
   }
   
   void place(int x, int y){
@@ -255,7 +277,7 @@ class Player{
   }
   
   void move(int direction){
-    System.out.println((xcor + pwidth)/scale);
+    //System.out.println((xcor + pwidth)/scale);
     if (!open){
         xcor += xVel * direction;
         if (direction < 0){
@@ -413,6 +435,17 @@ class Player{
         }
     }
       
+    }
+  }
+  
+  void mining(float xVal, float yVal){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 3 * scale){
+    int worldX = (int)xVal/scale;
+    int worldY = (int)yVal/scale;
+    Block spot = world[worldY][worldX];
+    if (spot != null && spot.uses == player.hbSlot){
+             breakBlock(spot);
+     }
     }
   }
 }
