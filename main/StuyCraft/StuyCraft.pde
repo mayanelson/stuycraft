@@ -227,7 +227,12 @@
     if (newMouseX > 0 && newMouseX < worldWidth && newMouseY > 0 && newMouseY < worldHeight){
       if (mouseButton == LEFT){
         if (player.open){
-          //crafting place
+          if (held &&  mouseX > width - 440 && mouseX < width - 390 && mouseY > height-635 && mouseY < height-585){
+            heldtype = null;
+            heldStack = 0;
+            held = false;
+          }
+          //craftingplace
           if (player.crafting() && !held && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
             heldtype = player.craft.type;
             heldStack = player.craft.stack;
