@@ -21,6 +21,7 @@ class Player{
   boolean dead;
   boolean open;
   Item[] crafting;
+  Item craft;
   
   public Player(){
     direct = true;
@@ -63,7 +64,7 @@ class Player{
     
 <<<<<<< HEAD
     inventoryDisplay = loadImage("inventory.png");
-   inventory = new Item[30];
+    inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
 =======
    inventoryDisplay = loadImage("inventory.png");
@@ -121,6 +122,7 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
+<<<<<<< HEAD
       
       toBreak.currentDurability -= 10.0;
       
@@ -154,6 +156,28 @@ class Player{
         }
         else if (toBreak.type.equals("Wood")) {
             b = new Item("Wood0.png");
+=======
+    Item b;
+    if (toBreak.type.equals("Grass")){
+        b = new Item("Grass0.png");
+    }
+    else if (toBreak.type.equals("Sand")) {
+        b = new Item("Sand0.png");
+    }
+    else if (toBreak.type.equals("Stone")) {
+        b = new Item("Stone0.png");
+    }
+    else if (toBreak.type.equals("Wood")) {
+        b = new Item("Wood0.png");
+    }
+    else if (toBreak.type.equals("Plank")) {
+        b = new Item("plank.png");
+    }
+    else {
+        double rand = random(10);
+        if (rand < 2){
+        b = new Item("Apple0.png");
+>>>>>>> craft
         }
         else {
             double rand = random(10);
@@ -243,6 +267,9 @@ class Player{
       }
       if (hotbar[hbSlot].type.equals("Wood0.png")){
       world[y][x] = new Wood(x*scale,y*scale,scale);; 
+      }
+      if (hotbar[hbSlot].type.equals("plank.png")){
+      world[y][x] = new Plank(x*scale,y*scale,scale);; 
       }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){
@@ -364,6 +391,33 @@ class Player{
     //re
   }
   
+  boolean crafting(){
+    //PLANKS
+    int nullcount = 0;
+    int woodcount = 0;
+    int stack = 0;
+    for (int i = 0; i < crafting.length; i++){
+      if (crafting[i] == null){
+        nullcount++;
+      }
+      if (crafting[i] != null && crafting[i].type.equals("Wood0.png")){
+        stack = crafting[i].stack;
+        woodcount++;
+      }
+    }
+    if (nullcount == 8 && woodcount == 1){
+      craft = new Item("plank.png");
+      if (stack*4 > 65){
+        craft.stack = 64;
+      }
+      else {
+        craft.stack = stack*4;
+      }
+      return true;
+    }
+    return false;
+  }
+  
   void display(){
     if (dead){
       fill(255,0,0);
@@ -405,10 +459,17 @@ class Player{
     }
   }
     if (open){
+      
       image(inventoryDisplay,(width-550*1.5)/2,(height-450*1.5)/2);
+      if (crafting()){
+        craft.image.resize(50,50);
+        image(craft.image,width-600,height-726);
+        textSize(20);
+        text("" + craft.stack, width-575, height-714);
+      }
       textSize(15);
       fill(0);
-      text("Left click picks up and places blocks in inventory, and places in crafting window.", width-550*1.9, height-450*1.79);
+      text("Left click picks up and places blocks in inventory. Right click to drop single item in crafting window.", width-550*2, height-450*1.79);
       for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] != null){
         hotbar[i].image.resize(50,50);
@@ -439,6 +500,29 @@ class Player{
             textSize(20);
             fill(0);
             text("" + inventory[i].stack,(i-20)*80*0.945 + (width-670)/2, height-356);
+          }
+        }
+    }
+        for (int i = 0; i < crafting.length; i++){
+        if (crafting[i] != null){
+          crafting[i].image.resize(50,50);
+          if (i < 3){
+            image(crafting[i].image, i*80*0.95 + (width-493)/2, height - 794);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,i*80*0.95 + (width-433)/2, height-782);
+          }
+          else if (i < 6){
+            image(crafting[i].image, (i-3)*80*0.95 + (width-493)/2, height - 722);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,(i-3)*80*0.95 + (width-433)/2, height-710);
+          }
+          else {
+            image(crafting[i].image, (i-6)*80*0.95 + (width-493)/2, height - 644);
+            textSize(20);
+            fill(0);
+            text("" + crafting[i].stack,(i-6)*80*0.95 + (width-433)/2, height-632);
           }
         }
     }
