@@ -3,7 +3,7 @@ class Wood extends Block{
   Wood(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Wood";
-    image = wood0;
+    bImage = wood0;
     uses = 2;
   }
   

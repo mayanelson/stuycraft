@@ -3,9 +3,12 @@ class Grass extends Block{
     super(xcor, ycor, sidelength);
    // drop = new GrassItem();
     type = "Grass";
-    image = grass0;
+    bImage = grass0;
     uses = 3;
-    
+    maxDurability = 100.0;
+    currentDurability = maxDurability;
+    System.out.println("\t" + grass0);
+    System.out.println(bImage);
   }
   
   void animate(){
@@ -16,17 +19,15 @@ class Grass extends Block{
   }
   
   void display(){
-    if (! isAnimate){
-    image(grass0, super.xcor, super.ycor);
+    float ratio = currentDurability/maxDurability;
+    if (ratio ==1){
+      image(grass0, xcor, ycor);
     }
-    if (isAnimate){
-      image(grass1, super.xcor, super.ycor);
-      delay(500);
-      image(grass2,super.xcor, super.ycor);
-      isAnimate = false;
-      
+    else if (ratio > 0.5){
+      image(grass1, xcor, ycor);
     }
-
-
+    else{
+      image(grass2, xcor, ycor);
+    }
   }
 }

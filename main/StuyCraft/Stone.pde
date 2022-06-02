@@ -3,7 +3,7 @@ class Stone extends Block{
   Stone(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Stone";
-    image = stone0;
+    bImage = stone0;
     uses = 1;
   }
   

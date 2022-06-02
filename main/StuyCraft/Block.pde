@@ -1,6 +1,7 @@
 class Block{
-  float durability;
-  PImage image;
+  float maxDurability;
+  float currentDurability;
+  PImage bImage;
   PImage image2;
   PImage image3;
   BlockItem drop;
