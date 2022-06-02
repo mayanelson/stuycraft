@@ -59,9 +59,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-   // inventoryDisplay = loadImage("inventory.png");
+   inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
-   // inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
   }
   
   void addToHotbar(Item item){
@@ -119,6 +119,22 @@ class Player{
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
         Item b;
+        
+        switch (toBreak.type){
+         case "Leaf":
+            double rand = random(10);
+            if (rand < 2){
+            b = new Item("Apple0.png");
+            }
+            else {
+              b = null;
+            }         
+           break;
+         default:
+            b = new Item(toBreak.type+"0.png");
+            break;
+        }
+/*
         if (toBreak.type.equals("Grass")){
             b = new Item("Grass0.png");
         }
@@ -140,6 +156,7 @@ class Player{
               b = null;
             }
         }
+*/
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
