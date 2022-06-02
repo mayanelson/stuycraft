@@ -44,14 +44,11 @@
     wood2.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
-<<<<<<< HEAD
-=======
     plank0 = loadImage("plank.png");
     plank0.resize(scale,scale);
     xMove = -(worldWidth/2 - width/2);
     //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
     //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
->>>>>>> craft
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
@@ -231,24 +228,29 @@
       if (mouseButton == LEFT){
         if (player.open){
           //crafting place
-          if (player.crafting() && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
+          if (player.crafting() && !held && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
             heldtype = player.craft.type;
             heldStack = player.craft.stack;
             held = true;
               for (int i= 0; i < player.crafting.length; i++){
                 if (player.crafting[i] != null){
                   if (heldStack >= 64){
-                  if (player.craft.type.equals("plank.png")){
-                    print("fwoj;;ifo");
+                  if (player.craft.type.equals("plank.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= 16;
                     }
                   }
                   else if (heldStack < 65){
-                    player.crafting[i] = null;
+                    if (player.craft.type.equals("plank.png") || player.craft.type.equals("stick.png")){
+                    player.crafting[i].stack -= heldStack/4;
+                    }
+                    if (player.crafting[i].stack <= 0){
+                      print("creaming");
+                      player.crafting[i] = null;
+                    }
                   }
                 }
               }
-                          player.craft = null;
+               player.craft = null;
             
           }
           //LOOPS FOR HOTBAR

@@ -3,7 +3,7 @@ class Plank extends Block{
   Plank(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
     type = "Plank";
-    image = plank0;
+    bImage = plank0;
     uses = 2;
   }
   

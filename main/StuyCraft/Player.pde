@@ -62,15 +62,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-<<<<<<< HEAD
-    inventoryDisplay = loadImage("inventory.png");
-    inventory = new Item[30];
-    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
-=======
    inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
->>>>>>> a69f7c08eca14a17fc85b56da32019b266d97393
   }
   
   void addToHotbar(Item item){
@@ -122,7 +116,6 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
-<<<<<<< HEAD
       
       toBreak.currentDurability -= 10.0;
       
@@ -144,51 +137,7 @@ class Player{
             b = new Item(toBreak.type+"0.png");
             break;
         }
-/*
-        if (toBreak.type.equals("Grass")){
-            b = new Item("Grass0.png");
-        }
-        else if (toBreak.type.equals("Sand")) {
-            b = new Item("Sand0.png");
-        }
-        else if (toBreak.type.equals("Stone")) {
-            b = new Item("Stone0.png");
-        }
-        else if (toBreak.type.equals("Wood")) {
-            b = new Item("Wood0.png");
-=======
-    Item b;
-    if (toBreak.type.equals("Grass")){
-        b = new Item("Grass0.png");
-    }
-    else if (toBreak.type.equals("Sand")) {
-        b = new Item("Sand0.png");
-    }
-    else if (toBreak.type.equals("Stone")) {
-        b = new Item("Stone0.png");
-    }
-    else if (toBreak.type.equals("Wood")) {
-        b = new Item("Wood0.png");
-    }
-    else if (toBreak.type.equals("Plank")) {
-        b = new Item("plank.png");
-    }
-    else {
-        double rand = random(10);
-        if (rand < 2){
-        b = new Item("Apple0.png");
->>>>>>> craft
-        }
-        else {
-            double rand = random(10);
-            if (rand < 2){
-            b = new Item("Apple0.png");
-            }
-            else {
-              b = null;
-            }
-        }
-*/
+
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
@@ -391,10 +340,13 @@ class Player{
     //re
   }
   
+  // STORES CRAFTING RECIPES
   boolean crafting(){
-    //PLANKS
     int nullcount = 0;
     int woodcount = 0;
+    int plankcount = 0;
+    ArrayList<Integer> ppos = new ArrayList<Integer>(0);
+    ArrayList<Integer> pstack = new ArrayList<Integer>(0);
     int stack = 0;
     for (int i = 0; i < crafting.length; i++){
       if (crafting[i] == null){
@@ -404,9 +356,32 @@ class Player{
         stack = crafting[i].stack;
         woodcount++;
       }
+      if (crafting[i] != null && crafting[i].type.equals("plank.png")){
+        ppos.add(i); 
+        pstack.add(crafting[i].stack);
+        plankcount++;
+      }
     }
+    //PLANKS
     if (nullcount == 8 && woodcount == 1){
       craft = new Item("plank.png");
+      if (stack*4 > 65){
+        craft.stack = 64;
+      }
+      else {
+        craft.stack = stack*4;
+      }
+      return true;
+    }
+    //STICKS
+    else if (nullcount == 7 && plankcount == 2 && ppos.get(1) - ppos.get(0) == 3){
+       craft = new Item("stick.png");
+       if (pstack.get(0) > pstack.get(1)){
+         stack = pstack.get(1);
+       }
+       else {
+         stack = pstack.get(0);
+       }
       if (stack*4 > 65){
         craft.stack = 64;
       }

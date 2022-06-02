@@ -13,3 +13,4 @@ static PImage leaf2;
 static PImage wood0;
 static PImage wood1;
 static PImage wood2;
+static PImage plank0;
