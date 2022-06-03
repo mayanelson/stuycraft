@@ -1,5 +1,5 @@
   Block[][] world = new Block[250][500];
-  int scale = 100;
+  int scale = 10;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
@@ -86,14 +86,16 @@
    }
    
    // Creating Surface w/o biomes
+   int shift = (int)(Math.random() * 50);
    for (int col = 0; col < world[0].length; col++){
-     int xcor =  col * 10;
-     double fractX = (double)xcor * 10 / (world[0].length * 10);
+     int xcor =  col + shift;
+     double fractX = (double)xcor / 50;
      double noiseNum = Math.abs(noise(fractX, 0, 0));
      for(int up = 1; up < (int)(noiseNum * 25) && up < startingLevel; up++){
        world[startingLevel - up][col] = new Block(xcor, (startingLevel - up) * scale, scale);
      }
    }
+   
    //Creating Biomes
    int counter = 0;
    while (counter < world[0].length){

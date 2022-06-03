@@ -9,6 +9,9 @@
    String heldtype;
    int heldStack;
    PImage heldImg;
+   boolean isMining;
+   float newMouseX;
+   float newMouseY;
   
   void setup(){
     held = false;
@@ -44,6 +47,11 @@
     wood2.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
+<<<<<<< HEAD
+=======
+    plank0 = loadImage("plank.png");
+    plank0.resize(scale,scale);
+>>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
@@ -76,6 +84,8 @@
   
   void draw(){
    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
+    newMouseX = (mouseX - width/2) + player.xcor;
+    newMouseY = (mouseY - height/2) + player.ycor;
     tick++;
     if (tick%1800 == 0){
       player.hungerDrain();
@@ -148,7 +158,9 @@
             mobs.get(i).display();
           }   
       }
-    
+    if(isMining){
+      player.mining(newMouseX, newMouseY);
+    }
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -238,8 +250,6 @@
   }
   
   void mousePressed(){
-    float newMouseX = (mouseX - width/2) + player.xcor;
-    float newMouseY = (mouseY - height/2) + player.ycor;
     if (newMouseX > 0 && newMouseX < worldWidth && newMouseY > 0 && newMouseY < worldHeight){
       if (mouseButton == LEFT){
         if (player.open){
@@ -489,7 +499,7 @@
           }
         }
         else {
-          player.mining(newMouseX, newMouseY);
+          isMining = true;
         }
       }
       else if (mouseButton == RIGHT){
@@ -617,3 +627,13 @@
     }
     }
   } 
+  
+  void mouseReleased(){
+    if (!player.open){
+      isMining = false;
+      Block block = world[(int)newMouseY/ scale][(int)newMouseX/scale];
+      if (block != null){
+        block.currentDurability =block.maxDurability;
+      }
+    }
+  }
