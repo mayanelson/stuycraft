@@ -62,15 +62,11 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-<<<<<<< HEAD
+
     inventoryDisplay = loadImage("inventory.png");
     inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
-=======
-   inventoryDisplay = loadImage("inventory.png");
-   inventory = new Item[30];
-   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
->>>>>>> a69f7c08eca14a17fc85b56da32019b266d97393
+
   }
   
   void addToHotbar(Item item){
@@ -122,9 +118,7 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
-<<<<<<< HEAD
-      
-      toBreak.currentDurability -= 10.0;
+      toBreak.currentDurability -= 3;
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -144,51 +138,6 @@ class Player{
             b = new Item(toBreak.type+"0.png");
             break;
         }
-/*
-        if (toBreak.type.equals("Grass")){
-            b = new Item("Grass0.png");
-        }
-        else if (toBreak.type.equals("Sand")) {
-            b = new Item("Sand0.png");
-        }
-        else if (toBreak.type.equals("Stone")) {
-            b = new Item("Stone0.png");
-        }
-        else if (toBreak.type.equals("Wood")) {
-            b = new Item("Wood0.png");
-=======
-    Item b;
-    if (toBreak.type.equals("Grass")){
-        b = new Item("Grass0.png");
-    }
-    else if (toBreak.type.equals("Sand")) {
-        b = new Item("Sand0.png");
-    }
-    else if (toBreak.type.equals("Stone")) {
-        b = new Item("Stone0.png");
-    }
-    else if (toBreak.type.equals("Wood")) {
-        b = new Item("Wood0.png");
-    }
-    else if (toBreak.type.equals("Plank")) {
-        b = new Item("plank.png");
-    }
-    else {
-        double rand = random(10);
-        if (rand < 2){
-        b = new Item("Apple0.png");
->>>>>>> craft
-        }
-        else {
-            double rand = random(10);
-            if (rand < 2){
-            b = new Item("Apple0.png");
-            }
-            else {
-              b = null;
-            }
-        }
-*/
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
