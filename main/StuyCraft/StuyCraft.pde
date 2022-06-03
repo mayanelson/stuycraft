@@ -134,7 +134,9 @@
             mobs.get(i).display();
           }   
       }
-    if(isMining){player.mining(newMouseX, newMouseY);}
+    if(isMining){
+      player.mining(newMouseX, newMouseY);
+    }
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -588,5 +590,9 @@
   void mouseReleased(){
     if (!player.open){
       isMining = false;
+      Block block = world[(int)newMouseY/ scale][(int)newMouseX/scale];
+      if (block != null){
+        block.currentDurability =block.maxDurability;
+      }
     }
   }
