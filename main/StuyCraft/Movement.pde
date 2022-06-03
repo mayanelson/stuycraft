@@ -6,6 +6,7 @@ class Movement{
   }
   
   void activate(char input){
+    //SHOULD PROB CHANGE TO INCLUDE CAP KEYS
     switch(input){
      case 'a':
        inputs[0] = true;
