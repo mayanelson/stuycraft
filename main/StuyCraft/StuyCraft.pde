@@ -44,15 +44,31 @@
     wood2.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
-    plank0 = loadImage("plank.png");
-    plank0.resize(scale,scale);
-    xMove = -(worldWidth/2 - width/2);
-    //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
-    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
     grass2.resize(scale, scale);
+    plank0 = loadImage("plank0.png");
+    plank0.resize(scale,scale);
+    plank1 = loadImage("plank1.png");
+    plank1.resize(scale,scale);
+    plank2 = loadImage("plank2.png");
+    plank2.resize(scale,scale);
+    ironore0 = loadImage("ironore0.png");
+    ironore0.resize(scale,scale);
+    ironore1 = loadImage("ironore1.png");
+    ironore1.resize(scale,scale);
+    ironore2 = loadImage("ironore2.png");
+    ironore2.resize(scale,scale);
+    diaore0 = loadImage("diamondore0.png");
+    diaore0.resize(scale,scale);
+    diaore1 = loadImage("diamondore1.png");
+    diaore1.resize(scale,scale);
+    diaore2 = loadImage("diamondore2.png");
+    diaore2.resize(scale,scale);
+    xMove = -(worldWidth/2 - width/2);
+    //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
+    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     
     xMove = -(worldWidth/2 - width/2);
     control = new Movement();
@@ -240,16 +256,15 @@
               for (int i= 0; i < player.crafting.length; i++){
                 if (player.crafting[i] != null){
                   if (heldStack >= 64){
-                  if (player.craft.type.equals("plank.png") || player.craft.type.equals("stick.png")){
+                  if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= 16;
                     }
                   }
                   else if (heldStack < 65){
-                    if (player.craft.type.equals("plank.png") || player.craft.type.equals("stick.png")){
+                    if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= heldStack/4;
                     }
                     if (player.crafting[i].stack <= 0){
-                      print("creaming");
                       player.crafting[i] = null;
                     }
                   }
@@ -259,7 +274,7 @@
             
           }
           //LOOPS FOR HOTBAR
-          for (int i = 4; i < player.hotbar.length; i++){
+          for (int i = 0; i < player.hotbar.length; i++){
             if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
               if (!held && player.hotbar[i] != null){
               heldtype = player.hotbar[i].type;
@@ -453,7 +468,7 @@
           }
         }
         }
-        else if (player.hbSlot == 0){
+        else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 0){
           for (int i = 0; i < mobs.size(); i++){
             Mob m = mobs.get(i);
             if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
@@ -472,7 +487,7 @@
         }
       }
       else if (mouseButton == RIGHT){
-        if (player.hotbar[player.hbSlot] != null && player.hbSlot > 3 && !player.open){
+        if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == -1 && !player.open){
         if (player.hotbar[player.hbSlot].type.equals("Steak0.png") || player.hotbar[player.hbSlot].type.equals("Apple0.png")){
           if (player.hunger < 10){
           player.eat(player.hotbar[player.hbSlot]);
@@ -481,6 +496,8 @@
             player.hotbar[player.hbSlot] = null;
           }
           }
+        }
+        else if (player.hotbar[player.hbSlot].type.equals("diamond.png") || player.hotbar[player.hbSlot].type.equals("iron.png")|| player.hotbar[player.hbSlot].type.equals("stick.png")){
         }
          else if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
            player.place((int)newMouseX/scale,(int)newMouseY/scale);
@@ -587,7 +604,7 @@
       mobs.add(c);
       ccount += 1;
     }
-    if (b.type.equals("Stone") && zcount < 100){
+    if (b.type.equals("Stone") && zcount < 80){
       Zombie z = new Zombie(b.xcor,(b.ycor-(int)(scale*2)));
       mobs.add(z);
       zcount++;

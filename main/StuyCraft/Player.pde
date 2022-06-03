@@ -86,7 +86,7 @@ class Player{
       }
     }
     if (!placed){
-    for (int i = 4; i < hotbar.length; i++){
+    for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] == null){
         b.stack++;
         hotbar[i] = b;  
@@ -124,6 +124,12 @@ class Player{
         Item b;
         
         switch (toBreak.type){
+         case "ironore":
+            b = new Item("iron.png");
+            break;
+         case "diamondore":
+            b = new Item("diamond.png");
+            break;
          case "Leaf":
             double rand = random(10);
             if (rand < 2){
@@ -151,7 +157,7 @@ class Player{
           }
         }
         if (!placed){
-        for (int i = 4; i < hotbar.length; i++){
+        for (int i = 0; i < hotbar.length; i++){
             if (hotbar[i] == null){
               b.stack++;
               hotbar[i] = b;  
@@ -204,7 +210,7 @@ class Player{
   
   void place(int x, int y){
     if (!open){
-    if (hbSlot > 3 && hotbar[hbSlot] != null){
+    if (hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
       world[y][x] = new Grass(x*scale,y*scale,scale);; 
       }
@@ -217,7 +223,7 @@ class Player{
       if (hotbar[hbSlot].type.equals("Wood0.png")){
       world[y][x] = new Wood(x*scale,y*scale,scale);; 
       }
-      if (hotbar[hbSlot].type.equals("plank.png")){
+      if (hotbar[hbSlot].type.equals("plank0.png")){
       world[y][x] = new Plank(x*scale,y*scale,scale);; 
       }
       hotbar[hbSlot].stack--;
@@ -356,7 +362,7 @@ class Player{
         stack = crafting[i].stack;
         woodcount++;
       }
-      if (crafting[i] != null && crafting[i].type.equals("plank.png")){
+      if (crafting[i] != null && crafting[i].type.equals("plank0.png")){
         ppos.add(i); 
         pstack.add(crafting[i].stack);
         plankcount++;
@@ -364,7 +370,7 @@ class Player{
     }
     //PLANKS
     if (nullcount == 8 && woodcount == 1){
-      craft = new Item("plank.png");
+      craft = new Item("plank0.png");
       if (stack*4 > 65){
         craft.stack = 64;
       }
@@ -510,7 +516,8 @@ class Player{
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     Block spot = world[worldY][worldX];
-    if (spot != null && spot.uses == player.hbSlot){
+    print(hotbar[hbSlot].num);
+    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num){
              breakBlock(spot);
      }
     }
