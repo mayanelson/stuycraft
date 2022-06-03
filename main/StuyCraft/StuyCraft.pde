@@ -145,12 +145,10 @@
             }
       }
     }
-    Block worldBit = world[(int)newMouseY/scale][(int)newMouseX/scale];
-    if (worldBit != null){
       noStroke();
       fill(225, 150);
       rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);
-    }
+      
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -459,20 +457,9 @@
           }
         }
         }
-        else if (player.hbSlot == 0){
-          for (int i = 0; i < mobs.size(); i++){
-            Mob m = mobs.get(i);
-            if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
-              //print("hit");
-              int dmg = (int) random(4)+1;
-              m.takeDamage(dmg);
-              if (m.health <= 0){
-                m.die();
-                mobs.remove(i);
-              }
-            }
-          }
-        }
+        else if (player.hbSlot == 0){  
+
+         }
         else {
           isMining = true;
         }
@@ -608,5 +595,11 @@
       if (block != null){
         block.currentDurability =block.maxDurability;
       }
+    }
+  }
+  
+  void mouseClicked(){
+    if (!player.open){
+      player.attack(newMouseX, newMouseY);
     }
   }

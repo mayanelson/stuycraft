@@ -324,9 +324,6 @@ class Player{
     dead = true;
   }
   
-  void collision(){
-    
-  }
   
   void hungerDrain(){
     hunger--;
@@ -480,7 +477,7 @@ class Player{
   }
   
   void mining(float xVal, float yVal){
-    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 3 * scale){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 5 * scale){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     Block spot = world[worldY][worldX];
@@ -488,5 +485,23 @@ class Player{
              breakBlock(spot);
      }
     }
+  }
+  
+  void attack(float xVal, float yVal){
+          for (int i = 0; i < mobs.size(); i++){
+            Mob m = mobs.get(i);
+            if (xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight){
+              //print("hit");
+              int dmg = (int) random(4)+1;
+              m.takeDamage(dmg);
+              m.ycor -= scale/2;
+              if(xcor > m.xcor){m.xcor-=scale/2;}
+              else{m.ycor+=scale/2;}
+              if (m.health <= 0){
+                m.die();
+                mobs.remove(i);
+               }
+             }
+           }
   }
 }
