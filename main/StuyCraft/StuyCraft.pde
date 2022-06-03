@@ -121,6 +121,9 @@
     rect(0,0,width,height);
     player.display();
     //translate(-1  * xMove, -1 * yMove);
+    if(isMining){
+      player.mining(newMouseX, newMouseY);
+    }
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -129,14 +132,20 @@
      }
     }
     for (int i = 0; i < mobs.size(); i++){
-      if (mobs.get(i) != null){    
-            mobs.get(i).gravity();
-            mobs.get(i).display();
-          }   
+      Mob mob = mobs.get(i);
+      if (mob != null){    
+            mob.gravity();
+            mob.display();  
+            if (mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY){
+              if (tick % 50 < 40  && tick % 50 > 10){ 
+                noStroke();
+                fill(225, 150);
+                rect(mob.xcor, mob.ycor, mob.mwidth, mob.mheight);
+              }
+            }
       }
-    if(isMining){
-      player.mining(newMouseX, newMouseY);
     }
+    //Block worldBit = world[
     popMatrix();
     player.gravity();
     if (control.inputs[0]){

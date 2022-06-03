@@ -1,5 +1,5 @@
   Block[][] world = new Block[250][500];
-  int scale = 10;
+  int scale = 100;
   int startingLevel = 100;
   int worldHeight = world.length * scale;
   int worldWidth = world[0].length * scale;
