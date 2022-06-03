@@ -259,10 +259,16 @@
                   if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= 16;
                     }
+                    else {
+                      player.crafting[i].stack -= heldStack;
+                    }
                   }
                   else if (heldStack < 65){
                     if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= heldStack/4;
+                    }
+                    else {
+                      player.crafting[i].stack -= heldStack;
                     }
                     if (player.crafting[i].stack <= 0){
                       player.crafting[i] = null;
