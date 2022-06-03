@@ -145,7 +145,12 @@
             }
       }
     }
-    //Block worldBit = world[
+    Block worldBit = world[(int)newMouseY/scale][(int)newMouseX/scale];
+    if (worldBit != null){
+      noStroke();
+      fill(225, 150);
+      rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);
+    }
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
