@@ -47,6 +47,42 @@
       }
     }
     counter0 += size;
+    
+   }
+   
+   //Adding random ores
+   for (int i = startingLevel+5; i < world.length-10; i++){
+     for (int j = 10; j < world[0].length-10; j++){
+       int rand = (int) random(1000);
+       int place = (int) random(5)+3;
+       if (world[i][j]!= null){
+       if (rand < 10){
+         world[i][j] = new ironore(j*scale,i*scale,scale);
+         for (int k = 0; k < place/2; k++){
+           if (k%2 == 0 && world[i+k][j]!= null){   
+             world[i+k][j] = new ironore((j)*scale,(i+k)*scale,scale);
+           }
+           else if (world[i][j+k]!= null){
+             world[i][j+k] = new ironore((j+k)*scale,(i)*scale,scale);
+           }
+           if (world[i+k/2][j+k/2]!= null){
+             world[i+k/2][j+k/2] = new ironore((j+k/2)*scale,(i+k/2)*scale,scale);
+           }
+         }
+         }
+         if (rand < 1 && i > 200){
+           for (int k = 0; k < place/2; k++){
+           if (k%2 == 0){   
+             world[i+k][j] = new diaore((j+k)*scale,i*scale,scale);
+           }
+           else {
+             world[i][j+k] = new diaore(j*scale,(i+k)*scale,scale);
+           }
+           world[i+k/2][j+k/2] = new diaore((j+k/2)*scale,(i+k/2)*scale,scale);
+         }
+         }
+       }
+     }
    }
    
    // Creating Surface w/o biomes
@@ -104,9 +140,12 @@
  void worldRevise(){
   for (int row = startingLevel + 5; row < world.length - 1; row++){
     for (int col = 1; col < world[row].length - 1; col++){
+      int surround = surroundCheck(row, col, world);
       if (world[row][col] != null){
-        int surround = surroundCheck(row, col, world);
         if (surround < 2){world[row][col] = null;}
+      }
+      else if (surround > 3){
+        world[row][col] = new Stone(scale*col,scale*row,scale);
       }
     }
   }

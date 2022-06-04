@@ -63,6 +63,11 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
+<<<<<<< HEAD
+   inventoryDisplay = loadImage("inventory.png");
+   inventory = new Item[30];
+   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+=======
 
     inventoryDisplay = loadImage("inventory.png");
     inventory = new Item[30];
@@ -70,6 +75,7 @@ class Player{
     
     range = 5 * scale;
 
+>>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
   }
   
   void addToHotbar(Item item){
@@ -91,7 +97,7 @@ class Player{
       }
     }
     if (!placed){
-    for (int i = 4; i < hotbar.length; i++){
+    for (int i = 0; i < hotbar.length; i++){
       if (hotbar[i] == null){
         b.stack++;
         hotbar[i] = b;  
@@ -121,13 +127,24 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
+<<<<<<< HEAD
+      
+      toBreak.currentDurability -= 10.0;
+=======
       toBreak.currentDurability -= 3;
+>>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
         Item b;
         
         switch (toBreak.type){
+         case "ironore":
+            b = new Item("iron.png");
+            break;
+         case "diamondore":
+            b = new Item("diamond.png");
+            break;
          case "Leaf":
             double rand = random(10);
             if (rand < 2){
@@ -141,6 +158,10 @@ class Player{
             b = new Item(toBreak.type+"0.png");
             break;
         }
+<<<<<<< HEAD
+
+=======
+>>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
@@ -154,7 +175,7 @@ class Player{
           }
         }
         if (!placed){
-        for (int i = 4; i < hotbar.length; i++){
+        for (int i = 0; i < hotbar.length; i++){
             if (hotbar[i] == null){
               b.stack++;
               hotbar[i] = b;  
@@ -207,7 +228,7 @@ class Player{
   
   void place(int x, int y){
     if (!open){
-    if (hbSlot > 3 && hotbar[hbSlot] != null){
+    if (hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
       world[y][x] = new Grass(x*scale,y*scale,scale);; 
       }
@@ -220,7 +241,7 @@ class Player{
       if (hotbar[hbSlot].type.equals("Wood0.png")){
       world[y][x] = new Wood(x*scale,y*scale,scale);; 
       }
-      if (hotbar[hbSlot].type.equals("plank.png")){
+      if (hotbar[hbSlot].type.equals("plank0.png")){
       world[y][x] = new Plank(x*scale,y*scale,scale);; 
       }
       hotbar[hbSlot].stack--;
@@ -340,10 +361,13 @@ class Player{
     //re
   }
   
+  // STORES CRAFTING RECIPES
   boolean crafting(){
-    //PLANKS
     int nullcount = 0;
     int woodcount = 0;
+    int plankcount = 0;
+    ArrayList<Integer> ppos = new ArrayList<Integer>(0);
+    ArrayList<Integer> pstack = new ArrayList<Integer>(0);
     int stack = 0;
     for (int i = 0; i < crafting.length; i++){
       if (crafting[i] == null){
@@ -353,9 +377,15 @@ class Player{
         stack = crafting[i].stack;
         woodcount++;
       }
+      if (crafting[i] != null && crafting[i].type.equals("plank0.png")){
+        ppos.add(i); 
+        pstack.add(crafting[i].stack);
+        plankcount++;
+      }
     }
+    //PLANKS
     if (nullcount == 8 && woodcount == 1){
-      craft = new Item("plank.png");
+      craft = new Item("plank0.png");
       if (stack*4 > 65){
         craft.stack = 64;
       }
@@ -363,6 +393,82 @@ class Player{
         craft.stack = stack*4;
       }
       return true;
+    }
+    //STICKS
+    else if (nullcount == 7 && plankcount == 2 && ppos.get(1) - ppos.get(0) == 3){
+       craft = new Item("stick.png");
+       if (pstack.get(0) > pstack.get(1)){
+         stack = pstack.get(1);
+       }
+       else {
+         stack = pstack.get(0);
+       }
+      if (stack*4 > 65){
+        craft.stack = 64;
+      }
+      else {
+        craft.stack = stack*4;
+      }
+      return true;
+    }
+    //PICK/AXE
+    else if (nullcount == 4){
+      if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
+      crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
+      crafting[2].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("ironpick.png");
+         craft.stack = 1;
+      return true;
+      }
+      if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
+      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
+      crafting[2].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("diapick.png");
+         craft.stack = 1;
+      return true;
+      }
+       if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
+      crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
+      crafting[3].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("ironaxe.png");
+         craft.stack = 1;
+      return true;
+      }
+       if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
+      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
+      crafting[4].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("diaaxe.png");
+         craft.stack = 1;
+      return true;
+      }
+    }
+    //SHOV/SWORD
+    else if (nullcount == 6){
+      if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
+      crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("ironshov.png");
+         craft.stack = 1;
+      return true;
+      }
+      if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
+      crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("diashov.png");
+         craft.stack = 1;
+      return true;
+      }
+       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
+      crafting[4].type.equals("iron.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("ironsword.png");
+         craft.stack = 1;
+      return true;
+      }
+      if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
+      crafting[4].type.equals("diamond.png") && crafting[7].type.equals("stick.png")){
+         craft = new Item("diasword.png");
+         craft.stack = 1;
+      return true;
+      }
+      
     }
     return false;
   }
@@ -484,7 +590,7 @@ class Player{
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     Block spot = world[worldY][worldX];
-    if (spot != null && spot.uses == player.hbSlot){
+    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num){
              breakBlock(spot);
      }
     }
