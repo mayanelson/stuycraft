@@ -490,7 +490,7 @@ class Player{
   void attack(float xVal, float yVal){
           for (int i = 0; i < mobs.size(); i++){
             Mob m = mobs.get(i);
-            if (xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight){
+            if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= scale * 5){
               //print("hit");
               int dmg = (int) random(4)+1;
               m.takeDamage(dmg);
