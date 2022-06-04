@@ -136,7 +136,7 @@
       if (mob != null){    
             mob.gravity();
             mob.display();  
-            if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= scale * 5){
+            if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
               if (tick % 50 < 40  && tick % 50 > 10){ 
                 noStroke();
                 fill(225, 150);
@@ -145,7 +145,7 @@
             }
       }
     }
-    if (dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= scale * 5){
+    if (dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
       noStroke();
       fill(225, 150);
       rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);

@@ -22,6 +22,7 @@ class Player{
   boolean open;
   Item[] crafting;
   Item craft;
+  float range;
   
   public Player(){
     direct = true;
@@ -66,6 +67,8 @@ class Player{
     inventoryDisplay = loadImage("inventory.png");
     inventory = new Item[30];
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+    
+    range = 5 * scale;
 
   }
   
@@ -477,7 +480,7 @@ class Player{
   }
   
   void mining(float xVal, float yVal){
-    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 5 * scale){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     Block spot = world[worldY][worldX];
@@ -490,7 +493,7 @@ class Player{
   void attack(float xVal, float yVal){
           for (int i = 0; i < mobs.size(); i++){
             Mob m = mobs.get(i);
-            if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= scale * 5){
+            if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= range){
               //print("hit");
               int dmg = (int) random(4)+1;
               m.takeDamage(dmg);
