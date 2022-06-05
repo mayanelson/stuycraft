@@ -490,19 +490,8 @@
           }
         }
         }
-        else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 0){
-          for (int i = 0; i < mobs.size(); i++){
-            Mob m = mobs.get(i);
-            if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
-              //print("hit");
-              int dmg = (int) random(4)+1;
-              m.takeDamage(dmg);
-              if (m.health <= 0){
-                m.die();
-                mobs.remove(i);
-              }
-            }
-          }
+        else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 1){
+          player.attack(newMouseX, newMouseY);
         }
         else {
           isMining = true;
