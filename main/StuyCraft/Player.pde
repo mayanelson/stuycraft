@@ -50,16 +50,16 @@ class Player{
     hungerBar.resize(50,50);
     //CREATE TOOLS AND ADD TO HOTBAR
     hbSlot = 0;
-    Sword sw = new Sword();
+    Sword sw = new Sword(3);
     sw.stack++;
     hotbar[0] = sw;
-    Pickaxe p = new Pickaxe();
+    Pickaxe p = new Pickaxe(3);
     p.stack++;
     hotbar[1] = p;
-    Axe a = new Axe();
+    Axe a = new Axe(3);
     a.stack++;
     hotbar[2] = a;
-    Shovel s = new Shovel();
+    Shovel s = new Shovel(3);
     s.stack++;
     hotbar[3] = s;
     

@@ -1,4 +1,4 @@
-class ISword extends Tool{
+/*class ISword extends Tool{
   
   ISword(){
     type = "ironsword.png";
@@ -9,4 +9,4 @@ class ISword extends Tool{
   
  void attack(Mob m){
  }
-}
+}*/
