@@ -5,7 +5,7 @@ class Shovel extends Tool{
     type = "shovel.png";
     image = loadImage("shovel.png");
     image.resize(50,50);
-    range = 5;
+    power = 3.0;
     //type = "Shovel";
   }
   

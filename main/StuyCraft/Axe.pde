@@ -5,7 +5,7 @@ class Axe extends Tool{
     type = "axe.png";
     image = loadImage("axe.png");
     image.resize(50,50);
-    range = 5;
+    power = 3.0;
   }
   
  void use(Block target){

@@ -122,7 +122,7 @@ class Player{
   void breakBlock(Block toBreak){
     if(!open){
 
-      toBreak.currentDurability -= 3;
+      toBreak.currentDurability -= hotbar[hbSlot].power;
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -588,11 +588,11 @@ class Player{
             Mob m = mobs.get(i);
             if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= range){
               //print("hit");
-              int dmg = (int) random(4)+1;
+              int dmg = (int) random(2) + (int)(hotbar[hbSlot].power);
               m.takeDamage(dmg);
-              m.ycor -= scale/2;
-              if(xcor > m.xcor){m.xcor-=scale/2;}
-              else{m.ycor+=scale/2;}
+              m.ycor -= scale;
+              if(xcor > m.xcor){m.xcor-=scale;}
+              else{m.ycor+=scale;}
               if (m.health <= 0){
                 m.die();
                 mobs.remove(i);

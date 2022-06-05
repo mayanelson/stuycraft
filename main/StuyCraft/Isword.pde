@@ -4,7 +4,7 @@ class ISword extends Tool{
     type = "ironsword.png";
     image = loadImage("ironsword.png");
     image.resize(50,50);
-    range = 5;
+    power = 5.0;
   }
   
  void attack(Mob m){

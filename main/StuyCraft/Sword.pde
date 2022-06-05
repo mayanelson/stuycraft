@@ -5,7 +5,7 @@ class Sword extends Tool{
     type = "sword.png";
     image = loadImage("sword.png");
     image.resize(50,50);
-    range = 5;
+    power = 3.0;
   }
   
  void attack(Mob m){

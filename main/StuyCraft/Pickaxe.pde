@@ -5,7 +5,7 @@ class Pickaxe extends Tool{
     type = "pickaxe.png";
     image = loadImage("pickaxe.png");
     image.resize(50,50);
-    range = 5;
+    power = 3.0;
     //type = "Pick";
   }
   
