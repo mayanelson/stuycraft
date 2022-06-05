@@ -4,6 +4,7 @@ class Item{
   PImage image;
   int hungerPoints;
   int num;
+  float power;
   
   Item(){
     num = -1;
@@ -27,6 +28,16 @@ class Item{
     if (picFile.equals("ironshov.png") || picFile.equals("shovel.png") || picFile.equals("diashov.png")){
       num = 3;
     }
+    if (picFile.substring(0,3).equals("dia")){
+     this.power = 7.0;
+    }
+    else if (picFile.substring(0,4).equals("iron")){ 
+      this.power = 5.0;
+    }
+    else{
+      this.power = 3.0;
+    }
+    
   }
   
   void display(){

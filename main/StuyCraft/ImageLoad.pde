@@ -14,7 +14,6 @@ static PImage wood0;
 static PImage wood1;
 static PImage wood2;
 static PImage plank0;
-<<<<<<< HEAD
 static PImage ironore0;
 static PImage ironore1;
 static PImage ironore2;
@@ -23,5 +22,3 @@ static PImage diaore1;
 static PImage diaore2;
 static PImage plank1;
 static PImage plank2;
-=======
->>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
