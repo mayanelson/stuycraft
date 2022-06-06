@@ -75,7 +75,6 @@
   }
   
   void draw(){
-   //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     newMouseX = (mouseX - width/2) + player.xcor;
     newMouseY = (mouseY - height/2) + player.ycor;
     tick++;
@@ -199,10 +198,7 @@
       textSize(20);
       text(heldStack,mouseX+10,mouseY-10);
     }
-    
-   // System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
-   // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
-   //System.out.println(player.hotbar[player.hbSlot].power);
+
   }
   
   void keyPressed(){
@@ -252,6 +248,9 @@
       case('9'):
         player.hbSlot = 8;
         break;      
+    }
+    if (player.hotbar[player.hbSlot] != null){
+      System.out.println(player.hbSlot + ": " + player.hotbar[player.hbSlot].type + ", "+ player.hotbar[player.hbSlot].power);
     }
   }
   
@@ -492,6 +491,7 @@
         }
         else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 1){
           player.attack(newMouseX, newMouseY);
+          
         }
         else {
           isMining = true;
@@ -638,3 +638,4 @@
       player.attack(newMouseX, newMouseY);
     }
   }
+  

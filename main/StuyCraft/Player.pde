@@ -123,6 +123,7 @@ class Player{
     if(!open){
 
       toBreak.currentDurability -= hotbar[hbSlot].power;
+      System.out.println(hotbar[hbSlot].power);
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -403,28 +404,29 @@ class Player{
       if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
       crafting[2].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironpick.png");
+         craft = new Pickaxe(5);
+         System.out.println(craft.type + ": " + craft.power + ", " + craft.num);
          craft.stack = 1;
       return true;
       }
       if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
       crafting[2].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diapick.png");
+         craft = new Pickaxe(7);
          craft.stack = 1;
       return true;
       }
        if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
       crafting[3].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironaxe.png");
+         craft = new Axe (5);
          craft.stack = 1;
       return true;
       }
        if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
       crafting[4].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diaaxe.png");
+         craft = new Axe(7);
          craft.stack = 1;
       return true;
       }
@@ -433,25 +435,25 @@ class Player{
     else if (nullcount == 6){
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
       crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironshov.png");
+         craft = new Shovel(5);
          craft.stack = 1;
       return true;
       }
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
       crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diashov.png");
+         craft = new Shovel(7);
          craft.stack = 1;
       return true;
       }
        if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
       crafting[4].type.equals("iron.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironsword.png");
+         craft = new Sword(5);
          craft.stack = 1;
       return true;
       }
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
       crafting[4].type.equals("diamond.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diasword.png");
+         craft = new Shovel(7);
          craft.stack = 1;
       return true;
       }
@@ -577,7 +579,7 @@ class Player{
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     Block spot = world[worldY][worldX];
-    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num){
+    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num - 1){
              breakBlock(spot);
      }
     }
@@ -588,7 +590,7 @@ class Player{
             Mob m = mobs.get(i);
             if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= range){
               //print("hit");
-              int dmg = (int) random(2) + (int)(hotbar[hbSlot].power);
+              int dmg = (hotbar[hbSlot].power);
               m.takeDamage(dmg);
               m.ycor -= scale;
               if(xcor > m.xcor){m.xcor-=scale;}
