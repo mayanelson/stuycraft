@@ -249,9 +249,6 @@
         player.hbSlot = 8;
         break;      
     }
-    if (player.hotbar[player.hbSlot] != null){
-      System.out.println(player.hbSlot + ": " + player.hotbar[player.hbSlot].type + ", "+ player.hotbar[player.hbSlot].power);
-    }
   }
   
   void mousePressed(){

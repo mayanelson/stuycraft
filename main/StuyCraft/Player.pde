@@ -123,7 +123,7 @@ class Player{
     if(!open){
 
       toBreak.currentDurability -= hotbar[hbSlot].power;
-      System.out.println(hotbar[hbSlot].power);
+     // System.out.println(hotbar[hbSlot].power);
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -405,7 +405,7 @@ class Player{
       crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
       crafting[2].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
          craft = new Pickaxe(5);
-         System.out.println(craft.type + ": " + craft.power + ", " + craft.num);
+         //System.out.println(craft.type + ": " + craft.power + ", " + craft.num);
          craft.stack = 1;
       return true;
       }
