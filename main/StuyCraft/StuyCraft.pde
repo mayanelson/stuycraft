@@ -6,7 +6,7 @@
    int zcount;
    int ccount;
    boolean held;
-   String heldtype;
+   Item heldItem;
    int heldStack;
    PImage heldImg;
    boolean isMining;
@@ -191,7 +191,7 @@
       }
     }
     if (player.open && held){
-      heldImg = loadImage(heldtype);
+      heldImg = loadImage(heldItem.type);
       heldImg.resize(50,50);
       image(heldImg,mouseX-25,mouseY-25);
       fill(0);
@@ -259,13 +259,13 @@
       if (mouseButton == LEFT){
         if (player.open){
           if (held &&  mouseX > width - 440 && mouseX < width - 390 && mouseY > height-635 && mouseY < height-585){
-            heldtype = null;
+            heldItem = null;
             heldStack = 0;
             held = false;
           }
           //craftingplace
           if (player.crafting() && !held && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
-            heldtype = player.craft.type;
+            heldItem = player.craft;
             heldStack = player.craft.stack;
             held = true;
               for (int i= 0; i < player.crafting.length; i++){
@@ -298,18 +298,17 @@
           for (int i = 0; i < player.hotbar.length; i++){
             if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
               if (!held && player.hotbar[i] != null){
-              heldtype = player.hotbar[i].type;
+              heldItem = player.hotbar[i];
               heldStack = player.hotbar[i].stack;
               player.hotbar[i] = null;
               held = true;
               }
               else if (held && player.hotbar[i] == null) {
-                Item b = new Item(heldtype);
-                b.stack = heldStack;
-                player.hotbar[i] = b;
+                player.hotbar[i] = heldItem;
                 held = false;
+                heldItem = null;
               }
-              else if (held && player.hotbar[i] != null && player.hotbar[i].type.equals(heldtype)){
+              else if (held && player.hotbar[i] != null && player.hotbar[i].type.equals(heldItem.type)){
                 if (player.hotbar[i].stack + heldStack > 65){
                   heldStack -= 64 - player.hotbar[i].stack;
                   player.hotbar[i].stack = 64;
@@ -327,20 +326,17 @@
              if (i < 10){
                if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-548 && mouseY < height-498){ 
                  if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
+                   heldItem = player.inventory[i];
                    player.inventory[i] = null;
                    held = true;
                  }
                  else if (held && player.inventory[i] == null){
-                    Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
+                    player.inventory[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldItem.type)){
                   if (player.inventory[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.inventory[i].stack;
+                    heldItem.stack -= 64 - player.inventory[i].stack;
                     player.inventory[i].stack = 64;
                     held = true;
                   }
@@ -354,18 +350,16 @@
             else if (i < 20){
               if (mouseX > (i-10)*80*0.945 + (width-730)/2 && mouseX < (i-10)*80*0.945 + (width-730)/2 + 50 && mouseY > height-456 && mouseY < height-406){ 
                 if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
+                   heldItem = player.inventory[i];
+                   heldStack = heldItem.stack;
                    player.inventory[i] = null;
                    held = true;
                  }
                  else if (held && player.inventory[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
+                    player.inventory[i] = heldItem;
                     held = false;
                  }  
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldItem.type)){
                     if (player.inventory[i].stack + heldStack > 65){
                     heldStack -= 64 - player.inventory[i].stack;
                     player.inventory[i].stack = 64;
@@ -380,18 +374,16 @@
             }
             else if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
                 if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
+                   heldItem= player.inventory[i];
+                   heldStack = heldItem.stack;
                    player.inventory[i] = null;
                    held = true;
                  }
                  else if (held && player.inventory[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
+                    player.inventory[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
+                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldItem.type)){
                     if (player.inventory[i].stack + heldStack > 65){
                     heldStack -= 64 - player.inventory[i].stack;
                     player.inventory[i].stack = 64;
@@ -411,18 +403,16 @@
               if (i < 3){
                if (mouseX > i*80*0.95 + (width-493)/2 && mouseX < i*80*0.95 + (width-493)/2 + 50 && mouseY > height-794 && mouseY < height-744){ 
                  if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
-                   heldStack = player.crafting[i].stack;
+                   heldItem = player.crafting[i];
+                   heldStack = heldItem.stack;
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                    Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
                    if (player.crafting[i].stack + heldStack > 65){
                     heldStack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
@@ -438,18 +428,16 @@
             else if (i < 6){
               if (mouseX > (i-3)*80*0.95 + (width-493)/2 && mouseX < (i-3)*80*0.95 + (width-493)/2 + 50 && mouseY > height-722 && mouseY < height-672){ 
                 if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
+                   heldItem = player.crafting[i];
                    heldStack = player.crafting[i].stack;
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }  
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
                   if (player.crafting[i].stack + heldStack > 65){
                     heldStack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
@@ -464,18 +452,16 @@
             }
             else if (mouseX > (i-6)*80*0.95 + (width-493)/2 && mouseX < (i-6)*80*0.95 + (width-493)/2 + 50 && mouseY > height-644 && mouseY < height-594){ 
                 if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
-                   heldStack = player.crafting[i].stack;
+                   heldItem = player.crafting[i];
+                   heldStack = heldItem.stack;
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
                    if (player.crafting[i].stack + heldStack > 65){
                     heldStack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
@@ -520,24 +506,22 @@
           if (i < 3){
                if (mouseX > i*80*0.95 + (width-493)/2 && mouseX < i*80*0.95 + (width-493)/2 + 50 && mouseY > height-794 && mouseY < height-744){ 
                  if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
+                    heldItem.stack++;
                     heldStack--;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = true;
                  }
                  else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                   heldItem.stack = heldStack;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack > 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = true;
                   }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
+                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack <= 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = false;
@@ -547,24 +531,22 @@
             else if (i < 6){
               if (mouseX > (i-3)*80*0.95 + (width-493)/2 && mouseX < (i-3)*80*0.95 + (width-493)/2 + 50 && mouseY > height-722 && mouseY < height-672){ 
                 if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
+                    heldItem.stack++;
                     heldStack--;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = true;
                  }
                  else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                   heldItem.stack = heldStack;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack > 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = true;
                   }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
+                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack <= 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = false;
@@ -573,24 +555,22 @@
             }
             else if (mouseX > (i-6)*80*0.95 + (width-493)/2 && mouseX < (i-6)*80*0.95 + (width-493)/2 + 50 && mouseY > height-644 && mouseY < height-594){ 
                 if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
+                    heldItem.stack++;
                     heldStack--;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = true;
                  }
                  else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                   heldItem.stack = heldStack;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack > 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = true;
                   }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
+                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldStack <= 1){
                     player.crafting[i].stack ++;
                     heldStack--;
                     held = false;
