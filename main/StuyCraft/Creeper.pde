@@ -1,31 +1,50 @@
-class Zombie extends Mob{
+class Creeper extends Mob{
+
+  int explodeTick;
+  int randTick;
+  boolean explode;
+  PImage image2;
   
-  Zombie(int x, int y){
+  Creeper(int x, int y){
     super(x,y);
-    type = "Zombie";
-    image = loadImage("Zombie0.png");
-    image.resize((int)(scale*1),(int)(scale*2));
-    mwidth = 0.75 * scale;
-    mheight = 2*scale;
+    type = "Creeper";
+    image = loadImage("Creeper.png");
+    image2 = loadImage("Creeper0.png");
+    image.resize((int)(scale*0.9),(int)(scale*1.8));
+    image2.resize((int)(scale*0.9),(int)(scale*1.8));
+    mwidth = scale*0.9;
+    mheight = 1.8*scale;
+    explodeTick = 0;
+    randTick = ((int)random(3)+2) * 60;
   }
   
   void die(){
-    zcount--;
+    crcount--;
+    mobs.remove(this);
   }
   void attack(){
-    int rand = (int)random(10);
-    if (rand == 1){
-    int rand2 = (int)random(3)+1;
+    die();
+    for (int i = 0; i < 4; i++){
+      for (int j = 0; j < 4; j++){
+        if (i != 3 || j != 3){
+          world[(int)ycor/scale + i][xcor/scale +j] = null;
+          world[(int)ycor/scale - i][xcor/scale -j] = null;
+          world[(int)ycor/scale + i][xcor/scale -j] = null;
+          world[(int)ycor/scale - i][xcor/scale +j] = null;
+        }
+      }
+    }
+    int rand2 = (int)random(2)+4;
     player.health -= rand2;
-    if (player.health <= 0){
-      player.die();
-      
+    if (player.health <= 0){      
+      player.die(); 
     }
     }
-  }
+  
   void move(int inherit){
      if ((int)ycor/scale + 1 < world.length - 1 && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 1 && xcor/scale > 1){
        int nextX;
+       if (Math.abs(player.xcor - xcor)/scale*10 < 100){
         if (player.xcor - xcor < 0){
           direct = false;
           nextX = xcor - xVel;
@@ -60,9 +79,13 @@ class Zombie extends Mob{
         }
         //xcor += xVel * direction;
         }
-        if (Math.abs(player.xcor - xcor)/scale*10 < 10 && Math.abs(player.ycor - ycor)/scale*10 < 5){
-          attack();
+        if (Math.abs(player.xcor - xcor)/scale*10 < 20 && Math.abs(player.ycor - ycor)/scale*10 < 20){
+            explode = true;
+            if (explodeTick > randTick) {
+              attack();
+            }
     }
+     }
   }
   void jump(){
     if( yVel == 0){
@@ -75,6 +98,21 @@ class Zombie extends Mob{
     }
   }
   void display(){
+    if(explode){
+      explodeTick++;
+    }
+    if (explodeTick%60 > 5 && explodeTick%60 < 15){
+       if (direct){
+      image(image2,xcor,ycor);
+    }
+    else {
+      pushMatrix();
+      scale(-1,1);
+      image(image2,-xcor-mwidth,ycor);
+      popMatrix();
+    }
+    }
+    else {
     if (direct){
       image(image,xcor,ycor);
     }
@@ -83,6 +121,7 @@ class Zombie extends Mob{
       scale(-1,1);
       image(image,-xcor-mwidth,ycor);
       popMatrix();
+    }
     }
     for (int  i = 0; i < health; i++){
       image(healthBar,xcor + (i*scale)/5 - (scale/2),ycor-(scale/4));

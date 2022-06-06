@@ -62,17 +62,9 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
-<<<<<<< HEAD
    inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
-=======
-
-    inventoryDisplay = loadImage("inventory.png");
-    inventory = new Item[30];
-    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
-
->>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
   }
   
   void addToHotbar(Item item){
@@ -124,12 +116,8 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
-<<<<<<< HEAD
       
       toBreak.currentDurability -= 10.0;
-=======
-      toBreak.currentDurability -= 3;
->>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -155,10 +143,8 @@ class Player{
             b = new Item(toBreak.type+"0.png");
             break;
         }
-<<<<<<< HEAD
 
-=======
->>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
+
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;

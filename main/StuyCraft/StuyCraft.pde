@@ -5,6 +5,7 @@
    ArrayList<Mob> mobs;
    int zcount;
    int ccount;
+   int crcount;
    boolean held;
    String heldtype;
    int heldStack;
@@ -47,11 +48,6 @@
     wood2.resize(scale, scale);
     grass0 = loadImage("Grass0.png");
     grass0.resize(scale, scale);
-<<<<<<< HEAD
-=======
-    plank0 = loadImage("plank.png");
-    plank0.resize(scale,scale);
->>>>>>> c54c2116f622395dc2330e6d9d57d5e4bfe83ec0
     grass1 = loadImage("Grass1.png");
     grass1.resize(scale, scale);
     grass2 = loadImage("Grass2.png");
@@ -94,19 +90,17 @@
       if (player.hunger > 9 && player.health < 10){
         player.health++;
       }
-    }
-    if (tick%10 == 0){
-      for (int i = 0; i < 100; i++){
+     for (int i = 0; i < 100; i++){
       int y = (int) random(world.length-2)+2;
       int x = (int) random(world[0].length-1)+1;  
       if ( x < world[0].length && y < world.length && world[y][x] != null){
-        spawnMob(x,y);    
+        spawnMob(x,y);     
       }
     }
     }
-    if (tick%3 == 0){
+    if (tick%4 == 0){
       for (int i = 0; i < mobs.size(); i++){
-        if(mobs.get(i).type.equals("Zombie")){
+        if(mobs.get(i).type.equals("Zombie") || mobs.get(i).type.equals("Creeper")){
           mobs.get(i).move(1);
         }
         int rand = (int)random(10);
@@ -624,6 +618,11 @@
       Zombie z = new Zombie(b.xcor,(b.ycor-(int)(scale*2)));
       mobs.add(z);
       zcount++;
+    }
+    if (crcount < 30){
+      Creeper c = new Creeper(b.xcor,(b.ycor-(int)(scale*2)));
+      mobs.add(c);
+      crcount++;
     }
     }
   } 
