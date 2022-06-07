@@ -593,8 +593,17 @@ class Player{
               int dmg = (hotbar[hbSlot].power);
               m.takeDamage(dmg);
               m.ycor -= scale;
-              if(xcor > m.xcor){m.xcor-=scale;}
-              else{m.ycor+=scale;}
+              if(world[(int)(m.ycor/scale)][(int)m.xcor/scale] != null){
+                m.ycor = (int)(m.ycor/scale) * scale + scale + 1;
+              }
+              if(xcor > m.xcor){
+                m.xcor-=scale;
+              }
+              else{
+                m.ycor+=scale;
+              }
+              
+              
               if (m.health <= 0){
                 m.die();
                 mobs.remove(i);
