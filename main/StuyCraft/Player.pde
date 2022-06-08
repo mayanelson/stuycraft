@@ -575,10 +575,12 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 3 * scale){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
+    if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
     Block spot = world[worldY][worldX];
     if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num){
              breakBlock(spot);
      }
+    }
     }
   }
 }

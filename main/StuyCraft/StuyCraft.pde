@@ -630,9 +630,11 @@
   void mouseReleased(){
     if (!player.open){
       isMining = false;
+      if ((int)newMouseY/ scale < 250 && (int)newMouseY/ scale >= 0 && (int)newMouseX/scale < 500 && (int)newMouseX/scale >=0){
       Block block = world[(int)newMouseY/ scale][(int)newMouseX/scale];
       if (block != null){
         block.currentDurability =block.maxDurability;
       }
+    }
     }
   }

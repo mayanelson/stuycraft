@@ -4,33 +4,46 @@ class Creeper extends Mob{
   int randTick;
   boolean explode;
   PImage image2;
+  PImage explosion;
   
   Creeper(int x, int y){
     super(x,y);
     type = "Creeper";
     image = loadImage("Creeper.png");
     image2 = loadImage("Creeper0.png");
+    explosion = loadImage("Explosion.png");
     image.resize((int)(scale*0.9),(int)(scale*1.8));
     image2.resize((int)(scale*0.9),(int)(scale*1.8));
+    explosion.resize(750,750);
     mwidth = scale*0.9;
     mheight = 1.8*scale;
     explodeTick = 0;
-    randTick = ((int)random(3)+2) * 60;
+    randTick = ((int)random(2)+2) * 60;
   }
   
   void die(){
     crcount--;
     mobs.remove(this);
   }
+  
   void attack(){
-    die();
-    for (int i = 0; i < 4; i++){
+    if (explodeTick > randTick + 25){
+      die();
+      for (int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
         if (i != 3 || j != 3){
+          if ((int)ycor/scale + i < 250 && xcor/scale +j < 500){
           world[(int)ycor/scale + i][xcor/scale +j] = null;
+          }
+          if ((int)ycor/scale - i >= 0 && xcor/scale -j >= 0){
           world[(int)ycor/scale - i][xcor/scale -j] = null;
+          }
+          if ((int)ycor/scale + i < 250 && xcor/scale -j >= 0){
           world[(int)ycor/scale + i][xcor/scale -j] = null;
+          }
+          if ((int)ycor/scale + i >= 0 && xcor/scale +j < 500){
           world[(int)ycor/scale - i][xcor/scale +j] = null;
+          }
         }
       }
     }
@@ -38,6 +51,7 @@ class Creeper extends Mob{
     player.health -= rand2;
     if (player.health <= 0){      
       player.die(); 
+    }
     }
     }
   
@@ -85,6 +99,9 @@ class Creeper extends Mob{
               attack();
             }
     }
+    else {
+      explode = false;
+    }
      }
   }
   void jump(){
@@ -101,7 +118,10 @@ class Creeper extends Mob{
     if(explode){
       explodeTick++;
     }
-    if (explodeTick%60 > 5 && explodeTick%60 < 15){
+    if (explode && explodeTick > randTick){
+      image(explosion,xcor-375,ycor-375);
+    }
+    else if (explode && explodeTick%30 > 5 && explodeTick%30 < 15){
        if (direct){
       image(image2,xcor,ycor);
     }
