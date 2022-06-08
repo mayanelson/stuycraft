@@ -16,7 +16,7 @@ class TNT extends Block{
   }
   
   void explode(){
-    explode = true;
+    isExplode = true;
     if (explodeTick > randTick + 25){
       for (int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
@@ -41,22 +41,23 @@ class TNT extends Block{
     if (player.health <= 0){      
       player.die(); 
     }  
-     world[(int)ycor/scalei][xcor/scale] = null;
+     world[(int)ycor/scale][xcor/scale] = null;
     }
     
   }
   
   void display(){
-     if(explode){
+     if(isExplode){
       explodeTick++;
     }
-    if (explode && explodeTick > randTick){
+    if (isExplode && explodeTick > randTick){
       image(explosion,xcor-375,ycor-375);
     }
-    else if (explode && explodeTick%30 > 5 && explodeTick%30 < 15){
+    else if (isExplode && explodeTick%30 > 5 && explodeTick%30 < 15){
       image(TNT1,xcor,ycor);
     }
-    if (!explode){
+    if (!isExplode){
       image(bImage,xcor,ycor);
     }
+  }
 }
