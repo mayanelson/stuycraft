@@ -324,12 +324,14 @@
             }
           }
           //LOOPS FOR INVENTORY
+          int col = (int)((mouseX - ((width-730)/2)) / (80*0.945));
           for (int i = 0; i < player.inventory.length; i++){
              if (i < 10){
-               if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-548 && mouseY < height-498){ 
-                 if (!held && player.inventory[i] != null){
-                   heldItem = player.inventory[i];
-                   player.inventory[i] = null;
+               System.out.println(col);
+               if (col >= 0 && col < 10 && mouseY > height-548 && mouseY < height-498){ 
+                 if (!held && player.inventory[col] != null){
+                   heldItem = player.inventory[col];
+                   player.inventory[col] = null;
                    held = true;
                  }
                  else if (held && player.inventory[i] == null){
@@ -351,30 +353,31 @@
             }
             else if (i < 20){
               if (mouseX > (i-10)*80*0.945 + (width-730)/2 && mouseX < (i-10)*80*0.945 + (width-730)/2 + 50 && mouseY > height-456 && mouseY < height-406){ 
-                if (!held && player.inventory[i] != null){
+                if (!held && player.inventory[i] != null){ // Picking up a stack
                    heldItem = player.inventory[i];
                    heldStack = heldItem.stack;
                    player.inventory[i] = null;
                    held = true;
                  }
-                 else if (held && player.inventory[i] == null){
+                 else if (held && player.inventory[i] == null){ // putting down the entire stack
                     player.inventory[i] = heldItem;
                     held = false;
                  }  
                  else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldItem.type)){
                     if (player.inventory[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.inventory[i].stack;
+                    heldItem.stack -= 64 - player.inventory[i].stack;
                     player.inventory[i].stack = 64;
                     held = true;
                   }
-                  else {
-                    player.inventory[i].stack += heldStack;
+                  else { //You can place the current stack with inventory.
+                    player.inventory[i].stack += heldItem.stack;
+                    heldItem = null;
                     held = false;
                 }
               }
               }
             }
-            else if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
+            else if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-364 && mouseY < height-314){ 
                 if (!held && player.inventory[i] != null){
                    heldItem= player.inventory[i];
                    heldStack = heldItem.stack;
