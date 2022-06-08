@@ -22,3 +22,5 @@ static PImage diaore1;
 static PImage diaore2;
 static PImage plank1;
 static PImage plank2;
+static PImage TNT0;
+static PImage TNT1;

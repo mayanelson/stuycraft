@@ -47,7 +47,7 @@ class Creeper extends Mob{
         }
       }
     }
-    int rand2 = (int)random(2)+4;
+    int rand2 = (int)random(2)+7;
     player.health -= rand2;
     if (player.health <= 0){      
       player.die(); 
