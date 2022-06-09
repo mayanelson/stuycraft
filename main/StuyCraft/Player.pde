@@ -63,6 +63,7 @@ class Player{
     s.stack++;
     hotbar[3] = s;
     
+<<<<<<< HEAD
 
 
     inventoryDisplay = loadImage("inventory.png");
@@ -70,6 +71,11 @@ class Player{
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
     
     range = 5 * scale;
+=======
+   inventoryDisplay = loadImage("inventory.png");
+   inventory = new Item[30];
+   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+>>>>>>> main
   }
   
   void addToHotbar(Item item){
@@ -121,9 +127,14 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
+<<<<<<< HEAD
 
       toBreak.currentDurability -= hotbar[hbSlot].power;
      // System.out.println(hotbar[hbSlot].power);
+=======
+      
+      toBreak.currentDurability -= 10.0;
+>>>>>>> main
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -150,6 +161,10 @@ class Player{
             break;
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
@@ -578,10 +593,12 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
+    if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
     Block spot = world[worldY][worldX];
     if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num - 1){
              breakBlock(spot);
      }
+    }
     }
   }
   

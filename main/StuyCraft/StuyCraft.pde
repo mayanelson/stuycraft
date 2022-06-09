@@ -5,6 +5,7 @@
    ArrayList<Mob> mobs;
    int zcount;
    int ccount;
+   int crcount;
    boolean held;
    Item heldItem;
    boolean isMining;
@@ -84,19 +85,17 @@
       if (player.hunger > 9 && player.health < 10){
         player.health++;
       }
-    }
-    if (tick%10 == 0){
-      for (int i = 0; i < 100; i++){
+     for (int i = 0; i < 100; i++){
       int y = (int) random(world.length-2)+2;
       int x = (int) random(world[0].length-1)+1;  
       if ( x < world[0].length && y < world.length && world[y][x] != null){
-        spawnMob(x,y);    
+        spawnMob(x,y);     
       }
     }
     }
-    if (tick%3 == 0){
+    if (tick%4 == 0){
       for (int i = 0; i < mobs.size(); i++){
-        if(mobs.get(i).type.equals("Zombie")){
+        if(mobs.get(i).type.equals("Zombie") || mobs.get(i).type.equals("Creeper")){
           mobs.get(i).move(1);
         }
         int rand = (int)random(10);
@@ -580,16 +579,23 @@
       mobs.add(z);
       zcount++;
     }
+    if (crcount < 30){
+      Creeper c = new Creeper(b.xcor,(b.ycor-(int)(scale*2)));
+      mobs.add(c);
+      crcount++;
+    }
     }
   } 
   
   void mouseReleased(){
     if (!player.open){
       isMining = false;
+      if ((int)newMouseY/ scale < 250 && (int)newMouseY/ scale >= 0 && (int)newMouseX/scale < 500 && (int)newMouseX/scale >=0){
       Block block = world[(int)newMouseY/ scale][(int)newMouseX/scale];
       if (block != null){
         block.currentDurability =block.maxDurability;
       }
+    }
     }
   }
   
