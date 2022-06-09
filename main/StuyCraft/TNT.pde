@@ -12,11 +12,19 @@ class TNT extends Block{
     maxDurability = 100.0;
     currentDurability = maxDurability;
     explosion = loadImage("Explosion.png");
+    explosion.resize(750,750);
     randTick = 120;
   }
   
   void explode(){
     isExplode = true;
+
+  }
+  
+  void display(){
+     if(isExplode){
+      explodeTick++;
+    }
     if (explodeTick > randTick + 25){
       for (int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
@@ -43,20 +51,13 @@ class TNT extends Block{
     }  
      world[(int)ycor/scale][xcor/scale] = null;
     }
-    
-  }
-  
-  void display(){
-     if(isExplode){
-      explodeTick++;
-    }
     if (isExplode && explodeTick > randTick){
       image(explosion,xcor-375,ycor-375);
     }
     else if (isExplode && explodeTick%30 > 5 && explodeTick%30 < 15){
       image(TNT1,xcor,ycor);
     }
-    if (!isExplode){
+    else {
       image(bImage,xcor,ycor);
     }
   }

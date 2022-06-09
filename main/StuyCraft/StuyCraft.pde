@@ -482,7 +482,6 @@
         if (mouseY > height - 644 && mouseY < height - 594){
          row = 2; 
         }
-        System.out.println(row + ", " + col);
         if (col >= 0 && col < 3 && row >=0){
          int index = col + row * 3;
          if (player.crafting[index] == null && heldItem.stack > 1){

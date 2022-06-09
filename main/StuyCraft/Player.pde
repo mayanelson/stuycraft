@@ -78,6 +78,7 @@ class Player{
     }
     else if (item.type == "gunpowder.png"){
       b = new Item("gunpowder.png");
+      b.stack = 54;
     }
     else {
       b = new Item("Apple0.png");
@@ -233,6 +234,9 @@ class Player{
       }
       if (hotbar[hbSlot].type.equals("plank0.png")){
       world[y][x] = new Plank(x*scale,y*scale,scale);; 
+      }
+      if (hotbar[hbSlot].type.equals("TNT0.png")){
+      world[y][x] = new TNT(x*scale,y*scale,scale);; 
       }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){
@@ -596,6 +600,9 @@ class Player{
     int worldY = (int)yVal/scale;
     if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
     Block spot = world[worldY][worldX];
+    if (spot != null && spot.type.equals("TNT")){
+      spot.explode();
+    }
     if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num - 1){
              breakBlock(spot);
      }
