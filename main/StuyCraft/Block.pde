@@ -36,6 +36,11 @@ class Block{
   }
 
 */
+
+void explode(){
+  //to compile
+}
+
 void display(){
   fill(0);
   stroke(255);

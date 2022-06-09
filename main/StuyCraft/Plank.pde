@@ -3,13 +3,7 @@ class Plank extends Block{
     
   Plank(int xcor, int ycor, int sidelength){
     super(xcor, ycor, sidelength);
-<<<<<<< HEAD
-
     type = "Plank";
-
-=======
-    type = "Plank";
->>>>>>> main
     bImage = plank0;
     uses = 2;
     maxDurability = 100.0;

@@ -22,6 +22,8 @@ class Creeper extends Mob{
   }
   
   void die(){
+    Item gp = new Item("gunpowder.png");
+    player.addToHotbar(gp);
     crcount--;
     mobs.remove(this);
   }

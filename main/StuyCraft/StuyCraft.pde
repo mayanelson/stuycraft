@@ -69,14 +69,11 @@
     diaore1.resize(scale,scale);
     diaore2 = loadImage("diamondore2.png");
     diaore2.resize(scale,scale);
-<<<<<<< HEAD
-=======
     TNT0 = loadImage("TNT0.png");
     TNT1 = loadImage("TNT1.png");
     xMove = -(worldWidth/2 - width/2);
     //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
     //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
->>>>>>> tnt
     
     xMove = -(worldWidth/2 - width/2);
     control = new Movement();
@@ -485,7 +482,6 @@
         if (mouseY > height - 644 && mouseY < height - 594){
          row = 2; 
         }
-        System.out.println(row + ", " + col);
         if (col >= 0 && col < 3 && row >=0){
          int index = col + row * 3;
          if (player.crafting[index] == null && heldItem.stack > 1){
@@ -587,7 +583,7 @@
       mobs.add(z);
       zcount++;
     }
-    if (crcount < 30){
+    if (crcount < 300){
       Creeper c = new Creeper(b.xcor,(b.ycor-(int)(scale*2)));
       mobs.add(c);
       crcount++;

@@ -62,9 +62,6 @@ class Player{
     Shovel s = new Shovel(3);
     s.stack++;
     hotbar[3] = s;
-<<<<<<< HEAD
-    
-<<<<<<< HEAD
 
 
     inventoryDisplay = loadImage("inventory.png");
@@ -72,19 +69,16 @@ class Player{
     inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
     
     range = 5 * scale;
-=======
-=======
->>>>>>> tnt
-   inventoryDisplay = loadImage("inventory.png");
-   inventory = new Item[30];
-   inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
->>>>>>> main
   }
   
   void addToHotbar(Item item){
     Item b;
     if (item.type == "Beef"){
       b = new Item("Steak0.png");
+    }
+    else if (item.type == "gunpowder.png"){
+      b = new Item("gunpowder.png");
+      b.stack = 54;
     }
     else {
       b = new Item("Apple0.png");
@@ -130,15 +124,10 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
-<<<<<<< HEAD
 
       toBreak.currentDurability -= hotbar[hbSlot].power;
      // System.out.println(hotbar[hbSlot].power);
-=======
-      
-      toBreak.currentDurability -= 10.0;
->>>>>>> main
-      
+   
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
         Item b;
@@ -164,10 +153,6 @@ class Player{
             break;
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
@@ -249,6 +234,9 @@ class Player{
       }
       if (hotbar[hbSlot].type.equals("plank0.png")){
       world[y][x] = new Plank(x*scale,y*scale,scale);; 
+      }
+      if (hotbar[hbSlot].type.equals("TNT0.png")){
+      world[y][x] = new TNT(x*scale,y*scale,scale);; 
       }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){
@@ -372,6 +360,8 @@ class Player{
     int nullcount = 0;
     int woodcount = 0;
     int plankcount = 0;
+    int sandcount = 0;
+    int gunpowdercount = 0;
     ArrayList<Integer> ppos = new ArrayList<Integer>(0);
     ArrayList<Integer> pstack = new ArrayList<Integer>(0);
     int stack = 0;
@@ -387,6 +377,12 @@ class Player{
         ppos.add(i); 
         pstack.add(crafting[i].stack);
         plankcount++;
+      }
+      if (crafting[i] != null && crafting[i].type.equals("Sand0.png")){
+        sandcount++;
+      }
+      if (crafting[i] != null && crafting[i].type.equals("gunpowder.png")){
+        gunpowdercount++;
       }
     }
     //PLANKS
@@ -476,6 +472,12 @@ class Player{
       return true;
       }
       
+    }
+    //TNT
+    else if (sandcount == 5 && gunpowdercount == 4){
+        craft = new Item("TNT0.png");
+        craft.stack =1;
+        return true;
     }
     return false;
   }
@@ -598,6 +600,9 @@ class Player{
     int worldY = (int)yVal/scale;
     if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
     Block spot = world[worldY][worldX];
+    if (spot != null && spot.type.equals("TNT")){
+      spot.explode();
+    }
     if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num - 1){
              breakBlock(spot);
      }
