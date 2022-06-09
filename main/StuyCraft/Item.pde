@@ -11,7 +11,14 @@ class Item{
     image  = loadImage("heart.png"); // just so it compiles
     type = "compile";
   }
-  
+  Item (Item source, int amount){
+    this.type = source.type;
+    this.image = source.image;
+    this.hungerPoints = source.hungerPoints;
+    this.num = source.num;
+    this.power = source.power;
+    stack = amount;
+  }
   Item(String picFile){
     num = -1;
     image  = loadImage(picFile);
