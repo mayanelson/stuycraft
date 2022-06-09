@@ -76,6 +76,9 @@ class Player{
     if (item.type == "Beef"){
       b = new Item("Steak0.png");
     }
+    else if (item.type == "gunpowder.png"){
+      b = new Item("gunpowder.png");
+    }
     else {
       b = new Item("Apple0.png");
     }
@@ -354,7 +357,7 @@ class Player{
     int woodcount = 0;
     int plankcount = 0;
     int sandcount = 0;
-    int gunpowercount = 0;
+    int gunpowdercount = 0;
     ArrayList<Integer> ppos = new ArrayList<Integer>(0);
     ArrayList<Integer> pstack = new ArrayList<Integer>(0);
     int stack = 0;
@@ -375,7 +378,7 @@ class Player{
         sandcount++;
       }
       if (crafting[i] != null && crafting[i].type.equals("gunpowder.png")){
-        gunpowercount++;
+        gunpowdercount++;
       }
     }
     //PLANKS
@@ -467,9 +470,10 @@ class Player{
       
     }
     //TNT
-    else if (sandcount == 5 && gunpowercount == 4){
+    else if (sandcount == 5 && gunpowdercount == 4){
         craft = new Item("TNT0.png");
         craft.stack =1;
+        return true;
     }
     return false;
   }
