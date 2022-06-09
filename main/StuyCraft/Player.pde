@@ -62,6 +62,7 @@ class Player{
     Shovel s = new Shovel(3);
     s.stack++;
     hotbar[3] = s;
+<<<<<<< HEAD
     
 <<<<<<< HEAD
 
@@ -72,6 +73,8 @@ class Player{
     
     range = 5 * scale;
 =======
+=======
+>>>>>>> tnt
    inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
