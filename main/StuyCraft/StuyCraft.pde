@@ -583,7 +583,7 @@
       mobs.add(z);
       zcount++;
     }
-    if (crcount < 300){
+    if (crcount < 30){
       Creeper c = new Creeper(b.xcor,(b.ycor-(int)(scale*2)));
       mobs.add(c);
       crcount++;

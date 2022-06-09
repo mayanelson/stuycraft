@@ -78,7 +78,6 @@ class Player{
     }
     else if (item.type == "gunpowder.png"){
       b = new Item("gunpowder.png");
-      b.stack = 54;
     }
     else {
       b = new Item("Apple0.png");
