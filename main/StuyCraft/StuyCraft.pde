@@ -69,14 +69,11 @@
     diaore1.resize(scale,scale);
     diaore2 = loadImage("diamondore2.png");
     diaore2.resize(scale,scale);
-<<<<<<< HEAD
-=======
     TNT0 = loadImage("TNT0.png");
     TNT1 = loadImage("TNT1.png");
     xMove = -(worldWidth/2 - width/2);
     //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
     //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
->>>>>>> tnt
     
     xMove = -(worldWidth/2 - width/2);
     control = new Movement();
