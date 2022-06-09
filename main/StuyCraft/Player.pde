@@ -22,6 +22,7 @@ class Player{
   boolean open;
   Item[] crafting;
   Item craft;
+  float range;
   
   public Player(){
     direct = true;
@@ -49,22 +50,32 @@ class Player{
     hungerBar.resize(50,50);
     //CREATE TOOLS AND ADD TO HOTBAR
     hbSlot = 0;
-    Sword sw = new Sword();
+    Sword sw = new Sword(3);
     sw.stack++;
     hotbar[0] = sw;
-    Pickaxe p = new Pickaxe();
+    Pickaxe p = new Pickaxe(3);
     p.stack++;
     hotbar[1] = p;
-    Axe a = new Axe();
+    Axe a = new Axe(3);
     a.stack++;
     hotbar[2] = a;
-    Shovel s = new Shovel();
+    Shovel s = new Shovel(3);
     s.stack++;
     hotbar[3] = s;
     
+<<<<<<< HEAD
+
+
+    inventoryDisplay = loadImage("inventory.png");
+    inventory = new Item[30];
+    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+    
+    range = 5 * scale;
+=======
    inventoryDisplay = loadImage("inventory.png");
    inventory = new Item[30];
    inventoryDisplay.resize((int)(550*1.5),(int)(450*1.5));
+>>>>>>> main
   }
   
   void addToHotbar(Item item){
@@ -116,8 +127,14 @@ class Player{
   
   void breakBlock(Block toBreak){
     if(!open){
+<<<<<<< HEAD
+
+      toBreak.currentDurability -= hotbar[hbSlot].power;
+     // System.out.println(hotbar[hbSlot].power);
+=======
       
       toBreak.currentDurability -= 10.0;
+>>>>>>> main
       
       if(toBreak.currentDurability <= 0){
         world[toBreak.ycor/scale][toBreak.xcor/scale] = null;
@@ -144,7 +161,10 @@ class Player{
             break;
         }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
         if (b != null){
         //BlockItem b = toBreak.drop;
         boolean placed = false;
@@ -331,9 +351,6 @@ class Player{
     dead = true;
   }
   
-  void collision(){
-    
-  }
   
   void hungerDrain(){
     hunger--;
@@ -402,28 +419,29 @@ class Player{
       if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
       crafting[2].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironpick.png");
+         craft = new Pickaxe(5);
+         //System.out.println(craft.type + ": " + craft.power + ", " + craft.num);
          craft.stack = 1;
       return true;
       }
       if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
       crafting[2].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diapick.png");
+         craft = new Pickaxe(7);
          craft.stack = 1;
       return true;
       }
        if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("iron.png") && crafting[1].type.equals("iron.png") && 
       crafting[3].type.equals("iron.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironaxe.png");
+         craft = new Axe (5);
          craft.stack = 1;
       return true;
       }
        if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
       crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
       crafting[4].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diaaxe.png");
+         craft = new Axe(7);
          craft.stack = 1;
       return true;
       }
@@ -432,25 +450,25 @@ class Player{
     else if (nullcount == 6){
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
       crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironshov.png");
+         craft = new Shovel(5);
          craft.stack = 1;
       return true;
       }
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
       crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diashov.png");
+         craft = new Shovel(7);
          craft.stack = 1;
       return true;
       }
        if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("iron.png") && 
       crafting[4].type.equals("iron.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("ironsword.png");
+         craft = new Sword(5);
          craft.stack = 1;
       return true;
       }
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
       crafting[4].type.equals("diamond.png") && crafting[7].type.equals("stick.png")){
-         craft = new Item("diasword.png");
+         craft = new Shovel(7);
          craft.stack = 1;
       return true;
       }
@@ -572,15 +590,42 @@ class Player{
   }
   
   void mining(float xVal, float yVal){
-    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= 3 * scale){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
     if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
     Block spot = world[worldY][worldX];
-    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num){
+    if (spot != null && hotbar[hbSlot] != null && spot.uses == hotbar[hbSlot].num - 1){
              breakBlock(spot);
      }
     }
     }
+  }
+  
+  void attack(float xVal, float yVal){
+          for (int i = 0; i < mobs.size(); i++){
+            Mob m = mobs.get(i);
+            if ((xVal > m.xcor && xVal < m.xcor + m.mwidth && yVal > m.ycor && yVal < m.ycor + m.mheight) && dist(xVal, yVal, xcor + pwidth/2, ycor + pheight/2) <= range){
+              //print("hit");
+              int dmg = (hotbar[hbSlot].power);
+              m.takeDamage(dmg);
+              m.ycor -= scale;
+              if(world[(int)(m.ycor/scale)][(int)m.xcor/scale] != null){
+                m.ycor = (int)(m.ycor/scale) * scale + scale + 1;
+              }
+              if(xcor > m.xcor){
+                m.xcor-=scale;
+              }
+              else{
+                m.ycor+=scale;
+              }
+              
+              
+              if (m.health <= 0){
+                m.die();
+                mobs.remove(i);
+               }
+             }
+           }
   }
 }

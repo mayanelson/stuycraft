@@ -7,12 +7,11 @@
    int ccount;
    int crcount;
    boolean held;
-   String heldtype;
-   int heldStack;
-   PImage heldImg;
+   Item heldItem;
    boolean isMining;
    float newMouseX;
    float newMouseY;
+   PImage heldImg;
   
   void setup(){
     held = false;
@@ -70,16 +69,12 @@
     diaore1.resize(scale,scale);
     diaore2 = loadImage("diamondore2.png");
     diaore2.resize(scale,scale);
-    xMove = -(worldWidth/2 - width/2);
-    //System.out.println("Top corner: " + (-1 * xMove) + ", " + 0);
-    //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     
     xMove = -(worldWidth/2 - width/2);
     control = new Movement();
   }
   
   void draw(){
-   //System.out.println("Player coordinates: " + player.xcor + ", " + player.ycor);
     newMouseX = (mouseX - width/2) + player.xcor;
     newMouseY = (mouseY - height/2) + player.ycor;
     tick++;
@@ -139,6 +134,9 @@
     rect(0,0,width,height);
     player.display();
     //translate(-1  * xMove, -1 * yMove);
+    if(isMining){
+      player.mining(newMouseX, newMouseY);
+    }
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -147,14 +145,24 @@
      }
     }
     for (int i = 0; i < mobs.size(); i++){
-      if (mobs.get(i) != null){    
-            mobs.get(i).gravity();
-            mobs.get(i).display();
-          }   
+      Mob mob = mobs.get(i);
+      if (mob != null){    
+            mob.gravity();
+            mob.display();  
+            if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
+              if (tick % 50 < 40  && tick % 50 > 10){ 
+                noStroke();
+                fill(225, 150);
+                rect(mob.xcor, mob.ycor, mob.mwidth, mob.mheight);
+              }
+            }
       }
-    if(isMining){
-      player.mining(newMouseX, newMouseY);
     }
+    if (dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
+      noStroke();
+      fill(225, 150);
+      rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);
+    } 
     popMatrix();
     player.gravity();
     if (control.inputs[0]){
@@ -181,16 +189,14 @@
       }
     }
     if (player.open && held){
-      heldImg = loadImage(heldtype);
+      heldImg = loadImage(heldItem.type);
       heldImg.resize(50,50);
       image(heldImg,mouseX-25,mouseY-25);
       fill(0);
       textSize(20);
-      text(heldStack,mouseX+10,mouseY-10);
+      text(heldItem.stack,mouseX+10,mouseY-10);
     }
-    
-   // System.out.println(player.xcor +", " + player.ycor + " & " + xMove + ", " + yMove);
-   // System.out.println((player.xcor + xMove) + ", " + (player.ycor + yMove));
+
   }
   
   void keyPressed(){
@@ -247,32 +253,33 @@
     if (newMouseX > 0 && newMouseX < worldWidth && newMouseY > 0 && newMouseY < worldHeight){
       if (mouseButton == LEFT){
         if (player.open){
+          // Disposal Slot
           if (held &&  mouseX > width - 440 && mouseX < width - 390 && mouseY > height-635 && mouseY < height-585){
-            heldtype = null;
-            heldStack = 0;
+            heldItem = null;
+            heldItem.stack = 0;
             held = false;
           }
           //craftingplace
           if (player.crafting() && !held && mouseX > width - 600 && mouseX < width - 550 && mouseY > height-726 && mouseY < height-676){
-            heldtype = player.craft.type;
-            heldStack = player.craft.stack;
+            heldItem = player.craft;
+            heldItem.stack = player.craft.stack;
             held = true;
               for (int i= 0; i < player.crafting.length; i++){
                 if (player.crafting[i] != null){
-                  if (heldStack >= 64){
+                  if (heldItem.stack >= 64){
                   if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
                     player.crafting[i].stack -= 16;
                     }
                     else {
-                      player.crafting[i].stack -= heldStack;
+                      player.crafting[i].stack -= heldItem.stack;
                     }
                   }
-                  else if (heldStack < 65){
+                  else if (heldItem.stack < 65){
                     if (player.craft.type.equals("plank0.png") || player.craft.type.equals("stick.png")){
-                    player.crafting[i].stack -= heldStack/4;
+                    player.crafting[i].stack -= heldItem.stack/4;
                     }
                     else {
-                      player.crafting[i].stack -= heldStack;
+                      player.crafting[i].stack -= heldItem.stack;
                     }
                     if (player.crafting[i].stack <= 0){
                       player.crafting[i] = null;
@@ -284,115 +291,75 @@
             
           }
           //LOOPS FOR HOTBAR
+         
           for (int i = 0; i < player.hotbar.length; i++){
-            if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
+            //730/2 should be the offset from the center horizontally;
+            // Slots are 50 by 50
+
+           if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-262 && mouseY < height-212){       
               if (!held && player.hotbar[i] != null){
-              heldtype = player.hotbar[i].type;
-              heldStack = player.hotbar[i].stack;
+              heldItem = player.hotbar[i];
+              heldItem.stack = player.hotbar[i].stack;
               player.hotbar[i] = null;
               held = true;
               }
               else if (held && player.hotbar[i] == null) {
-                Item b = new Item(heldtype);
-                b.stack = heldStack;
-                player.hotbar[i] = b;
+                player.hotbar[i] = heldItem;
                 held = false;
+                heldItem = null;
               }
-              else if (held && player.hotbar[i] != null && player.hotbar[i].type.equals(heldtype)){
-                if (player.hotbar[i].stack + heldStack > 65){
-                  heldStack -= 64 - player.hotbar[i].stack;
+              else if (held && player.hotbar[i] != null && player.hotbar[i].type.equals(heldItem.type)){
+                if (player.hotbar[i].stack + heldItem.stack > 65){
+                  heldItem.stack -= 64 - player.hotbar[i].stack;
                   player.hotbar[i].stack = 64;
                   held = true;
                 }
                 else {
-                  player.hotbar[i].stack += heldStack;
+                  player.hotbar[i].stack += heldItem.stack;
                   held = false;
                 }
               }
             }
           }
-          //LOOPS FOR INVENTORY
-          for (int i = 0; i < player.inventory.length; i++){
-             if (i < 10){
-               if (mouseX > i*80*0.945 + (width-730)/2 && mouseX < i*80*0.945 + (width-730)/2 + 50 && mouseY > height-548 && mouseY < height-498){ 
-                 if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
-                   player.inventory[i] = null;
-                   held = true;
-                 }
-                 else if (held && player.inventory[i] == null){
-                    Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
-                    held = false;
-                 }
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
-                  if (player.inventory[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.inventory[i].stack;
-                    player.inventory[i].stack = 64;
-                    held = true;
-                  }
-                  else {
-                    player.inventory[i].stack += heldStack;
-                    held = false;
-                }
-              }
-               }
-            }
-            else if (i < 20){
-              if (mouseX > (i-10)*80*0.945 + (width-730)/2 && mouseX < (i-10)*80*0.945 + (width-730)/2 + 50 && mouseY > height-456 && mouseY < height-406){ 
-                if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
-                   player.inventory[i] = null;
-                   held = true;
-                 }
-                 else if (held && player.inventory[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
-                    held = false;
-                 }  
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
-                    if (player.inventory[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.inventory[i].stack;
-                    player.inventory[i].stack = 64;
-                    held = true;
-                  }
-                  else {
-                    player.inventory[i].stack += heldStack;
-                    held = false;
-                }
-              }
-              }
-            }
-            else if (mouseX > (i-20)*80*0.945 + (width-730)/2 && mouseX < (i-20)*80*0.945 + (width-730)/2 + 50 && mouseY > height-368 && mouseY < height-318){ 
-                if (!held && player.inventory[i] != null){
-                   heldtype = player.inventory[i].type;
-                   heldStack = player.inventory[i].stack;
-                   player.inventory[i] = null;
-                   held = true;
-                 }
-                 else if (held && player.inventory[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.inventory[i] = b;
-                    held = false;
-                 }
-                 else if (held && player.inventory[i] != null && player.inventory[i].type.equals(heldtype)){
-                    if (player.inventory[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.inventory[i].stack;
-                    player.inventory[i].stack = 64;
-                    held = true;
-                  }
-                  else {
-                    player.inventory[i].stack += heldStack;
-                    held = false;
-                }
-              }
-            }
+          //INVENTORY
+          int col = (int)((mouseX - ((width-730)/2)) / (80*0.945));
+          int row = -1;
+          if (mouseY > height - 548 && mouseY < height-498){
+            row = 0;
           }
+          if (mouseY > height - 456 && mouseY < height-406){
+           row = 1; 
+          }
+          if (mouseY > height - 364 && mouseY < height-314){
+            row = 2;
+          }
+          //System.out.println(col);
+          if (col >= 0 && col < 10 && row >= 0){
+            int index = row * 10 + col;
+                 if (!held && player.inventory[index] != null){
+                   heldItem = player.inventory[index];
+                   player.inventory[index] = null;
+                   held = true;
+                 }
+                 else if (held && player.inventory[index] == null){
+                    player.inventory[index] = heldItem;
+                    held = false;
+                    heldItem = null;
+                 }
+                 else if (held && player.inventory[index] != null && player.inventory[index].type.equals(heldItem.type)){
+                  if (player.inventory[index].stack + heldItem.stack > 65){
+                    heldItem.stack -= 64 - player.inventory[index].stack;
+                    player.inventory[index].stack = 64;
+                    held = true;
+                  }
+                  else {
+                    player.inventory[index].stack += heldItem.stack;
+                    held = false;
+                    heldItem = null;
+                  }
+                }            
+          }
+          
           //LOOPS FOR CRAFTING
           for (int i = 0; i < player.crafting.length; i++){
             //fill(0);
@@ -400,52 +367,47 @@
               if (i < 3){
                if (mouseX > i*80*0.95 + (width-493)/2 && mouseX < i*80*0.95 + (width-493)/2 + 50 && mouseY > height-794 && mouseY < height-744){ 
                  if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
-                   heldStack = player.crafting[i].stack;
+                   heldItem = player.crafting[i];
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                    Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
-                   if (player.crafting[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.crafting[i].stack;
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
+                   if (player.crafting[i].stack + heldItem.stack > 65){
+                    heldItem.stack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
                     held = true;
-                  }
-                  else {
-                    player.crafting[i].stack += heldStack;
-                    held = false;
-                }
+                    }
+                    else {
+                      player.crafting[i].stack += heldItem.stack;
+                      held = false;
+                    }  
               }
                }
             }
             else if (i < 6){
               if (mouseX > (i-3)*80*0.95 + (width-493)/2 && mouseX < (i-3)*80*0.95 + (width-493)/2 + 50 && mouseY > height-722 && mouseY < height-672){ 
                 if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
-                   heldStack = player.crafting[i].stack;
+                   heldItem = player.crafting[i];
+                   heldItem.stack = player.crafting[i].stack;
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }  
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
-                  if (player.crafting[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.crafting[i].stack;
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
+                  if (player.crafting[i].stack + heldItem.stack > 65){
+                    heldItem.stack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
                     held = true;
                   }
                   else {
-                    player.crafting[i].stack += heldStack;
+                    player.crafting[i].stack += heldItem.stack;
                     held = false;
                 }
               }
@@ -453,44 +415,32 @@
             }
             else if (mouseX > (i-6)*80*0.95 + (width-493)/2 && mouseX < (i-6)*80*0.95 + (width-493)/2 + 50 && mouseY > height-644 && mouseY < height-594){ 
                 if (!held && player.crafting[i] != null){
-                   heldtype = player.crafting[i].type;
-                   heldStack = player.crafting[i].stack;
+                   heldItem = player.crafting[i];
+                   heldItem.stack = heldItem.stack;
                    player.crafting[i] = null;
                    held = true;
                  }
                  else if (held && player.crafting[i] == null){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype)){
-                   if (player.crafting[i].stack + heldStack > 65){
-                    heldStack -= 64 - player.crafting[i].stack;
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type)){
+                   if (player.crafting[i].stack + heldItem.stack > 65){
+                    heldItem.stack -= 64 - player.crafting[i].stack;
                     player.crafting[i].stack = 64;
                     held = true;
                   }
                   else {
-                    player.crafting[i].stack += heldStack;
+                    player.crafting[i].stack += heldItem.stack;
                     held = false;
                 }
               }
           }
         }
         }
-        else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 0){
-          for (int i = 0; i < mobs.size(); i++){
-            Mob m = mobs.get(i);
-            if (newMouseX > m.xcor && newMouseX < m.xcor + m.mwidth && newMouseY > m.ycor && newMouseY < m.ycor + m.mheight){
-              //print("hit");
-              int dmg = (int) random(4)+1;
-              m.takeDamage(dmg);
-              if (m.health <= 0){
-                m.die();
-                mobs.remove(i);
-              }
-            }
-          }
+        else if (player.hotbar[player.hbSlot] != null && player.hotbar[player.hbSlot].num == 1){
+          player.attack(newMouseX, newMouseY);
+          
         }
         else {
           isMining = true;
@@ -514,88 +464,98 @@
            //figure it out later
         }
       }
-      else if (player.open){
+      else if (player.open && held){
+        Item placing = new Item(heldItem, 1);
+        int col = (int)((mouseX - (width-493)/2)/(80*0.95));
+        int row = -1;
+        if (mouseY > height -794 && mouseY < height - 754){
+         row = 0; 
+        }
+        if (mouseY >height - 722 && mouseY < height - 672){
+         row = 1; 
+        }
+        if (mouseY > height - 644 && mouseY < height - 594){
+         row = 2; 
+        }
+        System.out.println(row + ", " + col);
+        if (col >= 0 && col < 3 && row >=0){
+         int index = col + row * 3;
+         if (player.crafting[index] == null && heldItem.stack > 1){
+                    heldItem.stack--;
+                    player.crafting[index] = placing;
+                    held = true;
+                 }
+                 else if (player.crafting[index] == null && heldItem.stack <= 1){
+                    player.crafting[index] = placing;
+                    held = false;
+                 }
+                 else if (player.crafting[index] != null && player.crafting[index].type.equals(heldItem.type) && heldItem.stack > 1){
+                    player.crafting[index].stack ++;
+                    heldItem.stack--;
+                    held = true;
+                  }
+                  else if (player.crafting[index] != null && player.crafting[index].type.equals(heldItem.type) && heldItem.stack <= 1){
+                    player.crafting[index].stack ++;
+                    heldItem.stack--;
+                    held = false;
+                  }
+        }
+        /*
         for (int i = 0; i < player.crafting.length; i++){
           if (i < 3){
                if (mouseX > i*80*0.95 + (width-493)/2 && mouseX < i*80*0.95 + (width-493)/2 + 50 && mouseY > height-794 && mouseY < height-744){ 
-                 if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
-                    heldStack--;
-                    player.crafting[i] = b;
-                    held = true;
-                 }
-                 else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
-                    held = false;
-                 }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
-                    player.crafting[i].stack ++;
-                    heldStack--;
-                    held = true;
-                  }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
-                    player.crafting[i].stack ++;
-                    heldStack--;
-                    held = false;
-                  }
+                 
                }
           }
             else if (i < 6){
               if (mouseX > (i-3)*80*0.95 + (width-493)/2 && mouseX < (i-3)*80*0.95 + (width-493)/2 + 50 && mouseY > height-722 && mouseY < height-672){ 
-                if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
-                    heldStack--;
-                    player.crafting[i] = b;
+                if (held && player.crafting[i] == null && heldItem.stack > 1){
+                    heldItem.stack++;
+                    heldItem.stack--;
+                    player.crafting[i] = heldItem;
                     held = true;
                  }
-                 else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                 else if (held && player.crafting[i] == null && heldItem.stack <= 1){
+                   heldItem.stack = heldItem.stack;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldItem.stack > 1){
                     player.crafting[i].stack ++;
-                    heldStack--;
+                    heldItem.stack--;
                     held = true;
                   }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
+                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldItem.stack <= 1){
                     player.crafting[i].stack ++;
-                    heldStack--;
+                    heldItem.stack--;
                     held = false;
                   }
               }
             }
             else if (mouseX > (i-6)*80*0.95 + (width-493)/2 && mouseX < (i-6)*80*0.95 + (width-493)/2 + 50 && mouseY > height-644 && mouseY < height-594){ 
-                if (held && player.crafting[i] == null && heldStack > 1){
-                    Item b = new Item(heldtype);
-                    b.stack++;
-                    heldStack--;
-                    player.crafting[i] = b;
+                if (held && player.crafting[i] == null && heldItem.stack > 1){
+                    heldItem.stack++;
+                    heldItem.stack--;
+                    player.crafting[i] = heldItem;
                     held = true;
                  }
-                 else if (held && player.crafting[i] == null && heldStack <= 1){
-                   Item b = new Item(heldtype);
-                    b.stack = heldStack;
-                    player.crafting[i] = b;
+                 else if (held && player.crafting[i] == null && heldItem.stack <= 1){
+                   heldItem.stack = heldItem.stack;
+                    player.crafting[i] = heldItem;
                     held = false;
                  }
-                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack > 1){
+                 else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldItem.stack > 1){
                     player.crafting[i].stack ++;
-                    heldStack--;
+                    heldItem.stack--;
                     held = true;
                   }
-                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldtype) && heldStack <= 1){
+                  else if (held && player.crafting[i] != null && player.crafting[i].type.equals(heldItem.type) && heldItem.stack <= 1){
                     player.crafting[i].stack ++;
-                    heldStack--;
+                    heldItem.stack--;
                     held = false;
                   }
           }
-        }
+        }*/
       }
       }
     }
@@ -638,3 +598,10 @@
     }
     }
   }
+  
+  void mouseClicked(){
+    if (!player.open){
+      player.attack(newMouseX, newMouseY);
+    }
+  }
+  
