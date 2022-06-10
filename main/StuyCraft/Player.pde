@@ -528,6 +528,7 @@ class Player{
         craft.image.resize(50,50);
         image(craft.image,width-600,height-726);
         textSize(20);
+        fill(0);
         text("" + craft.stack, width-575, height-714);
       }
       textSize(15);
