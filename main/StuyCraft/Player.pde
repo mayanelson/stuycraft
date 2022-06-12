@@ -600,7 +600,7 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
-    if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
+    if (worldY >= 0 && worldY < world.length -1 && worldX > 0 && worldX < world[0].length-1){
     Block spot = world[worldY][worldX];
     if (spot != null && spot.type.equals("TNT")){
       spot.explode();

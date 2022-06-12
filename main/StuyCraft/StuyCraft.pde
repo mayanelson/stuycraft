@@ -154,19 +154,21 @@
       if (mob != null){    
             mob.gravity();
             mob.display();  
-            if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
-              if (tick % 50 < 40  && tick % 50 > 10){ 
-                noStroke();
-                fill(225, 150);
-                rect(mob.xcor, mob.ycor, mob.mwidth, mob.mheight);
+            if(player.hotbar[player.hbSlot]!= null && player.hotbar[player.hbSlot].num ==1){
+              if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
+                  noStroke();
+                  fill(225, 150);
+                  rect(mob.xcor, mob.ycor, mob.mwidth, mob.mheight);
               }
             }
       }
     }
     if (dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
-      noStroke();
-      fill(225, 150);
-      rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);
+       if(player.hotbar[player.hbSlot]!= null && player.hotbar[player.hbSlot].num !=1){ 
+        noStroke();
+        fill(225, 150);
+        rect((int)newMouseX/scale * scale, (int)newMouseY/scale * scale, scale, scale);
+       }
     } 
     popMatrix();
     player.gravity();
@@ -499,15 +501,15 @@
       isMining = false;
       if ((int)newMouseY/ scale < 250 && (int)newMouseY/ scale >= 0 && (int)newMouseX/scale < 500 && (int)newMouseX/scale >=0){
       Block block = world[(int)newMouseY/ scale][(int)newMouseX/scale];
-      if (block != null){
-        block.currentDurability =block.maxDurability;
+        if (block != null){
+          block.currentDurability =block.maxDurability;
+        }  
       }
-    }
     }
   }
   
   void mouseClicked(){
-    if (!player.open){
+    if (!player.open && player.hotbar[player.hbSlot]!= null && player.hotbar[player.hbSlot].num ==1){
       player.attack(newMouseX, newMouseY);
     }
   }

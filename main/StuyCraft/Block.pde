@@ -4,7 +4,6 @@ class Block{
   PImage bImage;
   PImage image2;
   PImage image3;
-  BlockItem drop;
   String type;
   boolean isMouseHover;
   int xcor;
