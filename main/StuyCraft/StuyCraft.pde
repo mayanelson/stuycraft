@@ -11,7 +11,7 @@
    boolean isMining;
    float newMouseX;
    float newMouseY;
-   PImage heldImg;
+   PImage heldImg; 
   
   void setup(){
     held = false;
