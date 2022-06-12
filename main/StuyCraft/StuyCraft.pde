@@ -465,7 +465,7 @@
         else if (player.hotbar[player.hbSlot].type.equals("diamond.png") || player.hotbar[player.hbSlot].type.equals("iron.png")|| player.hotbar[player.hbSlot].type.equals("stick.png")){
         }
          else if (world[(int)newMouseY/scale][(int)newMouseX/scale] == null){
-           player.place((int)newMouseX/scale,(int)newMouseY/scale);
+           player.place((int)newMouseX/scale,(int)newMouseY/scale,newMouseX,newMouseY);
            //figure it out later
         }
       }
@@ -570,7 +570,7 @@
   }
   
   void spawnMob(int x, int y){
-    if (world[y - 1][x] == null && world[y-2][x] == null /*&& world[x][y+1] == null && world[x][y-1] == null*/){
+    if (world[y - 1][x] == null && world[y-2][x] == null){
       Block b = world[y][x];
       if (b.type.equals("Grass") && ccount < 20){
      // print("cow!");

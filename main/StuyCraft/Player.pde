@@ -216,8 +216,9 @@ class Player{
     }
   }
   
-  void place(int x, int y){
+  void place(int x, int y, float xVal, float yVal){
     if (!open){
+    if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     if (hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
       world[y][x] = new Grass(x*scale,y*scale,scale);; 
@@ -241,6 +242,7 @@ class Player{
       if (hotbar[hbSlot].stack == 0){
         hotbar[hbSlot] = null;
       }
+    }
     }
     }
     
