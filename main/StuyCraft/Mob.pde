@@ -68,6 +68,7 @@ class Mob{
     }
     //xcor += xVel * direction;
     }
+    upCollision();
   }
   
     void gravity(){
@@ -90,16 +91,17 @@ class Mob{
   void die(){
     
   }
-  void collision(){
+  void upCollision(){
+     if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
+        yVel = 0; 
+        ycor = (int)(ycor)/scale * scale + scale;
+      }
   }
   void jump(){
     if( yVel == 0){
       yVel -= 15;
       ycor += yVel;
-      if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
-        yVel = 0; 
-        ycor = (int)(ycor)/scale * scale + scale + 1;
-      }
+      upCollision();
     }
   }
   void display(){

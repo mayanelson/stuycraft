@@ -105,6 +105,7 @@ class Creeper extends Mob{
       explode = false;
     }
      }
+     super.upCollision();
   }
 
   void display(){
