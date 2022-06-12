@@ -11,13 +11,6 @@ class Grass extends Block{
     //System.out.println(bImage);
   }
   
-  void animate(){
-    //print("this one!");
-    isAnimate = true;
-    //image = grass1;
-    //display();
-  }
-  
   void display(){
     float ratio = currentDurability/maxDurability;
     if (ratio ==1 || !isMining){
