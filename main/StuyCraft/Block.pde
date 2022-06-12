@@ -5,7 +5,6 @@ class Block{
   PImage image2;
   PImage image3;
   String type;
-  boolean isMouseHover;
   int xcor;
   int ycor;
   int sideLength;

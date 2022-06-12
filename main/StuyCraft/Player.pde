@@ -118,9 +118,6 @@ class Player{
     }
   }
   
-  void removeHotbar(Item item){
-  }
-  
   void breakBlock(Block toBreak){
     if(!open){
 
@@ -247,11 +244,6 @@ class Player{
     }
     
   }
-  
-  
-  void takeDamage(int amt){
-  }
-  
   
   void gravity(){
     int feet = (int)(ycor+ pheight);

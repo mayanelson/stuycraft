@@ -2,7 +2,6 @@ class Mob{
   int health;
   Item drop;
   PImage image;
-  boolean isMouseHover;
   int xcor;
   float ycor;
   float mwidth;
