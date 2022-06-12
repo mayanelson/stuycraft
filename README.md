@@ -6,7 +6,7 @@ Essentially, we’re creating Minecraft – except it’s 2D, there’s like 5 d
 
 Prototype: https://docs.google.com/document/d/1hvmhWtNm2Brv1oT8EhkH3Dw177Pr_w1sVpRqVbsptM4/edit?usp=sharing
 
-Diary log thing
+## Daily Log
 
 Maya **5/23** - Added class hierarchy system and created all of the files, as well as uploaded each of the images for each class. 
 
@@ -36,3 +36,26 @@ Sadi Nirloy **5-29**: Made improvements on the collisions and created trees and 
 Maya **5-30** - Finalized everything for the demo, and made some tweaks to mob movement. 
 
 Sadi **5-30**: Made various edits for debugging and updated cave generation to have 2 kinds of caves
+
+## User Instructions
+So you’ve just spawned in your cool new randomly generated world after pressing “run” in the processing window. Now what? The first thing you’ll probably want to do is move around. Use the A/D keys to move side-to-side, and press W to jump. From there, hold down left click in order to break different blocks, and right click to place. Different blocks require a different tool to be able to mine them:
+
+Grass/Sand – Shovel
+
+Wood/Planks – Axe
+
+Leaves – Axe (will not drop leaf block, has 10% chance to drop an apple)
+
+Stone/Ores – Pickaxe
+
+TNT – When clicked will explode
+
+
+You will only be able to break and place blocks within a certain range. While you are happily chopping down a tree, you may notice some cows (or Creepers!) strolling by. Use your sword to brutally slaughter them – you’ll be rewarded with either steak or gunpowder. If you notice your hunger is starting to drain, right click when holding a food item to eat. A full hunger bar allows you to regenerate health.
+
+Once you’ve gotten bored of the overworld, try your luck underground! In order to enter the cave systems, you must break minecraft’s very first rule – dig straight down. From there, you can explore the elaborately generated caves and even find some iron or diamond ore. Use these new materials to craft some upgraded tools. If you decide you hate them, you can delete any item by dragging it to the red X. 
+
+A quick little crafting guide: https://docs.google.com/document/d/1PgAHedlJuQpnWJiYWfuwLOyFtpWk1e9qJi6qJ0Oz054/edit?usp=sharing
+
+So, you’ve just crafted yourself a shiny diamond sword and oh — that Zombie came out of nowhere, didn’t it? Even with the best tool in the game you couldn’t defeat it, and now, you’re dead. Because we were too lazy to make a respawn button this is a hardcore world, the only thing left to do is close the processing window and start again. Better luck next time.
+

@@ -11,7 +11,7 @@
    boolean isMining;
    float newMouseX;
    float newMouseY;
-   PImage heldImg;
+   PImage heldImg; 
   
   void setup(){
     held = false;
@@ -263,7 +263,7 @@
           // Disposal Slot
           if (held &&  mouseX > width - 440 && mouseX < width - 390 && mouseY > height-635 && mouseY < height-585){
             heldItem = null;
-            heldItem.stack = 0;
+            //heldItem.stack = 0;
             held = false;
           }
           //craftingplace
