@@ -94,7 +94,7 @@ class Mob{
   }
   void jump(){
     if( yVel == 0){
-      yVel -= 50;
+      yVel -= 15;
       ycor += yVel;
       if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
         yVel = 0; 
