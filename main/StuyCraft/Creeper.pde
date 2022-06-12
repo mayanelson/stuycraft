@@ -34,16 +34,16 @@ class Creeper extends Mob{
       for (int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
         if (i != 3 || j != 3){
-          if ((int)ycor/scale + i < 250 && xcor/scale +j < 500){
+          if ((int)ycor/scale + i < world.length && xcor/scale +j < world[0].length){
           world[(int)ycor/scale + i][xcor/scale +j] = null;
           }
           if ((int)ycor/scale - i >= 0 && xcor/scale -j >= 0){
           world[(int)ycor/scale - i][xcor/scale -j] = null;
           }
-          if ((int)ycor/scale + i < 250 && xcor/scale -j >= 0){
+          if ((int)ycor/scale + i < world.length && xcor/scale -j >= 0){
           world[(int)ycor/scale + i][xcor/scale -j] = null;
           }
-          if ((int)ycor/scale + i >= 0 && xcor/scale +j < 500){
+          if ((int)ycor/scale + i >= 0 && xcor/scale +j < world[0].length){
           world[(int)ycor/scale - i][xcor/scale +j] = null;
           }
         }
@@ -106,16 +106,7 @@ class Creeper extends Mob{
     }
      }
   }
-  void jump(){
-    if( yVel == 0){
-      yVel -= 15;
-      ycor += yVel;
-      if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
-        yVel = 0; 
-        ycor = (int)(ycor)/scale * scale + scale + 1;
-      }
-    }
-  }
+
   void display(){
     if(explode){
       explodeTick++;

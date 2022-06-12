@@ -221,22 +221,22 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     if (hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
-      world[y][x] = new Grass(x*scale,y*scale,scale);; 
+      world[y][x] = new Grass(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("Sand0.png")){
-      world[y][x] = new Sand(x*scale,y*scale,scale);; 
+      world[y][x] = new Sand(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("Stone0.png")){
-      world[y][x] = new Stone(x*scale,y*scale,scale);; 
+      world[y][x] = new Stone(x*scale,y*scale,scale); 
       }
       if (hotbar[hbSlot].type.equals("Wood0.png")){
-      world[y][x] = new Wood(x*scale,y*scale,scale);; 
+      world[y][x] = new Wood(x*scale,y*scale,scale); 
       }
       if (hotbar[hbSlot].type.equals("plank0.png")){
-      world[y][x] = new Plank(x*scale,y*scale,scale);; 
+      world[y][x] = new Plank(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("TNT0.png")){
-      world[y][x] = new TNT(x*scale,y*scale,scale);; 
+      world[y][x] = new TNT(x*scale,y*scale,scale); 
       }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){

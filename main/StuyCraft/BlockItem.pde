@@ -8,7 +8,4 @@ class BlockItem extends Item{
   BlockItem(String picFile){
     super(picFile);
   }
-  void placed(){
-  }
-
 }
