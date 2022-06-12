@@ -11,8 +11,9 @@ class Wood extends Block{
   
   void display(){
     float ratio = currentDurability/maxDurability;
-    if (ratio ==1){
+    if (ratio ==1 || !isMining){
       image(wood0, xcor, ycor);
+      currentDurability = maxDurability;
     }
     else if (ratio > 0.5){
       image(wood1, xcor, ycor);

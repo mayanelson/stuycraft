@@ -11,8 +11,9 @@ class Sand extends Block{
   
   void display(){
     float ratio = currentDurability/maxDurability;
-    if (ratio ==1){
+   if (ratio ==1 || !isMining){
       image(sand0, xcor, ycor);
+      currentDurability = maxDurability;
     }
     else if (ratio > 0.5){
       image(sand1, xcor, ycor);

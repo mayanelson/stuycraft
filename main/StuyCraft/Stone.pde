@@ -11,8 +11,9 @@ class Stone extends Block{
   
   void display(){
     float ratio = currentDurability/maxDurability;
-    if (ratio ==1){
+    if (ratio ==1 || !isMining){
       image(stone0, xcor, ycor);
+      currentDurability = maxDurability;
     }
     else if (ratio > 0.5){
       image(stone1, xcor, ycor);
