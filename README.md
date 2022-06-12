@@ -41,10 +41,15 @@ Sadi **5-30**: Made various edits for debugging and updated cave generation to h
 So you’ve just spawned in your cool new randomly generated world after pressing “run” in the processing window. Now what? The first thing you’ll probably want to do is move around. Use the A/D keys to move side-to-side, and press W to jump. From there, hold down left click in order to break different blocks, and right click to place. Different blocks require a different tool to be able to mine them:
 
 Grass/Sand – Shovel
+
 Wood/Planks – Axe
+
 Leaves – Axe (will not drop leaf block, has 10% chance to drop an apple)
+
 Stone/Ores – Pickaxe
+
 TNT – When clicked will explode
+
 
 You will only be able to break and place blocks within a certain range. While you are happily chopping down a tree, you may notice some cows (or Creepers!) strolling by. Use your sword to brutally slaughter them – you’ll be rewarded with either steak or gunpowder. If you notice your hunger is starting to drain, right click when holding a food item to eat. A full hunger bar allows you to regenerate health.
 
