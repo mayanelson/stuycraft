@@ -136,6 +136,10 @@
    }
    worldRevise();
    worldRevise();
+   
+   for (int i = 0; i < world[world.length-1].length; i++){
+     world[world.length-1][i] = new Stone(i * scale, worldHeight - scale, scale);
+   }
  }
  void worldRevise(){
   for (int row = startingLevel + 5; row < world.length - 1; row++){

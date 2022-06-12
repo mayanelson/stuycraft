@@ -221,22 +221,22 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     if (hotbar[hbSlot] != null){
       if (hotbar[hbSlot].type.equals("Grass0.png")){
-      world[y][x] = new Grass(x*scale,y*scale,scale);; 
+      world[y][x] = new Grass(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("Sand0.png")){
-      world[y][x] = new Sand(x*scale,y*scale,scale);; 
+      world[y][x] = new Sand(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("Stone0.png")){
-      world[y][x] = new Stone(x*scale,y*scale,scale);; 
+      world[y][x] = new Stone(x*scale,y*scale,scale); 
       }
       if (hotbar[hbSlot].type.equals("Wood0.png")){
-      world[y][x] = new Wood(x*scale,y*scale,scale);; 
+      world[y][x] = new Wood(x*scale,y*scale,scale); 
       }
       if (hotbar[hbSlot].type.equals("plank0.png")){
-      world[y][x] = new Plank(x*scale,y*scale,scale);; 
+      world[y][x] = new Plank(x*scale,y*scale,scale);
       }
       if (hotbar[hbSlot].type.equals("TNT0.png")){
-      world[y][x] = new TNT(x*scale,y*scale,scale);; 
+      world[y][x] = new TNT(x*scale,y*scale,scale); 
       }
       hotbar[hbSlot].stack--;
       if (hotbar[hbSlot].stack == 0){
@@ -600,7 +600,7 @@ class Player{
     if (dist(xcor + pwidth/2, ycor + pheight/2, xVal, yVal) <= range){
     int worldX = (int)xVal/scale;
     int worldY = (int)yVal/scale;
-    if (worldY >= 0 && worldY < 250 && worldX >= 0 && worldY < 250){
+    if (worldY >= 0 && worldY < world.length -1 && worldX > 0 && worldX < world[0].length-1){
     Block spot = world[worldY][worldX];
     if (spot != null && spot.type.equals("TNT")){
       spot.explode();

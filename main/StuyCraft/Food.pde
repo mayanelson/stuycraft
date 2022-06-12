@@ -9,7 +9,4 @@ class Food extends Item{
     super(picFile);
   }
   
-  void eaten(){
-  }
-  
 }
