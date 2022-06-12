@@ -57,5 +57,5 @@ Once you’ve gotten bored of the overworld, try your luck underground! In order
 
 A quick little crafting guide: https://docs.google.com/document/d/1PgAHedlJuQpnWJiYWfuwLOyFtpWk1e9qJi6qJ0Oz054/edit?usp=sharing
 
-So, you’ve just crafted yourself a shiny diamond sword and oh — that Zombie came out of nowhere, didn’t it? Even with the best tool in the game you couldn’t defeat it, and now, you’re dead. Because we were too lazy to make a respawn button this is a hardcore world, the only thing left to do is close the processing window and start again. Better luck next time.
+So, you’ve just crafted yourself a shiny diamond sword and oh — that Zombie came out of nowhere, didn’t it? Even with the best tool in the game you couldn’t defeat it, and now, you’re dead. Because <del>we were too lazy to make a respawn button</del> this is a hardcore world, the only thing left to do is close the processing window and start again. Better luck next time.
 
