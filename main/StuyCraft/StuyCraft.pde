@@ -151,9 +151,12 @@
     }
     for (int i = 0; i < mobs.size(); i++){
       Mob mob = mobs.get(i);
-      if (mob.xcor >= worldWidth -scale || mob.ycor >= worldHeight -scale|| mob.xcor < scale || mob.ycor < scale){
+      while (mob.xcor >= worldWidth -scale || mob.ycor >= worldHeight -scale|| mob.xcor < scale || mob.ycor < scale){
         mobs.remove(mob);
-        mob = mobs.get(i);
+        if (mobs.size() > i){
+          mob = mobs.get(i);
+        }
+        else{ mob = null;}
       }
       if (mob != null){    
             mob.gravity();
