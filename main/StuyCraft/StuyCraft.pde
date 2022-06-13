@@ -221,7 +221,7 @@
         control.activate(key);
         break;
       case ('e'):
-        player.open = !player.open;
+        player.openInventory();
         break;
       case('0'):
         player.hbSlot = 9;

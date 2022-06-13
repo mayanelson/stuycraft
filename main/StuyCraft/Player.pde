@@ -344,8 +344,11 @@ class Player{
   }
   
   void openInventory(){
-    open = true;
-    //re
+    open = !open;
+    if (dead){
+      open = false;
+    }
+        //re
   }
   
   // STORES CRAFTING RECIPES
@@ -417,7 +420,7 @@ class Player{
       return true;
       }
       if (crafting[0] != null && crafting[1]!= null && crafting[2] != null && crafting[4]!=null && 
-      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
+      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("diamond.png") && 
       crafting[2].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
          craft = new Pickaxe(7);
          craft.stack = 1;
@@ -431,8 +434,8 @@ class Player{
       return true;
       }
        if (crafting[0] != null && crafting[1]!= null && crafting[3] != null && crafting[4]!=null && 
-      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("idiamond.png") && 
-      crafting[4].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
+      crafting[7] != null &&crafting[0].type.equals("diamond.png") && crafting[1].type.equals("diamond.png") && 
+      crafting[3].type.equals("diamond.png") && crafting[4].type.equals("stick.png") && crafting[7].type.equals("stick.png")){
          craft = new Axe(7);
          craft.stack = 1;
       return true;
@@ -460,7 +463,7 @@ class Player{
       }
       if (crafting[1]!= null && crafting[4]!=null && crafting[7] != null && crafting[1].type.equals("diamond.png") && 
       crafting[4].type.equals("diamond.png") && crafting[7].type.equals("stick.png")){
-         craft = new Shovel(7);
+         craft = new Sword(7);
          craft.stack = 1;
       return true;
       }

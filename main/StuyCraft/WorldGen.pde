@@ -70,15 +70,17 @@
            }
          }
          }
-         if (rand < 1 && i > 200){
+         if (rand < 2 && i > 200){
            for (int k = 0; k < place/2; k++){
-           if (k%2 == 0){   
-             world[i+k][j] = new diaore((j+k)*scale,i*scale,scale);
+           if (k%2 == 0 && world[i+k][j]!= null){   
+             world[i+k][j] = new diaore((j)*scale,(i+k)*scale,scale);
            }
-           else {
-             world[i][j+k] = new diaore(j*scale,(i+k)*scale,scale);
+           else if (world[i][j+k]!= null){
+             world[i][j+k] = new diaore((j+k)*scale,(i)*scale,scale);
            }
-           world[i+k/2][j+k/2] = new diaore((j+k/2)*scale,(i+k/2)*scale,scale);
+           if (world[i+k/2][j+k/2]!= null){
+             world[i+k/2][j+k/2] = new diaore((j+k/2)*scale,(i+k/2)*scale,scale);
+           }
          }
          }
        }
