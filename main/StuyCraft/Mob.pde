@@ -33,7 +33,7 @@ class Mob{
   }
   
   void move(int direction){
-     if ((int)ycor/scale + 2 < world.length && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 2 && xcor/scale > 1){
+     if ((int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 2 && xcor/scale > 1){
       //xcor += xVel * direction;
     if (direction < 0){
       direct = false;
@@ -91,14 +91,14 @@ class Mob{
     
   }
   void upCollision(){
-     if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null){
+     if (world[(int)(ycor)/scale][xcor/scale] != null || world[(int)(ycor)/scale][(int)(xcor + mwidth)/scale] != null || (int)(ycor/scale) == 0){
         yVel = 0; 
         ycor = (int)(ycor)/scale * scale + scale;
       }
   }
   void jump(){
     if( yVel == 0){
-      yVel -= 15;
+      yVel -= 8;
       ycor += yVel;
       upCollision();
     }
