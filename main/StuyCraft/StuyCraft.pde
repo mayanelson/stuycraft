@@ -91,8 +91,8 @@
         player.health++;
       }
      for (int i = 0; i < 100; i++){
-      int y = (int) random(world.length-2)+2;
-      int x = (int) random(world[0].length-1)+1;  
+      int y = (int)(Math.random() * (world.length - 4)) + 3;
+      int x = (int)(Math.random() * (world[0].length - 1)) + 1;  
       if ( x < world[0].length && y < world.length && world[y][x] != null){
         spawnMob(x,y);     
       }
@@ -151,9 +151,14 @@
     }
     for (int i = 0; i < mobs.size(); i++){
       Mob mob = mobs.get(i);
+      if (mob.xcor >= worldWidth -scale || mob.ycor >= worldHeight -scale|| mob.xcor < scale || mob.ycor < scale){
+        mobs.remove(mob);
+        mob = mobs.get(i);
+      }
       if (mob != null){    
             mob.gravity();
-            mob.display();  
+            mob.display(); 
+            if (mob.ycor == worldHeight - 3 * i){System.out.println(mob.yVel);}
             if(player.hotbar[player.hbSlot]!= null && player.hotbar[player.hbSlot].num ==1){
               if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
                   noStroke();
@@ -476,23 +481,23 @@
   
   void spawnMob(int x, int y){
     if (world[y - 1][x] == null && world[y-2][x] == null){
-      Block b = world[y][x];
-      if (b.type.equals("Grass") && ccount < 20){
-     // print("cow!");
-      Cow c = new Cow(b.xcor,(b.ycor-(int)(scale*1.5)));
-      mobs.add(c);
-      ccount += 1;
-    }
-    if (b.type.equals("Stone") && zcount < 80){
-      Zombie z = new Zombie(b.xcor,(b.ycor-(int)(scale*2)));
-      mobs.add(z);
-      zcount++;
-    }
-    if (crcount < 30){
-      Creeper c = new Creeper(b.xcor,(b.ycor-(int)(scale*2)));
-      mobs.add(c);
-      crcount++;
-    }
+        Block b = world[y][x];
+        if (b.type.equals("Grass") && ccount < 20){
+       // print("cow!");
+        Cow c = new Cow(b.xcor + 1,(b.ycor-(int)(scale*1.5)));
+        mobs.add(c);
+        ccount += 1;
+      }
+      if ( y > startingLevel + 5 && b.type.equals("Stone") && zcount < 80){
+        Zombie z = new Zombie(b.xcor+1,(b.ycor-(int)(scale*2)));
+        mobs.add(z);
+        zcount++;
+      }
+      if (crcount < 30){
+        Creeper c = new Creeper(b.xcor + 1,(b.ycor-(int)(scale*2)));
+        mobs.add(c);
+        crcount++;
+      }
     }
   } 
   

@@ -24,7 +24,7 @@ class Zombie extends Mob{
     }
   }
   void move(int inherit){
-     if ((int)ycor/scale + 1 < world.length - 1 && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 1 && xcor/scale > 1){
+     if (xcor/scale < world[0].length - 1 && xcor/scale > 1){
        int nextX;
         if (player.xcor - xcor < 0){
           direct = false;

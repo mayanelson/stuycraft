@@ -34,7 +34,7 @@ class Creeper extends Mob{
       for (int i = 0; i < 4; i++){
       for (int j = 0; j < 4; j++){
         if (i != 3 || j != 3){
-          if ((int)ycor/scale + i < world.length && xcor/scale +j < world[0].length){
+          if ((int)ycor/scale + i < world.length && xcor/scale +j < world[0].length - 1){
           world[(int)ycor/scale + i][xcor/scale +j] = null;
           }
           if ((int)ycor/scale - i >= 0 && xcor/scale -j >= 0){
@@ -58,7 +58,7 @@ class Creeper extends Mob{
     }
   
   void move(int inherit){
-     if ((int)ycor/scale + 1 < world.length - 1 && (int)ycor/scale + 1 > 1 && xcor/scale < world[0].length - 1 && xcor/scale > 1){
+     if (xcor/scale < world[0].length - 1 && xcor/scale > 1){
        int nextX;
        if (Math.abs(player.xcor - xcor)/scale*10 < 100){
         if (player.xcor - xcor < 0){
