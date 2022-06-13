@@ -141,7 +141,7 @@
     //translate(-1  * xMove, -1 * yMove);
     if(isMining){
       player.mining(newMouseX, newMouseY);
-    }
+    }  
     pushMatrix();
     translate(xMove, yMove);
     for (Block[] row : world){
@@ -149,9 +149,10 @@
        if (spot != null){ spot.display(); }
      }
     }
+   // System.out.println(mobs);
     for (int i = 0; i < mobs.size(); i++){
       Mob mob = mobs.get(i);
-      while (mob.xcor >= worldWidth -scale || mob.ycor >= worldHeight -scale|| mob.xcor < scale || mob.ycor < scale){
+      while (mob!= null && (mob.xcor >= worldWidth -scale || mob.ycor >= worldHeight -scale|| mob.xcor < scale || mob.ycor < scale)){
         mobs.remove(mob);
         if (mobs.size() > i){
           mob = mobs.get(i);
@@ -161,7 +162,7 @@
       if (mob != null){    
             mob.gravity();
             mob.display(); 
-            if (mob.ycor == worldHeight - 3 * i){System.out.println(mob.yVel);}
+            //if (mob.ycor == worldHeight - 3 * i){System.out.println(mob.yVel);}
             if(player.hotbar[player.hbSlot]!= null && player.hotbar[player.hbSlot].num ==1){
               if ((mob.xcor <= newMouseX && mob.xcor + mob.mwidth >= newMouseX && mob.ycor <= newMouseY && mob.ycor + mob.mheight >= newMouseY) && dist(newMouseX, newMouseY, player.xcor + player.pwidth/2, player.ycor + player.pheight/2) <= player.range){
                   noStroke();
@@ -235,7 +236,7 @@
         player.hbSlot = 9;
         break;
       case('1'):
-        player.hbSlot = 0;
+        player.hbSlot = 0;              
         break;
       case('2'):
         player.hbSlot = 1;
@@ -260,7 +261,12 @@
         break;
       case('9'):
         player.hbSlot = 8;
-        break;      
+        break;  
+      /* For testing
+      case(' '):
+        mobs.add(null);
+        break;
+        */
     }
   }
   
